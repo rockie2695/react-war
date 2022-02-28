@@ -1,7 +1,7 @@
-export default function AA() {
+export default function PlayGround() {
   return (
-    <main>
-      <h1>aa</h1>
+    <div>
+      <h1>PlayGround</h1>
       <table>
         <tbody>
           <tr>
@@ -18,6 +18,6 @@ export default function AA() {
           </tr>
         </tbody>
       </table>
-    </main>
+    </div>
   );
 }

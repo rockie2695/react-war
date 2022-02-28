@@ -1,7 +1,7 @@
-export default function BB() {
+export default function Setting() {
   return (
-    <main>
-      <h1>bb</h1>
+    <div>
+      <h1>Setting</h1>
       <table>
         <tbody>
           <tr>
@@ -18,6 +18,6 @@ export default function BB() {
           </tr>
         </tbody>
       </table>
-    </main>
+    </div>
   );
 }

@@ -4,8 +4,8 @@ export default function BB() {
   return (
     <header>
       <nav>
-        <Link to="/aa">aa</Link>
-        <Link to="/bb">bb</Link>
+        <Link to="/playground">Playground</Link>
+        <Link to="/setting">Setting</Link>
       </nav>
     </header>
   );
