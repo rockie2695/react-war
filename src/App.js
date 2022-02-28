@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App" style={{ display: "flex" }}>
+    <div className="App flex md:flex-row flex-col h-full">
       <BrowserRouter>
         <Header />
         <AnimationRoutes />

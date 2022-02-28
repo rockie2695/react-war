@@ -11,13 +11,9 @@ Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an inst
 export default function AnimationRoutes() {
   const location = useLocation();
   return (
-    <main style={{  position: "relative" }}>
+    <main className="relative">
       <TransitionGroup component={null}>
-        <CSSTransition
-          key={location.pathname}
-          classNames="fade"
-          timeout={100000}
-        >
+        <CSSTransition key={location.pathname} classNames="fade" timeout={1000}>
           <Routes location={location}>
             <Route path="/playground" element={<PlayGround />} />
             <Route path="/setting" element={<Setting />} />
