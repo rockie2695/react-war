@@ -1,6 +1,6 @@
 import "./App.css";
-import AnimationRoutes from "./AnimationRoutes";
-import Header from "./Header";
+import AnimationRoutes from "./components/AnimationRoutes";
+import Header from "./components/Header";
 import { BrowserRouter } from "react-router-dom";
 
 function App() {

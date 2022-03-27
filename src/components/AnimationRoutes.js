@@ -1,9 +1,9 @@
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import PlayGround from "./route/PlayGround";
-import Setting from "./route/Setting";
+import PlayGround from "../route/PlayGround";
+import Setting from "../route/Setting";
 import React from "react";
-import "./css/AnimationRoutes.css";
+import "../css/AnimationRoutes.css";
 /**
  * difficult to fix react transition group bug
 Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an instance of Transition which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node
