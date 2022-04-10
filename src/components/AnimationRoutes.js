@@ -3,7 +3,7 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "../css/AnimationRoutes.css";
 
-const PlayGround = lazy(() => import("../route/PlayGround"));
+const Playground = lazy(() => import("../route/Playground"));
 const Setting = lazy(() => import("../route/Setting"));
 /**
  * difficult to fix react transition group bug
@@ -15,7 +15,7 @@ lazyload and TransitionGroup can't match together
 export default function AnimationRoutes() {
   const location = useLocation();
   return (
-    <main className="relative">
+    <main className="relative flex-1">
       <Suspense fallback={<div>Loading...</div>}>
         <TransitionGroup component={null}>
           <CSSTransition
@@ -24,7 +24,7 @@ export default function AnimationRoutes() {
             timeout={1000}
           >
             <Routes location={location}>
-              <Route path="/playground" element={<PlayGround />} />
+              <Route path="/playground" element={<Playground />} />
               <Route path="/setting" element={<Setting />} />
               <Route path="*" element={<Navigate to="/playground" />} />
             </Routes>

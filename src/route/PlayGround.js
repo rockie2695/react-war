@@ -1,7 +1,9 @@
-export default function PlayGround() {
+import Header from "../components/main/Header";
+
+export default function Playground() {
   return (
     <div>
-      <h1>PlayGround</h1>
+      <Header title="Playground" />
       <table>
         <tbody>
           <tr>

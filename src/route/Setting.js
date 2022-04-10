@@ -1,7 +1,9 @@
+import Header from "../components/main/Header";
+
 export default function Setting() {
   return (
     <div>
-      <h1>Setting</h1>
+      <Header title="Setting" />
       <table>
         <tbody>
           <tr>
