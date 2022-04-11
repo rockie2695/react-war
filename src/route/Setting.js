@@ -2,7 +2,7 @@ import Header from "../components/main/Header";
 
 export default function Setting() {
   return (
-    <div>
+    <div className="w-full min-h-full">
       <Header title="Setting" />
       <table>
         <tbody>

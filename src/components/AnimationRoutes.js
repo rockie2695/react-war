@@ -15,13 +15,13 @@ lazyload and TransitionGroup can't match together
 export default function AnimationRoutes() {
   const location = useLocation();
   return (
-    <main className="relative flex-1">
+    <main className="relative flex-1 w-full">
       <Suspense fallback={<div>Loading...</div>}>
         <TransitionGroup component={null}>
           <CSSTransition
             key={location.pathname}
             classNames="fade"
-            timeout={1000}
+            timeout={500}
           >
             <Routes location={location}>
               <Route path="/playground" element={<Playground />} />
