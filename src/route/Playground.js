@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/main/Header";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -9,6 +9,11 @@ export default function Playground() {
   const leader = useSelector((state) => state.leaderReducer.value);
   const dispatch = useDispatch();
   console.log(leader);
+
+  /*useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  }, [count]);*/
+
   return (
     <div className="w-full min-h-full">
       <Header title="Playground" />
