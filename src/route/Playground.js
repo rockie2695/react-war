@@ -8,11 +8,10 @@ export default function Playground() {
   const [percentage, setPercentage] = useState(100); //for testing
   const leader = useSelector((state) => state.leaderReducer.value);
   const dispatch = useDispatch();
-  console.log(leader);
 
-  /*useEffect(() => {
-    document.title = `You clicked ${count} times`;
-  }, [count]);*/
+  useEffect(() => {
+    console.log(leader);
+  }, [leader]);
 
   return (
     <div className="w-full min-h-full">
