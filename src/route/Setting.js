@@ -4,7 +4,7 @@ export default function Setting() {
   return (
     <div className="w-full min-h-full">
       <Header title="Setting" />
-      <div className="main-content p-4">
+      <div className="main-content md:p-4 p-2">
         <table>
           <tbody>
             <tr>

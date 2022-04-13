@@ -1,9 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { randomPeopleName } from "../../script/random";
+
+const testData = [
+  {
+    name: randomPeopleName().name,
+    soliderNum: 100,
+    maxSoliderNum: 100,
+    leaderLevel: 1,
+    leaderPower: 5,
+    side: "my",
+  },
+  {
+    name: randomPeopleName().name,
+    soliderNum: 50,
+    maxSoliderNum: 100,
+    leaderLevel: 1,
+    leaderPower: 3,
+    side: "enemy",
+  },
+];
 
 export const leaderSlice = createSlice({
   name: "leader",
   initialState: {
-    value: [{ name: "name", soliderNum: 100 }],
+    value: testData, //[]
   },
   reducers: {
     addLeader: (state, action) => {
@@ -11,6 +31,7 @@ export const leaderSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
+      console.log(action.payload);
       state.value.push(action.payload);
     },
   },
