@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const leaderLevelSlice = createSlice({
   name: "leaderLevel",
   initialState: {
-    value: 1,
+    value: 3,
   },
   reducers: {
     addLeaderLevel: (state, action) => {

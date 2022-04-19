@@ -10,7 +10,7 @@ import { MdAdd, MdPlayArrow } from "react-icons/md";
 
 import Header from "../components/main/Header";
 import { addLeader } from "../features/leader/leaderSlice";
-import { randomInteger, randomPeopleName } from "../script/random";
+import { randomInteger, randomPeopleName, shuffle } from "../script/random";
 
 export default function Playground() {
   //var
@@ -21,12 +21,34 @@ export default function Playground() {
   const leaderLevel = useSelector((state) => state.leaderLevelReducer.value);
   const dispatch = useDispatch();
 
+  const fight = () => {
+    console.log(leaders);
+    /*
+    1.find highest leaderLevel 
+    */
+    console.log(leaderLevel);
+    //2.find highest leader
+    [...Array(leaderLevel).keys()]
+      .map((item) => item + 1)
+      .reverse()
+      .map((item) => {
+        let xx = shuffle(
+          leaders.filter((leader) => leader.leaderLevel === item)
+        );
+        console.log(xx);
+        return item;
+      });
+  };
+
   return (
     <div className="w-full min-h-full">
       <Header title="Playground" />
       <div className="main-content md:p-4 p-2">
         <div>
-          <button className="h-12 w-12 bg-gray-300">
+          <button
+            className="h-12 w-12 bg-gray-300 flex items-center justify-center rounded"
+            onClick={() => fight()}
+          >
             <MdPlayArrow />
           </button>
         </div>
@@ -42,7 +64,7 @@ export default function Playground() {
               {["my", "enemy"].map((side, index2) => (
                 <div
                   className={
-                    "md:p-4 p-2 grid grid-cols-3 md:gap-4 gap-2 md:grid-cols-5 2xl:grid-cols-10 self-start " +
+                    "md:p-4 p-2 grid grid-cols-3 md:gap-4 gap-2 md:grid-cols-5 2xl:grid-cols-10 self-start rounded " +
                     (side === "my" ? "bg-blue-100" : "bg-red-100")
                   }
                   key={index2}
@@ -61,8 +83,8 @@ export default function Playground() {
                           background={true}
                           styles={buildStyles({ backgroundColor: "#ffffff" })}
                         >
-                          <div className="text-xs md:text-sm">
-                            <span>{leader.name}</span>
+                          <div className="text-xs md:text-sm ">
+                            <span className="truncate">{leader.name}</span>
                           </div>
                           <div className="text-xs md:text-sm">
                             <span>

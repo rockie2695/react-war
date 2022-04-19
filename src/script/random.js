@@ -24,5 +24,12 @@ function randomInteger(min = 10, max = 25) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-export { randomPeopleName, randomInteger };
+function shuffle(array = []) {
+  let randomArray = array;
+  for (let i = randomArray.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [randomArray[i], randomArray[j]] = [randomArray[j], randomArray[i]];
+  }
+  return randomArray;
+}
+export { randomPeopleName, randomInteger, shuffle };

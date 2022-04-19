@@ -4,17 +4,17 @@ import Tab from "./Tab";
 export default function Header() {
   return (
     <header className="bg-zinc-800">
-      <nav className="flex md:flex-col flex-row  text-white text-base shadow-md md:border-r md:border-b-0 border-gray-500 border-b h-auto top-0 sticky ">
+      <nav className="flex md:flex-col flex-row text-white text-base shadow-md md:border-r md:border-b-0 border-gray-500 border-b h-auto top-0 sticky ">
         <Tab title="react war" className="text-xl font-bold capitalize" />
         <CustomLink
           to="/playground"
-          className="flex items-center hover:bg-white hover:text-black hover:ease-in-out duration-300"
+          className="flex items-center hover:bg-gray-300 hover:text-black hover:ease-in-out duration-300"
         >
           <Tab title="Playground" />
         </CustomLink>
         <CustomLink
           to="/setting"
-          className="flex items-center hover:bg-white hover:text-black hover:ease-in-out duration-300"
+          className="flex items-center hover:bg-gray-300 hover:text-black hover:ease-in-out duration-300"
         >
           <Tab title="Setting" />
         </CustomLink>

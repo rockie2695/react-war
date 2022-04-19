@@ -4,8 +4,7 @@ export default function Tab({ title, ...prop }) {
   return (
     <div
       className={
-        "py-1 px-2 w-full " +
-        (prop?.className ? prop.className : "")
+        "py-2 px-4 w-full text-lg " + (prop?.className ? prop.className : "")
       }
     >
       {title}
