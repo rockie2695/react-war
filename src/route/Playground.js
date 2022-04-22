@@ -64,7 +64,7 @@ export default function Playground() {
               {["my", "enemy"].map((side, index2) => (
                 <div
                   className={
-                    "md:p-4 p-2 grid grid-cols-3 md:gap-4 gap-2 md:grid-cols-5 2xl:grid-cols-10 self-start rounded " +
+                    "md:p-4 p-2 grid grid-cols-3 md:gap-4 gap-2 md:grid-cols-5 2xl:grid-cols-10 self-start rounded h-full content-start " +
                     (side === "my" ? "bg-blue-100" : "bg-red-100")
                   }
                   key={index2}

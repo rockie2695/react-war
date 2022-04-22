@@ -22,9 +22,6 @@ export default function Header() {
     </header>
   );
 }
-/*position: sticky;
-    top: 0px;
-    height: auto;*/
 function CustomLink({ children, to, ...props }) {
   let resolved = useResolvedPath(to);
   let match = useMatch({ path: resolved.pathname, end: true });
