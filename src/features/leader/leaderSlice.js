@@ -9,6 +9,7 @@ const testData = [
     leaderLevel: 1,
     leaderPower: 5,
     side: "my",
+    id: 1,
   },
   {
     name: randomPeopleName().name,
@@ -17,6 +18,7 @@ const testData = [
     leaderLevel: 1,
     leaderPower: 3,
     side: "enemy",
+    id: 2,
   },
 ];
 
@@ -32,7 +34,7 @@ export const leaderSlice = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       console.log(action.payload);
-      state.value.push(action.payload);
+      state.value.push({ ...action.payload, id: state.value.length + 1 });
     },
   },
 });
