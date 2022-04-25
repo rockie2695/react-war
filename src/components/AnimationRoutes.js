@@ -15,7 +15,7 @@ lazyload and TransitionGroup can't match together
 export default function AnimationRoutes() {
   const location = useLocation();
   return (
-    <main className="relative flex-1 w-full">
+    <main className="relative flex-1 w-full bg-zinc-50">
       <Suspense fallback={<div>Loading...</div>}>
         <TransitionGroup component={null}>
           <CSSTransition
