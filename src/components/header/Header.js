@@ -7,7 +7,7 @@ export default function Header() {
       <nav className="flex md:flex-col flex-row text-base h-auto top-0 sticky ">
         <Tab
           title="react war"
-          className="text-white text-xl font-bold capitalize border-b border-zinc-500"
+          className="text-white text-xl font-bold capitalize border-b-0 md:border-b border-zinc-500"
         />
         <CustomLink
           to="/playground"
