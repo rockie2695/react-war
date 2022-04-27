@@ -17,17 +17,21 @@ export default function Playground() {
   const leaderLevel = useSelector((state) => state.leaderLevelReducer.value);
   const dispatch = useDispatch();
 
-  const fight = () => {
+  const fight = async () => {
     //var
     let noDefender = false,
-      report = [],
       round = 0;
 
-    //get leaders
-    let processLeaders = JSON.parse(JSON.stringify(leaders));
+    let report = await roundFightLoop(round);
+    console.log(report);
+  };
+  const roundFightLoop = (round) => {
+    let report = [],
+      noDefender = false, //get leaders
+      processLeaders = JSON.parse(JSON.stringify(leaders));
 
     //fight until other side leaders are dead
-    loop1: while (true) {
+    loop1: while (!noDefender) {
       round++;
       console.log(round);
       //1.loop each level
@@ -49,14 +53,13 @@ export default function Playground() {
           }
         }
       }
+    }
 
-      if (noDefender) {
-        console.log(processLeaders, report);
-        break;
-      }
+    if (noDefender) {
+      console.log(processLeaders, report);
+      return Promise.resolve(report);
     }
   };
-
   const fightInEachLevel = (rowLeaderLevel, processLeaders, round) => {
     let report = [],
       noDefender = false;
