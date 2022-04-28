@@ -5,6 +5,10 @@ export default function Setting() {
     <div className="w-full min-h-full">
       <Header title="Setting" />
       <div className="main-content md:p-4 p-2">
+        <fieldset className="border border-black">
+          <legend className="text-center">test</legend>
+          <div>test</div>
+        </fieldset>
         <table>
           <tbody>
             <tr>

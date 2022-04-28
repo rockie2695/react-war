@@ -19,55 +19,58 @@ export default function Playground() {
 
   const fight = async () => {
     //var
-    let noDefender = false,
-      round = 0;
-
-    let report = await roundFightLoop(round);
-    console.log(report);
+    let [report, round] = await roundFightLoop();
+    console.log(report, round);
   };
-  const roundFightLoop = (round) => {
-    let report = [],
-      noDefender = false, //get leaders
-      processLeaders = JSON.parse(JSON.stringify(leaders));
+  const roundFightLoop = () => {
+    return new Promise((resolve) => {
+      let report = [],
+        round = 0,
+        noDefender = false, //get leaders
+        processLeaders = JSON.parse(JSON.stringify(leaders));
 
-    //fight until other side leaders are dead
-    loop1: while (!noDefender) {
-      round++;
-      console.log(round);
-      //1.loop each level
-      let level = [...Array(leaderLevel).keys()]
-        .map((rowLeaderLevel) => rowLeaderLevel + 1)
-        .reverse();
-      for (const rowLevel of level) {
-        if (round >= level.indexOf(rowLevel) + 1) {
-          const [subNoDefender, subReport] = fightInEachLevel(
-            rowLevel,
-            processLeaders,
-            round
-          );
+      //fight until other side leaders are dead
+      while (!noDefender) {
+        round++;
+        console.log(round);
+        //1.loop each level
+        let level = [...Array(leaderLevel).keys()]
+          .map((rowLeaderLevel) => rowLeaderLevel + 1)
+          .reverse();
+        for (const rowLevel of level) {
+          if (round >= level.indexOf(rowLevel) + 1) {
+            const [subNoDefender, subReport] = fightInEachLevel(
+              rowLevel,
+              processLeaders,
+              round
+            );
 
-          noDefender = subNoDefender;
-          report = [...report, ...subReport];
-          if (noDefender) {
-            break;
+            noDefender = subNoDefender;
+            report = [...report, ...subReport];
+            if (noDefender) {
+              break;
+            }
           }
         }
       }
-    }
 
-    if (noDefender) {
-      console.log(processLeaders, report);
-      return Promise.resolve(report);
-    }
+      if (noDefender) {
+        console.log(processLeaders, report, round);
+        return resolve([report, round]);
+      }
+    });
   };
   const fightInEachLevel = (rowLeaderLevel, processLeaders, round) => {
     let report = [],
       noDefender = false;
     let shuffleLeaderInSameLevel = shuffle(
-      processLeaders.filter((leader) => leader.leaderLevel === rowLeaderLevel)
+      processLeaders.filter(
+        (leader) =>
+          leader.leaderLevel === rowLeaderLevel && leader.soliderNum > 0
+      )
     );
     //2.loop each leader in same level
-    loop2: for (let [index, row] of shuffleLeaderInSameLevel.entries()) {
+    for (let [index, row] of shuffleLeaderInSameLevel.entries()) {
       //find attacker
       let attacker = processLeaders.find((leader) => leader.id === row.id);
       if (attacker.soliderNum <= 0) {
@@ -163,7 +166,20 @@ export default function Playground() {
     }
     return defender;
   };
-
+  const addLeaderByButton = (index, side) => {
+    Array.from(Array(1000)).forEach((x, i) => {
+      dispatch(
+        addLeader({
+          leaderLevel: index + 1,
+          name: randomPeopleName().name,
+          soliderNum: 100,
+          maxSoliderNum: 100,
+          leaderPower: randomInteger(1, 10),
+          side: side,
+        })
+      );
+    });
+  };
   return (
     <div className="w-full min-h-full">
       <Header title="Playground" />
@@ -221,18 +237,7 @@ export default function Playground() {
                     ))}
                   <div>
                     <button
-                      onClick={() =>
-                        dispatch(
-                          addLeader({
-                            leaderLevel: index + 1,
-                            name: randomPeopleName().name,
-                            soliderNum: 100,
-                            maxSoliderNum: 100,
-                            leaderPower: randomInteger(1, 10),
-                            side: side,
-                          })
-                        )
-                      }
+                      onClick={() => addLeaderByButton(index, side)}
                       className="p-1 bg-gray-300 border border-gray-300 hover:bg-white hover:ease-in-out duration-300 rounded aspect-square w-full flex items-center justify-center"
                     >
                       <MdAdd />
