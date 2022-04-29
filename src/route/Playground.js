@@ -11,6 +11,11 @@ import Header from "../components/main/Header";
 import { addLeader } from "../features/leader/leaderSlice";
 import { randomInteger, randomPeopleName, shuffle } from "../script/random";
 
+//test
+import { FixedSizeList as List } from 'react-window';
+import AutoSizer from "react-virtualized-auto-sizer";
+//test
+
 export default function Playground() {
   //redux
   const leaders = useSelector((state) => state.leaderReducer.value);
@@ -129,8 +134,12 @@ export default function Playground() {
 
     selfDefender.soliderNum -= Math.max(
       randomInteger(
-        parseInt(attacker.soliderNum * 0.09 * attackerLeaderPowerTimes),
-        parseInt(attacker.soliderNum * 0.11 * attackerLeaderPowerTimes)
+        parseInt(
+          ((attacker.soliderNum * (10 - 1)) / 100) * attackerLeaderPowerTimes
+        ),
+        parseInt(
+          ((attacker.soliderNum * (10 + 1)) / 100) * attackerLeaderPowerTimes
+        )
       ),
       attacker.leaderPower
     );
@@ -167,7 +176,7 @@ export default function Playground() {
     return defender;
   };
   const addLeaderByButton = (index, side) => {
-    Array.from(Array(1000)).forEach((x, i) => {
+    Array.from(Array(100)).forEach((x, i) => {
       dispatch(
         addLeader({
           leaderLevel: index + 1,
