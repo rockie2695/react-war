@@ -10,6 +10,6 @@ export default function Header({ title }) {
   );
 }
 
-Header.prototype.propTypes = {
+Header.propTypes = {
   title: PropTypes.string.isRequired,
 };

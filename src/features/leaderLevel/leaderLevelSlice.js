@@ -20,6 +20,6 @@ export const leaderLevelSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addLeaderLevel } = leaderLevelSlice.actions;
+export const { addLeaderLevel, minusLeaderLevel } = leaderLevelSlice.actions;
 
 export default leaderLevelSlice.reducer;

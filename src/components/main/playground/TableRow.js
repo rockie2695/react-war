@@ -1,3 +1,6 @@
+//proptypes
+import PropTypes from "prop-types";
+
 //react
 import { memo } from "react";
 
@@ -85,3 +88,7 @@ const TableRow = memo(({ rowLeaderLevel, ...props }) => {
 });
 
 export default TableRow;
+
+TableRow.propTypes = {
+  rowLeaderLevel: PropTypes.number.isRequired,
+};
