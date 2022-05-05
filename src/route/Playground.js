@@ -9,6 +9,9 @@ import TableRow from "../components/main/playground/TableRow";
 
 import { Virtuoso } from "react-virtuoso";
 
+//ripple effect
+import Ripples from "react-ripples";
+
 export default function Playground() {
   //redux
   const leaders = useSelector((state) => state.leaderReducer.value);
@@ -166,19 +169,21 @@ export default function Playground() {
       <Header title="Playground" />
       <div className="main-content md:p-4 p-2 md:space-y-4 space-y-2">
         <div>
-          <button
-            className="h-12 w-12 bg-gray-300 flex items-center justify-center rounded border border-gray-300 hover:bg-white hover:ease-in-out duration-300"
-            onClick={() => fight()}
-          >
-            <MdPlayArrow />
-          </button>
+          <Ripples>
+            <button
+              className="h-12 w-12 bg-gray-300 flex items-center justify-center rounded border border-gray-300 hover:bg-white hover:ease-in-out duration-300"
+              onClick={() => fight()}
+            >
+              <MdPlayArrow />
+            </button>
+          </Ripples>
         </div>
         <h2>war table</h2>
-        <div className="col-span-2">
+        <Ripples className="w-full col-span-2">
           <button className="w-full p-1 bg-gray-300 border border-gray-300 hover:bg-white hover:ease-in-out duration-300 rounded">
             add higher level
           </button>
-        </div>
+        </Ripples>
 
         <div className="h-[50vh] overflow-hidden">
           {/*[...Array(leaderLevel).keys()]
@@ -195,16 +200,19 @@ export default function Playground() {
               (rowLeaderLevel) => rowLeaderLevel + 1
             )}
             itemContent={(index, leaderLevel) => (
-              <TableRow key={index} className={index>0?"md:mt-4 mt-2":""} rowLeaderLevel={leaderLevel} />
+              <TableRow
+                key={index}
+                className={index > 0 ? "md:mt-4 mt-2" : ""}
+                rowLeaderLevel={leaderLevel}
+              />
             )}
           />
         </div>
-
-        <div className="col-span-2">
+        <Ripples className="col-span-2 w-full">
           <button className="w-full p-1 bg-gray-300 border border-gray-300 hover:bg-white hover:ease-in-out duration-300 rounded">
             add lower level
           </button>
-        </div>
+        </Ripples>
       </div>
     </div>
   );

@@ -20,6 +20,9 @@ import { addLeader } from "../../../features/leader/leaderSlice";
 //random js
 import { randomInteger, randomPeopleName } from "../../../script/random";
 
+//ripple effect
+import Ripples from "react-ripples";
+
 const TableRow = memo(({ rowLeaderLevel, ...props }) => {
   //redux
   const leaders = useSelector((state) => state.leaderReducer.value);
@@ -73,14 +76,15 @@ const TableRow = memo(({ rowLeaderLevel, ...props }) => {
                 </CircularProgressbarWithChildren>
               </div>
             ))}
-          <div>
+
+          <Ripples className="w-full">
             <button
               onClick={() => selfAddLeader(rowLeaderLevel, side)}
               className="p-1 bg-gray-300 border border-gray-300 hover:bg-white hover:ease-in-out duration-300 rounded aspect-square w-full flex items-center justify-center"
             >
               <MdAdd />
             </button>
-          </div>
+          </Ripples>
         </div>
       ))}
     </div>
