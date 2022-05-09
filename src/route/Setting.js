@@ -9,6 +9,22 @@ export default function Setting() {
           <legend className="text-center">test</legend>
           <div>test</div>
         </fieldset>
+        <div>
+          <h2 className="title text-lg font-bold">Number of adding people</h2>
+          <div className="content grid grid-cols-2 md:gap-4 gap-2 md:p-4 p-2 bg-gray-300">
+            <label htmlFor="numAddPeople">Number of adding people:</label>
+            <input
+              type="number"
+              id="numAddPeople"
+              name="numAddPeople"
+              className="rounded p-1 text-center"
+              minLength={1}
+              maxLength={3}
+              min={1}
+              max={100}
+            />
+          </div>
+        </div>
         <table>
           <tbody>
             <tr>
