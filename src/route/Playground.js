@@ -23,7 +23,7 @@ export default function Playground() {
   const calFight = useCallback((attacker, defender) => {
     let selfDefender = JSON.parse(JSON.stringify(defender));
     const attackerLeaderPowerTimes = 1 + (attacker.leaderPower / 100) * 5;
-const attackerRandomflow=
+    const attackerRandomflow = ""; //todo
     selfDefender.soliderNum -= Math.max(
       randomInteger(
         parseInt(attacker.soliderNum * 0.09 * attackerLeaderPowerTimes),
