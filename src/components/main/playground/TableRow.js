@@ -25,10 +25,11 @@ import NormalButton from "../NormalButton";
 const TableRow = memo(({ rowLeaderLevel, ...props }) => {
   //redux
   const leaders = useSelector((state) => state.leaderReducer.value);
+  const setting = useSelector((state) => state.settingReducer.value);
   const dispatch = useDispatch();
 
   const selfAddLeader = (index, side) => {
-    [...Array(100)].forEach((_, i) => {
+    [...Array(setting.numAddPeople)].forEach((_, i) => {
       dispatch(
         addLeader({
           leaderLevel: index,
