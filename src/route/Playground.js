@@ -27,21 +27,29 @@ export default function Playground() {
       const attackRandomFlowUpper = setting.attackRandomFlowUpper / 100;
       const attackRandomFlowLower = setting.attackRandomFlowLower / 100;
       const attackAndSoliderRatio = setting.attackAndSoliderRatio / 100;
-      selfDefender.soliderNum -= Math.max(
-        randomInteger(
-          parseInt(
-            attacker.soliderNum *
-              attackAndSoliderRatio *
-              attackRandomFlowLower *
-              attackerLeaderPowerTimes
-          ),
-          parseInt(
-            attacker.soliderNum *
-              0.1 *
-              attackRandomFlowUpper *
-              attackerLeaderPowerTimes
-          )
+      const attackRandomFlow = randomInteger(
+        parseInt(
+          attacker.soliderNum *
+            attackAndSoliderRatio *
+            attackRandomFlowLower *
+            attackerLeaderPowerTimes
         ),
+        parseInt(
+          attacker.soliderNum *
+            attackAndSoliderRatio *
+            attackRandomFlowUpper *
+            attackerLeaderPowerTimes
+        )
+      );
+      console.log(
+        attacker.soliderNum,
+        attackAndSoliderRatio,
+        attackRandomFlowLower,
+        attackerLeaderPowerTimes,
+        attackRandomFlow
+      );
+      selfDefender.soliderNum -= Math.max(
+        attackRandomFlow,
         attacker.leaderPower
       );
 
