@@ -3,7 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export const settingSlice = createSlice({
   name: "setting",
   initialState: {
-    value: { numAddPeople: 1 },
+    value: {
+      numAddPeople: 1,
+      attackRandomFlowUpper: 110,
+      attackRandomFlowLower: 90,
+      attackAndSoliderRatio: 10,
+    },
   },
   reducers: {
     changeSetting: (state, action) => {

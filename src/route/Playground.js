@@ -16,24 +16,39 @@ export default function Playground() {
   //redux
   const leaders = useSelector((state) => state.leaderReducer.value);
   const leaderLevel = useSelector((state) => state.leaderLevelReducer.value);
-
+  const setting = useSelector((state) => state.settingReducer.value);
   //var
 
   //function
-  const calFight = useCallback((attacker, defender) => {
-    let selfDefender = JSON.parse(JSON.stringify(defender));
-    const attackerLeaderPowerTimes = 1 + (attacker.leaderPower / 100) * 5;
-    const attackerRandomflow = ""; //todo
-    selfDefender.soliderNum -= Math.max(
-      randomInteger(
-        parseInt(attacker.soliderNum * 0.09 * attackerLeaderPowerTimes),
-        parseInt(attacker.soliderNum * 0.11 * attackerLeaderPowerTimes)
-      ),
-      attacker.leaderPower
-    );
+  const calFight = useCallback(
+    (attacker, defender) => {
+      let selfDefender = JSON.parse(JSON.stringify(defender));
+      const attackerLeaderPowerTimes = 1 + (attacker.leaderPower / 100) * 5;
+      const attackRandomFlowUpper = setting.attackRandomFlowUpper / 100;
+      const attackRandomFlowLower = setting.attackRandomFlowLower / 100;
+      const attackAndSoliderRatio = setting.attackAndSoliderRatio / 100;
+      selfDefender.soliderNum -= Math.max(
+        randomInteger(
+          parseInt(
+            attacker.soliderNum *
+              attackAndSoliderRatio *
+              attackRandomFlowLower *
+              attackerLeaderPowerTimes
+          ),
+          parseInt(
+            attacker.soliderNum *
+              0.1 *
+              attackRandomFlowUpper *
+              attackerLeaderPowerTimes
+          )
+        ),
+        attacker.leaderPower
+      );
 
-    return [attacker, selfDefender];
-  }, []);
+      return [attacker, selfDefender];
+    },
+    [setting]
+  );
 
   const findDefender = useCallback(
     (rowLeaderLevel = 1, attackerSide = "my", processLeaders = []) => {
