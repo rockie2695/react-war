@@ -4,10 +4,10 @@ export const settingSlice = createSlice({
   name: "setting",
   initialState: {
     value: {
-      numAddPeople: 1,
-      attackRandomFlowUpper: 110,
-      attackRandomFlowLower: 90,
-      attackAndSoliderRatio: 10,
+      numAddPeople: { value: 1, minLength: 1, maxLength: 3, min: 1, max: 100 },
+      attackRandomFlowUpper: { value: 110 },
+      attackRandomFlowLower: { value: 90 },
+      attackAndSoliderRatio: { value: 10 },
     },
   },
   reducers: {
@@ -16,7 +16,7 @@ export const settingSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.value[action.payload.key] = action.payload.value;
+      state.value[action.payload.key].value = action.payload.value;
     },
   },
 });

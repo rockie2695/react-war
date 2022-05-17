@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import { useCallback } from "react";
 import "react-circular-progressbar/dist/styles.css";
 import { useSelector } from "react-redux";
 import { MdPlayArrow } from "react-icons/md";
@@ -17,7 +17,6 @@ export default function Playground() {
   const leaders = useSelector((state) => state.leaderReducer.value);
   const leaderLevel = useSelector((state) => state.leaderLevelReducer.value);
   const setting = useSelector((state) => state.settingReducer.value);
-  //var
 
   //function
   const calFight = useCallback(
@@ -27,7 +26,7 @@ export default function Playground() {
       const attackRandomFlowUpper = setting.attackRandomFlowUpper / 100;
       const attackRandomFlowLower = setting.attackRandomFlowLower / 100;
       const attackAndSoliderRatio = setting.attackAndSoliderRatio / 100;
-      const attackRandomFlow = randomInteger(
+      const attackRandomNum = randomInteger(
         parseInt(
           attacker.soliderNum *
             attackAndSoliderRatio *
@@ -46,10 +45,10 @@ export default function Playground() {
         attackAndSoliderRatio,
         attackRandomFlowLower,
         attackerLeaderPowerTimes,
-        attackRandomFlow
+        attackRandomNum
       );
       selfDefender.soliderNum -= Math.max(
-        attackRandomFlow,
+        attackRandomNum,
         attacker.leaderPower
       );
 

@@ -18,10 +18,18 @@ export default function Setting() {
       if (isNaN(value)) {
         return;
       }
-      if (event.target?.min && value < event.target.min) {
+      if (
+        event.target?.min &&
+        Number.isInteger(event.target.min) &&
+        value < event.target.min
+      ) {
         return;
       }
-      if (event.target?.max && value > event.target.max) {
+      if (
+        event.target?.max &&
+        Number.isInteger(event.target.max) &&
+        value > event.target.max
+      ) {
         return;
       }
       dispatch(
@@ -50,12 +58,12 @@ export default function Setting() {
                     id="numAddPeople"
                     name="numAddPeople"
                     className="rounded p-1 text-center flex-1"
-                    minLength={1}
-                    maxLength={3}
-                    min={1}
-                    max={100}
-                    value={setting.numAddPeople}
-                    onChange={(e) => handleInputChange(e)}
+                    minLength={setting.numAddPeople.minLength}
+                    maxLength={setting.numAddPeople.maxLength}
+                    min={setting.numAddPeople.min}
+                    max={setting.numAddPeople.max}
+                    value={setting.numAddPeople.value}
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>
@@ -81,7 +89,7 @@ export default function Setting() {
                     maxLength={3}
                     min={1}
                     max={100}
-                    value={setting.attackAndSoliderRatio}
+                    value={setting.attackAndSoliderRatio.value}
                     onChange={(e) => handleInputChange(e)}
                   />
                   <div className="p-1 bg-white rounded-r">%</div>
@@ -103,7 +111,7 @@ export default function Setting() {
                       maxLength={3}
                       min={1}
                       max={999}
-                      value={setting.attackRandomFlowLower}
+                      value={setting.attackRandomFlowLower.value}
                       onChange={(e) => handleInputChange(e)}
                     />
                     <div className="p-1 bg-white rounded-r">%</div>
@@ -119,7 +127,7 @@ export default function Setting() {
                       maxLength={3}
                       min={1}
                       max={999}
-                      value={setting.attackRandomFlowUpper}
+                      value={setting.attackRandomFlowUpper.value}
                       onChange={(e) => handleInputChange(e)}
                     />
                     <span className="p-1 bg-white rounded-r">%</span>
