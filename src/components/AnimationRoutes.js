@@ -3,8 +3,8 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "../css/AnimationRoutes.css";
 
-const Playground = lazy(() => import("../route/Playground"));
-const Setting = lazy(() => import("../route/Setting"));
+const Playground = lazy(() => import("../components/main/playground/Playground"));
+const Setting = lazy(() => import("../components/main/setting/Setting"));
 /**
  * difficult to fix react transition group bug
 Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an instance of Transition which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node

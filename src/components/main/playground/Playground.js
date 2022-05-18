@@ -3,13 +3,13 @@ import "react-circular-progressbar/dist/styles.css";
 import { useSelector } from "react-redux";
 import { MdPlayArrow } from "react-icons/md";
 
-import Header from "../components/main/Header";
-import { randomInteger, shuffle } from "../script/random";
-import TableRow from "../components/main/playground/TableRow";
+import Header from "../Header";
+import { randomInteger, shuffle } from "../../../script/random";
+import TableRow from "./TableRow";
 
 import { Virtuoso } from "react-virtuoso";
 
-import NormalButton from "../components/main/NormalButton";
+import NormalButton from "../NormalButton";
 
 export default function Playground() {
   console.log("render Playground");
@@ -215,6 +215,7 @@ export default function Playground() {
                 key={index}
                 className={index > 0 ? "md:mt-4 mt-2" : ""}
                 rowLeaderLevel={leaderLevel}
+                rowLeaders={leaders[leaderLevel]}
               />
             )}
           />

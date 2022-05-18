@@ -22,32 +22,27 @@ import { randomInteger, randomPeopleName } from "../../../script/random";
 
 import NormalButton from "../NormalButton";
 
-const TableRow = ({ rowLeaderLevel, ...props }) => {
+const TableRow = ({ rowLeaderLevel, rowLeaders, ...props }) => {
   console.log("render TableRow " + rowLeaderLevel);
 
   //redux
-  const leaders = useSelector((state) => state.leaderReducer.value);
   const setting = useSelector((state) => state.settingReducer.value);
   const dispatch = useDispatch();
 
-  const selfAddLeader = useCallback(
-    (index, side) => {
-      [...Array(setting.numAddPeople)].forEach((_, i) => {
-        dispatch(
-          addLeader({
-            leaderLevel: index,
-            name: randomPeopleName().name,
-            soliderNum: 100,
-            maxSoliderNum: 100,
-            leaderPower: randomInteger(1, 10),
-            side: side,
-          })
-        );
-      });
-    },
-    [dispatch, setting.numAddPeople]
-  );
-
+  const selfAddLeader = (index, side) => {
+    [...Array(setting.numAddPeople.value)].forEach((_, i) => {
+      dispatch(
+        addLeader({
+          leaderLevel: index,
+          name: randomPeopleName().name,
+          soliderNum: 100,
+          maxSoliderNum: 100,
+          leaderPower: randomInteger(1, 10),
+          side: side,
+        })
+      );
+    });
+  };
   return (
     <div className={"grid grid-cols-2 md:gap-4 gap-2 " + props.className}>
       {["my", "enemy"].map((side, index) => (
@@ -58,11 +53,8 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
           }
           key={index}
         >
-          {leaders
-            .filter(
-              (leader) =>
-                leader.leaderLevel === rowLeaderLevel && leader.side === side
-            )
+          {rowLeaders
+            .filter((leader) => leader.side === side)
             .map((leader, index2) => (
               <div key={index2}>
                 <CircularProgressbarWithChildren
@@ -99,4 +91,5 @@ export default memo(TableRow);
 
 TableRow.propTypes = {
   rowLeaderLevel: PropTypes.number.isRequired,
+  rowLeaders: PropTypes.array.isRequired,
 };

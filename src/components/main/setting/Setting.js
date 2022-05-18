@@ -1,40 +1,42 @@
-import Header from "../components/main/Header";
+import Header from "../Header";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { changeSetting } from "../features/setting/settingSlice";
+import { changeSetting } from "../../../features/setting/settingSlice";
 
 export default function Setting() {
+  console.log("render Setting");
+
   //redux
   const setting = useSelector((state) => state.settingReducer.value);
   const dispatch = useDispatch();
-  console.log(setting);
   const handleInputChange = (event) => {
     if (event.target.type === "number") {
+      let name = event.target.name;
       let value = event.target.value;
-      if (!event.target?.step) {
+      if (!setting[name]?.step) {
         value = parseInt(value);
       }
       if (isNaN(value)) {
         return;
       }
       if (
-        event.target?.min &&
-        Number.isInteger(event.target.min) &&
-        value < event.target.min
+        setting[name]?.min &&
+        Number.isInteger(setting[name].min) &&
+        value < setting[name].min
       ) {
         return;
       }
       if (
-        event.target?.max &&
-        Number.isInteger(event.target.max) &&
-        value > event.target.max
+        setting[name]?.max &&
+        Number.isInteger(setting[name].max) &&
+        value > setting[name].max
       ) {
         return;
       }
       dispatch(
         changeSetting({
-          key: event.target.name,
+          key: name,
           value: value,
         })
       );
@@ -85,10 +87,10 @@ export default function Setting() {
                     id="attackAndSoliderRatio"
                     name="attackAndSoliderRatio"
                     className=" rounded-l p-1 text-center flex-1"
-                    minLength={1}
-                    maxLength={3}
-                    min={1}
-                    max={100}
+                    minLength={setting.attackAndSoliderRatio.minLength}
+                    maxLength={setting.attackAndSoliderRatio.maxLength}
+                    min={setting.attackAndSoliderRatio.min}
+                    max={setting.attackAndSoliderRatio.max}
                     value={setting.attackAndSoliderRatio.value}
                     onChange={(e) => handleInputChange(e)}
                   />
@@ -107,10 +109,10 @@ export default function Setting() {
                       id="attackRandomFlowLower"
                       name="attackRandomFlowLower"
                       className="p-1 text-center flex-1 rounded-l"
-                      minLength={1}
-                      maxLength={3}
-                      min={1}
-                      max={999}
+                      minLength={setting.attackRandomFlowLower.minLength}
+                      maxLength={setting.attackRandomFlowLower.maxLength}
+                      min={setting.attackRandomFlowLower.min}
+                      max={setting.attackRandomFlowLower.max}
                       value={setting.attackRandomFlowLower.value}
                       onChange={(e) => handleInputChange(e)}
                     />
@@ -123,10 +125,10 @@ export default function Setting() {
                       id="attackRandomFlowUpper"
                       name="attackRandomFlowUpper"
                       className="p-1 text-center flex-1 rounded-l"
-                      minLength={1}
-                      maxLength={3}
-                      min={1}
-                      max={999}
+                      minLength={setting.attackRandomFlowLower.minLength}
+                      maxLength={setting.attackRandomFlowLower.maxLength}
+                      min={setting.attackRandomFlowLower.min}
+                      max={setting.attackRandomFlowLower.max}
                       value={setting.attackRandomFlowUpper.value}
                       onChange={(e) => handleInputChange(e)}
                     />

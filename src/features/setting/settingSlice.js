@@ -5,9 +5,27 @@ export const settingSlice = createSlice({
   initialState: {
     value: {
       numAddPeople: { value: 1, minLength: 1, maxLength: 3, min: 1, max: 100 },
-      attackRandomFlowUpper: { value: 110 },
-      attackRandomFlowLower: { value: 90 },
-      attackAndSoliderRatio: { value: 10 },
+      attackRandomFlowUpper: {
+        value: 110,
+        minLength: 1,
+        maxLength: 3,
+        min: 1,
+        max: 999,
+      },
+      attackRandomFlowLower: {
+        value: 90,
+        minLength: 1,
+        maxLength: 3,
+        min: 1,
+        max: 999,
+      },
+      attackAndSoliderRatio: {
+        value: 10,
+        minLength: 1,
+        maxLength: 3,
+        min: 1,
+        max: 100,
+      },
     },
   },
   reducers: {

@@ -25,7 +25,18 @@ const testData = [
 export const leaderSlice = createSlice({
   name: "leader",
   initialState: {
-    value: testData, //[]
+    value: {
+      1: testData,
+      2: [],
+      3: [],
+      4: [],
+      5: [],
+      6: [],
+      7: [],
+      8: [],
+      9: [],
+      10: [],
+    },
   },
   reducers: {
     addLeader: (state, action) => {
@@ -33,7 +44,10 @@ export const leaderSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.value.push({ ...action.payload, id: state.value.length + 1 });
+      state.value[action.payload.leaderLevel].push({
+        ...action.payload,
+        id: state.value.length + 1,
+      });
     },
   },
 });
