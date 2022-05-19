@@ -23,9 +23,9 @@ export default function Playground() {
     (attacker, defender) => {
       let selfDefender = JSON.parse(JSON.stringify(defender));
       const attackerLeaderPowerTimes = 1 + (attacker.leaderPower / 100) * 5;
-      const attackRandomFlowUpper = setting.attackRandomFlowUpper / 100;
-      const attackRandomFlowLower = setting.attackRandomFlowLower / 100;
-      const attackAndSoliderRatio = setting.attackAndSoliderRatio / 100;
+      const attackRandomFlowUpper = setting.attackRandomFlowUpper.value / 100;
+      const attackRandomFlowLower = setting.attackRandomFlowLower.value / 100;
+      const attackAndSoliderRatio = setting.attackAndSoliderRatio.value / 100;
       const attackRandomNum = randomInteger(
         parseInt(
           attacker.soliderNum *
@@ -40,13 +40,6 @@ export default function Playground() {
             attackerLeaderPowerTimes
         )
       );
-      console.log(
-        attacker.soliderNum,
-        attackAndSoliderRatio,
-        attackRandomFlowLower,
-        attackerLeaderPowerTimes,
-        attackRandomNum
-      );
       selfDefender.soliderNum -= Math.max(
         attackRandomNum,
         attacker.leaderPower
@@ -54,7 +47,11 @@ export default function Playground() {
 
       return [attacker, selfDefender];
     },
-    [setting]
+    [
+      setting.attackRandomFlowUpper,
+      setting.attackRandomFlowLower,
+      setting.attackAndSoliderRatio,
+    ]
   );
 
   const findDefender = useCallback(
@@ -155,17 +152,26 @@ export default function Playground() {
       round = 0;
 
     //get leaders
-    let processLeaders = JSON.parse(JSON.stringify(leaders));
-
+    let processLeaders = [];
+    for (let [key, value] of Object.entries(leaders)) {
+      processLeaders = [
+        ...processLeaders,
+        ...JSON.parse(JSON.stringify(value)),
+      ];
+    }
+    //level generate [5,4,3,2,1] by leaderLevel
+    let level = [...Array(leaderLevel).keys()]
+      .map((rowLeaderLevel) => rowLeaderLevel + 1)
+      .reverse();
     //fight until other side leaders are dead
     while (true) {
       round++;
       console.log(round);
-      //1.loop each level
-      let level = [...Array(leaderLevel).keys()]
-        .map((rowLeaderLevel) => rowLeaderLevel + 1)
-        .reverse();
+      //loop each level
       for (const rowLevel of level) {
+        console.log(round, level.indexOf(rowLevel) + 1);
+        //make first round,only the lowest level can attack,second round,only the second lowest and lowest level can attack,and so on
+
         if (round >= level.indexOf(rowLevel) + 1) {
           const [subNoDefender, subReport] = fightInEachLevel(
             rowLevel,
@@ -178,6 +184,9 @@ export default function Playground() {
           if (noDefender) {
             break;
           }
+        }
+        if (round < level.indexOf(rowLevel) + 1) {
+          break;
         }
       }
 

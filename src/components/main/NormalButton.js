@@ -11,7 +11,7 @@ const NormalButton = memo(({ ...props }) => {
       onClick={props?.onClick}
     >
       <button
-        className="w-full h-full p-1 bg-gray-300 border border-gray-300 hover:bg-white hover:ease-in-out duration-300 rounded flex items-center justify-center"
+        className="w-full h-full p-1 bg-gray-300 border border-gray-300 hover:bg-white hover:ease-in-out duration-300 rounded-lg flex items-center justify-center"
         aria-label={props["aria-label"]}
       >
         {props?.children}

@@ -48,7 +48,7 @@ const TableRow = ({ rowLeaderLevel, rowLeaders, ...props }) => {
       {["my", "enemy"].map((side, index) => (
         <div
           className={
-            "md:p-4 p-2 grid grid-cols-3 md:gap-4 gap-2 md:grid-cols-5 2xl:grid-cols-10 self-start rounded h-full content-start " +
+            "md:p-4 p-2 grid grid-cols-3 md:gap-4 gap-2 md:grid-cols-5 2xl:grid-cols-10 self-start rounded-lg h-full content-start " +
             (side === "my" ? "bg-blue-100" : "bg-red-100")
           }
           key={index}
