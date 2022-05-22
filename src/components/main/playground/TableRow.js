@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 
 //react
-import { memo, useCallback } from "react";
+import { memo } from "react";
 
 //circle
 import {
@@ -52,7 +52,7 @@ const TableRow = ({ rowLeaderLevel, rowLeaders, ...props }) => {
       {["my", "enemy"].map((side, index) => (
         <div
           className={
-            "md:p-4 p-2 grid grid-cols-3 md:gap-4 gap-2 md:grid-cols-5 2xl:grid-cols-10 self-start rounded-lg h-full content-start " +
+            "md:p-2 p-1 grid grid-cols-3 md:gap-2 gap-1 md:grid-cols-5 2xl:grid-cols-10 self-start rounded-lg h-full content-start " +
             (side === "my" ? "bg-blue-100" : "bg-red-100")
           }
           key={index}
@@ -60,13 +60,16 @@ const TableRow = ({ rowLeaderLevel, rowLeaders, ...props }) => {
           {rowLeaders
             .filter((leader) => leader.side === side)
             .map((leader, index2) => (
-              <div key={index2}>
+              <div
+                key={index2}
+                className="border hover:border-zinc-700 p-1 rounded-lg hover:ease-in-out duration-300"
+              >
                 <CircularProgressbarWithChildren
                   value={(leader.soliderNum / leader.maxSoliderNum) * 100}
                   background={true}
                   styles={buildStyles({ backgroundColor: "#ffffff" })}
                 >
-                  <div className="text-xs md:text-sm ">
+                  <div className="text-xs md:text-sm">
                     <span className="truncate">{leader.name}</span>
                   </div>
                   <div className="text-xs md:text-sm">

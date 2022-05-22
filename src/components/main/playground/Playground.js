@@ -183,10 +183,11 @@ export default function Playground() {
       }
 
       if (noDefender) {
-        console.log(processLeaders, report);
         break;
       }
     }
+
+    console.log(processLeaders, report);
   }, [fightInEachLevel, leaderLevel, leaders]);
 
   return (

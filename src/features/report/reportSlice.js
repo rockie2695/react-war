@@ -6,11 +6,8 @@ export const leaderLevelSlice = createSlice({
     value: 3,
   },
   reducers: {
-    addLeaderLevel: (state, action) => {
+    setReport: (state, action) => {
       state.value++;
-    },
-    minusLeaderLevel: (state, action) => {
-      state.value--;
     },
   },
 });
