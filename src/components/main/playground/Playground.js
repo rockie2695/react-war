@@ -89,7 +89,7 @@ export default function Playground() {
       let shuffleLeaderInSameLevel = shuffle(
         processLeaders.filter((leader) => leader.leaderLevel === rowLeaderLevel)
       );
-      //2.loop each leader in same level
+      //loop each leader in same level
       for (const [index, row] of shuffleLeaderInSameLevel.entries()) {
         //find attacker
         let attacker = processLeaders.find((leader) => leader.id === row.id);
@@ -118,17 +118,15 @@ export default function Playground() {
         let needChangeDefenderIndex = processLeaders.findIndex(
           (leader) => leader.id === defender.id
         );
-        report.push([
-          {
-            round: round,
-            attackerId: attacker.id,
-            defenderId: defender.id,
-            attackerBefore: processLeaders[needChangeAttackerIndex],
-            defenderBefore: processLeaders[needChangeDefenderIndex],
-            attackerAfter: attacker,
-            defenderAfter: defender,
-          },
-        ]);
+        report.push({
+          round: round,
+          attackerId: attacker.id,
+          defenderId: defender.id,
+          attackerBefore: processLeaders[needChangeAttackerIndex],
+          defenderBefore: processLeaders[needChangeDefenderIndex],
+          attackerAfter: attacker,
+          defenderAfter: defender,
+        });
         //update attacker to processLeaders
         processLeaders[needChangeAttackerIndex] = {
           ...processLeaders[needChangeAttackerIndex],
@@ -154,10 +152,7 @@ export default function Playground() {
     //get leaders
     let processLeaders = [];
     for (let [key, value] of Object.entries(leaders)) {
-      processLeaders = [
-        ...processLeaders,
-        ...JSON.parse(JSON.stringify(value)),
-      ];
+      processLeaders = [...processLeaders, ...value];
     }
     //level generate [5,4,3,2,1] by leaderLevel
     let level = [...Array(leaderLevel).keys()]
@@ -166,12 +161,9 @@ export default function Playground() {
     //fight until other side leaders are dead
     while (true) {
       round++;
-      console.log(round);
       //loop each level
       for (const rowLevel of level) {
-        console.log(round, level.indexOf(rowLevel) + 1);
         //make first round,only the lowest level can attack,second round,only the second lowest and lowest level can attack,and so on
-
         if (round >= level.indexOf(rowLevel) + 1) {
           const [subNoDefender, subReport] = fightInEachLevel(
             rowLevel,

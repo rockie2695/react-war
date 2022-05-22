@@ -46,7 +46,6 @@ export const leaderSlice = createSlice({
       // immutable state based off those changes
       state.value[action.payload.leaderLevel].push({
         ...action.payload,
-        id: state.value.length + 1,
       });
     },
   },

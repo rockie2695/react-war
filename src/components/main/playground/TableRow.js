@@ -16,6 +16,7 @@ import { MdAdd } from "react-icons/md";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { addLeader } from "../../../features/leader/leaderSlice";
+import { addLeaderId } from "../../../features/leader/leaderIdSlice";
 
 //random js
 import { randomInteger, randomPeopleName } from "../../../script/random";
@@ -27,6 +28,7 @@ const TableRow = ({ rowLeaderLevel, rowLeaders, ...props }) => {
 
   //redux
   const setting = useSelector((state) => state.settingReducer.value);
+  const leaderId = useSelector((state) => state.leaderIdReducer.value);
   const dispatch = useDispatch();
 
   const selfAddLeader = (index, side) => {
@@ -39,8 +41,10 @@ const TableRow = ({ rowLeaderLevel, rowLeaders, ...props }) => {
           maxSoliderNum: 100,
           leaderPower: randomInteger(1, 10),
           side: side,
+          id: leaderId + i,
         })
       );
+      dispatch(addLeaderId());
     });
   };
   return (
