@@ -5,6 +5,7 @@ import { MdPlayArrow } from "react-icons/md";
 
 import Header from "../Header";
 import { randomInteger, shuffle } from "../../../script/random";
+import { setReport } from "../../../features/report/reportSlice";
 import TableRow from "./TableRow";
 
 import { Virtuoso } from "react-virtuoso";
@@ -17,6 +18,7 @@ export default function Playground() {
   const leaders = useSelector((state) => state.leaderReducer.value);
   const leaderLevel = useSelector((state) => state.leaderLevelReducer.value);
   const setting = useSelector((state) => state.settingReducer.value);
+  const dispatch = useDispatch();
 
   //function
   const calFight = useCallback(
@@ -188,6 +190,7 @@ export default function Playground() {
     }
 
     console.log(processLeaders, report);
+    dispatch(setReport(report));
   }, [fightInEachLevel, leaderLevel, leaders]);
 
   return (

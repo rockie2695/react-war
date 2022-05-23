@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const leaderLevelSlice = createSlice({
-  name: "leaderLevel",
+  name: "report",
   initialState: {
-    value: 3,
+    value: [],
   },
   reducers: {
     setReport: (state, action) => {
-      state.value++;
+      state.value = [...state.value, ...action.payload];
     },
   },
 });
