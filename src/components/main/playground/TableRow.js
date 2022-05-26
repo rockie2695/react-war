@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 
 //react
-import { memo } from "react";
+import { memo, useCallback } from "react";
 
 //circle
 import {
@@ -31,22 +31,25 @@ const TableRow = ({ rowLeaderLevel, rowLeaders, ...props }) => {
   const leaderId = useSelector((state) => state.leaderIdReducer.value);
   const dispatch = useDispatch();
 
-  const selfAddLeader = (index, side) => {
-    [...Array(setting.numAddPeople.value)].forEach((_, i) => {
-      dispatch(
-        addLeader({
-          leaderLevel: index,
-          name: randomPeopleName().name,
-          soliderNum: 100,
-          maxSoliderNum: 100,
-          leaderPower: randomInteger(1, 10),
-          side: side,
-          id: leaderId + i,
-        })
-      );
-      dispatch(addLeaderId());
-    });
-  };
+  const selfAddLeader = useCallback(
+    (index, side) => {
+      [...Array(setting.numAddPeople.value)].forEach((_, i) => {
+        dispatch(
+          addLeader({
+            leaderLevel: index,
+            name: randomPeopleName().name,
+            soliderNum: 100,
+            maxSoliderNum: 100,
+            leaderPower: randomInteger(1, 10),
+            side: side,
+            id: leaderId + i,
+          })
+        );
+        dispatch(addLeaderId());
+      });
+    },
+    [dispatch, leaderId, setting.numAddPeople.value]
+  );
   return (
     <div className={"grid grid-cols-2 md:gap-4 gap-2 " + props.className}>
       {["my", "enemy"].map((side, index) => (

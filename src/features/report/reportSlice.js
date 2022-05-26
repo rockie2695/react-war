@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const leaderLevelSlice = createSlice({
+export const reportSlice = createSlice({
   name: "report",
   initialState: {
     value: [],
@@ -13,6 +13,6 @@ export const leaderLevelSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addLeaderLevel, minusLeaderLevel } = leaderLevelSlice.actions;
+export const { setReport } = reportSlice.actions;
 
-export default leaderLevelSlice.reducer;
+export default reportSlice.reducer;

@@ -1,16 +1,18 @@
 import { useCallback } from "react";
 import "react-circular-progressbar/dist/styles.css";
-import { useSelector } from "react-redux";
 import { MdPlayArrow } from "react-icons/md";
 
 import Header from "../Header";
 import { randomInteger, shuffle } from "../../../script/random";
-import { setReport } from "../../../features/report/reportSlice";
 import TableRow from "./TableRow";
 
 import { Virtuoso } from "react-virtuoso";
 
 import NormalButton from "../NormalButton";
+
+//redux
+import { useSelector, useDispatch } from "react-redux";
+import { setReport } from "../../../features/report/reportSlice";
 
 export default function Playground() {
   console.log("render Playground");
@@ -191,7 +193,7 @@ export default function Playground() {
 
     console.log(processLeaders, report);
     dispatch(setReport(report));
-  }, [fightInEachLevel, leaderLevel, leaders]);
+  }, [fightInEachLevel, leaderLevel, leaders, dispatch]);
 
   return (
     <div className="w-full min-h-full">
