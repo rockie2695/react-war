@@ -5,6 +5,7 @@ import { MdPlayArrow } from "react-icons/md";
 import Header from "../Header";
 import { randomInteger, shuffle } from "../../../script/random";
 import TableRow from "./TableRow";
+import SideNameRow from "./SideNameRow";
 
 import { Virtuoso } from "react-virtuoso";
 
@@ -208,6 +209,7 @@ export default function Playground() {
             <MdPlayArrow />
           </NormalButton>
         </div>
+        <SideNameRow />
         <h2>war table</h2>
         <NormalButton className="w-full h-10">add higher level</NormalButton>
 

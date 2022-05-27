@@ -4,6 +4,7 @@ import leaderLevelReducer from "../features/leader/leaderLevelSlice";
 import leaderIdReducer from "../features/leader/leaderIdSlice";
 import settingReducer from "../features/setting/settingSlice";
 import reportReducer from "../features/report/reportSlice";
+import sideNameReducer from "../features/side/sideNameSlice";
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     leaderIdReducer,
     settingReducer,
     reportReducer,
+    sideNameReducer,
   },
 });
