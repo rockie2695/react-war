@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import "react-circular-progressbar/dist/styles.css";
-import { MdPlayArrow } from "react-icons/md";
+import { MdPlayArrow, MdOutlinePause } from "react-icons/md"; //play,pause,
+import { RiSwordFill } from "react-icons/ri"; //fight
 
 import Header from "../Header";
 import { randomInteger, shuffle } from "../../../script/random";
@@ -202,11 +203,17 @@ export default function Playground() {
       <div className="main-content md:p-4 p-2 md:space-y-4 space-y-2">
         <div>
           <NormalButton
-            className="h-12 w-12"
+            className="h-12 w-12 text-lg"
             onClick={() => fight()}
             aria-label="fight"
           >
+            <RiSwordFill />
+          </NormalButton>
+          <NormalButton className="h-12 w-12 text-lg" aria-label="play">
             <MdPlayArrow />
+          </NormalButton>
+          <NormalButton className="h-12 w-12 text-lg" aria-label="play">
+            <MdOutlinePause />
           </NormalButton>
         </div>
         <SideNameRow />

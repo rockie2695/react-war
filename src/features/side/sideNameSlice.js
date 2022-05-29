@@ -7,7 +7,7 @@ export const sideNameSlice = createSlice({
   },
   reducers: {
     setSideName: (state, action) => {
-      state.value[action.value.key] = action.value.value;
+      state.value[action.payload.key] = action.payload.value;
     },
   },
 });
