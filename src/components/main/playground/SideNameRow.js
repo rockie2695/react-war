@@ -19,9 +19,9 @@ const SideName = () => {
         <FightControlRow />
       </div>
       <div className="grid md:grid-cols-11 grid-cols-2 md:gap-4 gap-2">
-        <div className="h-10 md:col-span-4">
+        <div className="md:col-span-4 h-full flex items-center">
           <input
-            className="w-full h-full border border-gray-300 text-center p-1"
+            className="w-full h-10 border border-gray-300 text-center p-1 text-blue-600 font-bold"
             value={sideName.my}
             onChange={(e) =>
               dispatch(setSideName({ key: "my", value: e.target.value }))
@@ -31,9 +31,9 @@ const SideName = () => {
         <div className="col-span-3 md:block hidden">
           <FightControlRow />
         </div>
-        <div className="h-10 md:col-span-4">
+        <div className="md:col-span-4 h-full flex items-center">
           <input
-            className="w-full h-full border border-gray-300 text-center p-1"
+            className="w-full h-10 border border-gray-300 text-center p-1 text-red-600 font-bold"
             value={sideName.enemy}
             onChange={(e) =>
               dispatch(setSideName({ key: "enemy", value: e.target.value }))
