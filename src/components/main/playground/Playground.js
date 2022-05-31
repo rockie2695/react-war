@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 const Playground = () => {
   console.log("render Playground");
   //redux
-  const leaders = useSelector((state) => state.leaderReducer.value);
   const leaderLevel = useSelector((state) => state.leaderLevelReducer.value);
 
   //function
@@ -38,7 +37,7 @@ const Playground = () => {
                 key={index}
                 className={index > 0 ? "md:mt-4 mt-2" : ""}
                 rowLeaderLevel={leaderLevel}
-                rowLeaders={leaders[leaderLevel]}
+                //rowLeaders={leaders[leaderLevel]}
               />
             )}
           />

@@ -23,12 +23,14 @@ import { randomInteger, randomPeopleName } from "../../../script/random";
 
 import NormalButton from "../NormalButton";
 
-const TableRow = ({ rowLeaderLevel, rowLeaders, ...props }) => {
+const TableRow = ({ rowLeaderLevel, ...props }) => {
   console.log("render TableRow " + rowLeaderLevel);
 
   //redux
   const setting = useSelector((state) => state.settingReducer.value);
   const leaderId = useSelector((state) => state.leaderIdReducer.value);
+  const leaders = useSelector((state) => state.leaderReducer.value);
+  const rowLeaders = leaders[rowLeaderLevel];
   const dispatch = useDispatch();
 
   const selfAddLeader = useCallback(
@@ -101,5 +103,4 @@ export default memo(TableRow);
 
 TableRow.propTypes = {
   rowLeaderLevel: PropTypes.number.isRequired,
-  rowLeaders: PropTypes.array.isRequired,
 };

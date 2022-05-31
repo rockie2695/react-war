@@ -164,7 +164,7 @@ const FightControlRow = () => {
       .map((rowLeaderLevel) => rowLeaderLevel + 1)
       .reverse();
     //fight until other side leaders are dead
-    while (true) {
+    while (round<=100) {
       round++;
       //loop each level
       for (const rowLevel of level) {
