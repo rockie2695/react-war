@@ -13,6 +13,9 @@ import NormalButton from "../NormalButton";
 //redux
 import { useSelector } from "react-redux";
 
+//react responsive
+import MediaQuery from "react-responsive";
+
 const Playground = () => {
   console.log("render Playground");
   //redux
@@ -26,6 +29,17 @@ const Playground = () => {
       <div className="main-content md:p-4 p-2 md:space-y-4 space-y-2">
         <h2>war table</h2>
         <SideNameRow />
+
+        <div className="grid md:grid-cols-11 grid-cols-2 md:gap-4 gap-2">
+          <div className="md:col-span-4 h-full flex items-center">123</div>
+
+          <MediaQuery minWidth={768}>
+            <div className="col-span-3"></div>
+          </MediaQuery>
+
+          <div className="md:col-span-4 h-full flex items-center">321</div>
+        </div>
+
         <NormalButton className="w-full h-10">add higher level</NormalButton>
 
         <div className="h-[50vh] overflow-hidden">
