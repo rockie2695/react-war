@@ -1,11 +1,13 @@
+//circle
 import "react-circular-progressbar/dist/styles.css";
 
+//virtual list
+import { Virtuoso } from "react-virtuoso";
+
+//local file
 import Header from "../Header";
 import TableRow from "./TableRow";
 import SideNameRow from "./SideNameRow";
-
-import { Virtuoso } from "react-virtuoso";
-
 import NormalButton from "../NormalButton";
 
 //redux

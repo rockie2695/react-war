@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const reportSlice = createSlice({
   name: "report",
   initialState: {
-    value: [],
+    value: { history: [], sideName: {} },
   },
   reducers: {
     setReport: (state, action) => {
-      state.value = [...state.value, ...action.payload];
+      state.value = action.payload;
     },
   },
 });

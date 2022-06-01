@@ -22,6 +22,8 @@ const FightControlRow = () => {
   const leaders = useSelector((state) => state.leaderReducer.value);
   const leaderLevel = useSelector((state) => state.leaderLevelReducer.value);
   const setting = useSelector((state) => state.settingReducer.value);
+  const sideName = useSelector((state) => state.sideNameReducer.value);
+  const report = useSelector((state) => state.reportReducer.value);
   const dispatch = useDispatch();
 
   const calFight = useCallback(
@@ -151,7 +153,7 @@ const FightControlRow = () => {
   const fight = useCallback(() => {
     //var
     let noDefender = false,
-      report = [],
+      report = { history: [], sideName: sideName },
       round = 0;
 
     //get leaders
@@ -164,7 +166,7 @@ const FightControlRow = () => {
       .map((rowLeaderLevel) => rowLeaderLevel + 1)
       .reverse();
     //fight until other side leaders are dead
-    while (round<=100) {
+    while (round <= 100) {
       round++;
       //loop each level
       for (const rowLevel of level) {
@@ -177,7 +179,7 @@ const FightControlRow = () => {
           );
 
           noDefender = subNoDefender;
-          report = [...report, ...subReport];
+          report.history = [...report.history, ...subReport];
           if (noDefender) {
             break;
           }
@@ -194,23 +196,30 @@ const FightControlRow = () => {
 
     console.log(processLeaders, report);
     dispatch(setReport(report));
-  }, [fightInEachLevel, leaderLevel, leaders, dispatch]);
+  }, [fightInEachLevel, leaderLevel, leaders, dispatch, sideName]);
 
   return (
     <div className="text-center md:space-x-4 space-x-2">
-      <NormalButton
-        className="h-12 w-12 text-lg"
-        onClick={() => fight()}
-        aria-label="fight"
-      >
-        <RiSwordFill />
-      </NormalButton>
-      <NormalButton className="h-12 w-12 text-lg" aria-label="play">
-        <MdPlayArrow />
-      </NormalButton>
-      <NormalButton className="h-12 w-12 text-lg" aria-label="play">
-        <MdOutlinePause />
-      </NormalButton>
+      {report.history.length <= 0 && (
+        <NormalButton
+          className="h-12 w-12 text-lg"
+          onClick={() => fight()}
+          aria-label="fight"
+        >
+          <RiSwordFill />
+        </NormalButton>
+      )}
+
+      {report.history.length > 0 && (
+        <>
+          <NormalButton className="h-12 w-12 text-lg" aria-label="play">
+            <MdPlayArrow />
+          </NormalButton>
+          <NormalButton className="h-12 w-12 text-lg" aria-label="play">
+            <MdOutlinePause />
+          </NormalButton>
+        </>
+      )}
     </div>
   );
 };
