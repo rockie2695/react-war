@@ -26,7 +26,7 @@ export const leaderSlice = createSlice({
   name: "leader",
   initialState: {
     value: {
-      1: testData,
+      1: [],
       2: [],
       3: [],
       4: [],

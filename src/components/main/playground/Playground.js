@@ -13,6 +13,9 @@ import NormalButton from "../NormalButton";
 //redux
 import { useSelector } from "react-redux";
 
+//react
+import { useEffect,startTransition } from "react";
+
 //react responsive
 import MediaQuery from "react-responsive";
 
@@ -21,7 +24,13 @@ const Playground = () => {
   //redux
   const leaderLevel = useSelector((state) => state.leaderLevelReducer.value);
 
-  //function
+  //useEffect
+  useEffect(() => {
+    // startTransition(() => {
+    //   // Transition: Show the results
+    //   setSearchQuery(input);
+    // });
+  },[]);
 
   return (
     <div className="w-full min-h-full">
