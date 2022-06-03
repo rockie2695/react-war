@@ -2,16 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const leaderIdSlice = createSlice({
   name: "leaderId",
-  initialState: {
-    value: 3,
-  },
+  initialState: 1,
   reducers: {
-    addLeaderId: (state, action) => {
-      state.value++;
-    },
-    minusLeaderId: (state, action) => {
-      state.value--;
-    },
+    addLeaderId: (state, action) => state + 1,
+    minusLeaderId: (state, action) => state - 1,
   },
 });
 

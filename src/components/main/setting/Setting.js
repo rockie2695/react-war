@@ -8,7 +8,7 @@ export default function Setting() {
   console.log("render Setting");
 
   //redux
-  const setting = useSelector((state) => state.settingReducer.value);
+  const setting = useSelector((state) => state.settingReducer);
   const dispatch = useDispatch();
   const handleInputChange = (event) => {
     if (event.target.type === "number") {

@@ -25,7 +25,7 @@ const testData = [
 export const leaderSlice = createSlice({
   name: "leader",
   initialState: {
-    value: {
+    real: {
       1: [],
       2: [],
       3: [],
@@ -37,17 +37,21 @@ export const leaderSlice = createSlice({
       9: [],
       10: [],
     },
+    clone: {},
   },
   reducers: {
     addLeader: (state, action) => {
-      state.value[action.payload.leaderLevel].push({
+      state.real[action.payload.leaderLevel].push({
         ...action.payload,
       });
     },
   },
+  setCloneLeader: (state, action) => {
+    state.clone = action.payload;
+  },
 });
 
 // Action creators are generated for each case reducer function
-export const { addLeader } = leaderSlice.actions;
+export const { addLeader, setCloneLeader } = leaderSlice.actions;
 
 export default leaderSlice.reducer;

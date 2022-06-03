@@ -19,11 +19,11 @@ const FightControlRow = () => {
   console.log("render FightControlRow");
 
   //redux
-  const leaders = useSelector((state) => state.leaderReducer.value);
-  const leaderLevel = useSelector((state) => state.leaderLevelReducer.value);
-  const setting = useSelector((state) => state.settingReducer.value);
-  const sideName = useSelector((state) => state.sideNameReducer.value);
-  const report = useSelector((state) => state.reportReducer.value);
+  const leaders = useSelector((state) => state.leaderReducer.real);
+  const leaderLevel = useSelector((state) => state.leaderLevelReducer);
+  const setting = useSelector((state) => state.settingReducer);
+  const sideName = useSelector((state) => state.sideNameReducer);
+  const report = useSelector((state) => state.reportReducer);
   const dispatch = useDispatch();
 
   const calFight = useCallback(

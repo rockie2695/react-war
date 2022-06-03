@@ -13,7 +13,7 @@ const SideName = () => {
   console.log("render SideName");
 
   //redux
-  const sideName = useSelector((state) => state.sideNameReducer.value);
+  const sideName = useSelector((state) => state.sideNameReducer);
   const dispatch = useDispatch();
 
   return (

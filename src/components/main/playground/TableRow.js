@@ -27,9 +27,9 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
   console.log("render TableRow " + rowLeaderLevel);
 
   //redux
-  const setting = useSelector((state) => state.settingReducer.value);
-  const leaderId = useSelector((state) => state.leaderIdReducer.value);
-  const leaders = useSelector((state) => state.leaderReducer.value);
+  const setting = useSelector((state) => state.settingReducer);
+  const leaderId = useSelector((state) => state.leaderIdReducer);
+  const leaders = useSelector((state) => state.leaderReducer.real);
   const rowLeaders = leaders[rowLeaderLevel];
   const dispatch = useDispatch();
 

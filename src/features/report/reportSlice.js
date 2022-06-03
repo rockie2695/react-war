@@ -2,13 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const reportSlice = createSlice({
   name: "report",
-  initialState: {
-    value: { history: [], sideName: {} },
-  },
+  initialState: { history: [], sideName: {} },
   reducers: {
-    setReport: (state, action) => {
-      state.value = action.payload;
-    },
+    setReport: (state, action) => action.payload,
   },
 });
 

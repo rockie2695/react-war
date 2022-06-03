@@ -2,13 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const sideNameSlice = createSlice({
   name: "sideName",
-  initialState: {
-    value: { my: "my", enemy: "enemy" },
-  },
+  initialState: { my: "my", enemy: "enemy" },
   reducers: {
     setSideName: (state, action) => {
-      if(action.payload.value!==""){
-        state.value[action.payload.key] = action.payload.value;
+      if (action.payload.value !== "") {
+        state[action.payload.key] = action.payload.value;
       }
     },
   },

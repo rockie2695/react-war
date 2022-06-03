@@ -22,8 +22,8 @@ import MediaQuery from "react-responsive";
 const Playground = () => {
   console.log("render Playground");
   //redux
-  const leaderLevel = useSelector((state) => state.leaderLevelReducer.value);
-  const leaders = useSelector((state) => state.leaderReducer.value);
+  const leaderLevel = useSelector((state) => state.leaderLevelReducer);
+  const leaders = useSelector((state) => state.leaderReducer.real);
   const [sideValue, setSideValue] = useState(0);
   const [sideSoliderNum, setSideSoliderNum] = useState({ my: 0, enemy: 0 });
   //useEffect
@@ -31,7 +31,7 @@ const Playground = () => {
     startTransition(() => {
       //show delay data
       setSideValue(leaders[1].length);
-      setSideSoliderNum({ my: 0, enemy: 0 })
+      setSideSoliderNum({ my: 0, enemy: 0 });
       const leaderLevelArray = [...Array(leaderLevel).keys()]
         .map((rowLeaderLevel) => rowLeaderLevel + 1)
         .reverse();
