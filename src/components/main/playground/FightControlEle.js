@@ -15,7 +15,7 @@ import NormalButton from "../NormalButton";
 //script
 import { randomInteger, shuffle } from "../../../script/random";
 
-const FightControlRow = () => {
+const FightControlEle = () => {
   console.log("render FightControlRow");
 
   //redux
@@ -24,6 +24,7 @@ const FightControlRow = () => {
   const setting = useSelector((state) => state.settingReducer);
   const sideName = useSelector((state) => state.sideNameReducer);
   const report = useSelector((state) => state.reportReducer);
+  const stop = useSelector((state) => state.reportReducer.stop);
   const dispatch = useDispatch();
 
   const calFight = useCallback(
@@ -224,4 +225,4 @@ const FightControlRow = () => {
   );
 };
 
-export default memo(FightControlRow);
+export default memo(FightControlEle);

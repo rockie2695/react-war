@@ -13,6 +13,10 @@ import SoliderNumRow from "./SoliderNumRow";
 
 //redux
 import { useSelector } from "react-redux";
+import MobileControlRow from "./MobileControlRow";
+
+//react responsive
+import MediaQuery from "react-responsive";
 
 const Playground = () => {
   console.log("render Playground");
@@ -24,6 +28,11 @@ const Playground = () => {
       <Header title="Playground" />
       <div className="main-content md:p-4 p-2 md:space-y-4 space-y-2">
         <h2>war table</h2>
+
+        <MediaQuery maxWidth={767}>
+          <MobileControlRow />
+        </MediaQuery>
+
         <SideNameRow />
 
         <SoliderNumRow />

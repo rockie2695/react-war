@@ -6,6 +6,7 @@ import MediaQuery from "react-responsive";
 
 //redux
 import { useSelector } from "react-redux";
+import RoundEle from "./RoundEle";
 
 const SoliderNumRow = () => {
   console.log("render soliderNumRow");
@@ -53,7 +54,9 @@ const SoliderNumRow = () => {
       </div>
 
       <MediaQuery minWidth={768}>
-        <div className="col-span-3"></div>
+        <div className="col-span-3">
+          <RoundEle />
+        </div>
       </MediaQuery>
 
       <div className="md:col-span-4 h-full flex justify-center items-center text-red-600 font-bold text-lg">
