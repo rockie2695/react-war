@@ -2,7 +2,7 @@
 import { memo, useCallback } from "react";
 
 //redux
-import { setReport } from "../../../features/report/reportSlice";
+import { setReport, setStop } from "../../../features/report/reportSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 //react icons
@@ -213,12 +213,24 @@ const FightControlEle = () => {
 
       {report.history.length > 0 && (
         <>
-          <NormalButton className="h-12 w-12 text-lg" aria-label="play">
-            <MdPlayArrow />
-          </NormalButton>
-          <NormalButton className="h-12 w-12 text-lg" aria-label="play">
-            <MdOutlinePause />
-          </NormalButton>
+          {stop && (
+            <NormalButton
+              className="h-12 w-12 text-lg"
+              aria-label="play"
+              onClick={()=>dispatch(setStop(false))}
+            >
+              <MdPlayArrow />
+            </NormalButton>
+          )}
+          {!stop && (
+            <NormalButton
+              className="h-12 w-12 text-lg"
+              aria-label="play"
+              onClick={()=>dispatch(setStop(true))}
+            >
+              <MdOutlinePause />
+            </NormalButton>
+          )}
         </>
       )}
     </div>
