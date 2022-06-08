@@ -37,14 +37,21 @@ const FightControlEle = () => {
     }
     if (stop === false) {
       //start settimeout
-      setTimeout(() => {
-        console.log("run setTimeout");
-        dispatch(setReport({ history: report.history.slice(2) }));
-      }, 2000);
+      setFightTimeoutLoop(
+        setTimeout(() => {
+          console.log("run setTimeout");
+          dispatch(setReport({ history: report.history.slice(1) }));
+        }, 2000)
+      );
     } else {
       //break settimeout
+      clearTimeout(fightTimeoutLoop);
     }
-    //return ()=>{//break settimeout//if(report.length>0)setStop=true}
+    return () => {
+      //break settimeout
+      clearTimeout(fightTimeoutLoop);
+      if (report.length > 0) setStop = true;
+    };
     /*const interval = setInterval(() => {
       setSeconds((seconds) => seconds + 1);
     }, 1000);
