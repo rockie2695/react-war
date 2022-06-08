@@ -1,5 +1,5 @@
 //react
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 
 //redux
 import { setReport, setStop } from "../../../features/report/reportSlice";
@@ -26,6 +26,30 @@ const FightControlEle = () => {
   const report = useSelector((state) => state.reportReducer);
   const stop = useSelector((state) => state.reportReducer.stop);
   const dispatch = useDispatch();
+
+  //state
+  const [fightTimeoutLoop, setFightTimeoutLoop] = useState(null);
+
+  useEffect(() => {
+    console.log("run useEffect");
+    if (report.history.length === 0) {
+      return;
+    }
+    if (stop === false) {
+      //start settimeout
+      setTimeout(() => {
+        console.log("run setTimeout");
+        dispatch(setReport({ history: report.history.slice(2) }));
+      }, 2000);
+    } else {
+      //break settimeout
+    }
+    //return ()=>{//break settimeout//if(report.length>0)setStop=true}
+    /*const interval = setInterval(() => {
+      setSeconds((seconds) => seconds + 1);
+    }, 1000);
+    return () => clearInterval(interval);*/
+  }, [report.history, stop, dispatch]);
 
   const calFight = useCallback(
     (attacker, defender) => {
@@ -194,7 +218,7 @@ const FightControlEle = () => {
         break;
       }
     }
-
+    report.cloneHistory = report.history;
     console.log(processLeaders, report);
     dispatch(setReport(report));
   }, [fightInEachLevel, leaderLevel, leaders, dispatch, sideName]);
@@ -217,7 +241,7 @@ const FightControlEle = () => {
             <NormalButton
               className="h-12 w-12 text-lg"
               aria-label="play"
-              onClick={()=>dispatch(setStop(false))}
+              onClick={() => dispatch(setStop(false))}
             >
               <MdPlayArrow />
             </NormalButton>
@@ -226,7 +250,7 @@ const FightControlEle = () => {
             <NormalButton
               className="h-12 w-12 text-lg"
               aria-label="play"
-              onClick={()=>dispatch(setStop(true))}
+              onClick={() => dispatch(setStop(true))}
             >
               <MdOutlinePause />
             </NormalButton>

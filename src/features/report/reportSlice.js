@@ -2,7 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const reportSlice = createSlice({
   name: "report",
-  initialState: { history: [], sideName: {}, round: 0, stop: false },
+  initialState: {
+    history: [],
+    sideName: {},
+    round: 0,
+    stop: false,
+    cloneHistory: [],
+  },
   reducers: {
     setReport: (state, action) => {
       return { ...state, ...action.payload };
