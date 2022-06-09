@@ -30,33 +30,21 @@ const FightControlEle = () => {
   //state
   const [fightTimeoutLoop, setFightTimeoutLoop] = useState(null);
 
-  useEffect(() => {
-    console.log("run useEffect");
-    if (report.history.length === 0) {
-      return;
-    }
-    if (stop === false) {
-      //start settimeout
-      setFightTimeoutLoop(
-        setTimeout(() => {
-          console.log("run setTimeout");
-          dispatch(setReport({ history: report.history.slice(1) }));
-        }, 2000)
-      );
-    } else {
-      //break settimeout
-      clearTimeout(fightTimeoutLoop);
-    }
-    return () => {
-      //break settimeout
-      clearTimeout(fightTimeoutLoop);
-      if (report.length > 0) setStop = true;
-    };
-    /*const interval = setInterval(() => {
-      setSeconds((seconds) => seconds + 1);
-    }, 1000);
-    return () => clearInterval(interval);*/
-  }, [report.history, stop, dispatch]);
+  const testInterval = (report) => {
+    console.log("test");
+    let reportHistory = report.history;
+    //setFightTimeoutLoop(
+    let fightTimeoutLoop = setInterval(() => {
+      console.log("run setTimeout", reportHistory);
+      reportHistory = reportHistory.slice(1);
+      dispatch(setReport({ history: reportHistory }));
+      if (reportHistory.length === 0) {
+        console.log("we should stop interval");
+        clearInterval(fightTimeoutLoop);
+      }
+    }, 2000);
+    //);
+  };
 
   const calFight = useCallback(
     (attacker, defender) => {
@@ -228,6 +216,7 @@ const FightControlEle = () => {
     report.cloneHistory = report.history;
     console.log(processLeaders, report);
     dispatch(setReport(report));
+    testInterval(report);
   }, [fightInEachLevel, leaderLevel, leaders, dispatch, sideName]);
 
   return (

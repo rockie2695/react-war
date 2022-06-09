@@ -1,3 +1,6 @@
+//react
+import { memo, useCallback, useEffect, useState } from "react";
+
 //circle
 import "react-circular-progressbar/dist/styles.css";
 
@@ -12,8 +15,9 @@ import NormalButton from "../NormalButton";
 import SoliderNumRow from "./SoliderNumRow";
 
 //redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MobileControlRow from "./MobileControlRow";
+import { setReport, setStop } from "../../../features/report/reportSlice";
 
 //react responsive
 import MediaQuery from "react-responsive";
@@ -22,6 +26,48 @@ const Playground = () => {
   console.log("render Playground");
   //redux
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
+  const report = useSelector((state) => state.reportReducer);
+  const stop = useSelector((state) => state.reportReducer.stop);
+  const dispatch = useDispatch();
+
+  // //state
+  // const [fightTimeoutLoop, setFightTimeoutLoop] = useState(null);
+
+  // const test = useCallback(
+  //   (isSetTimeout) => {
+  //     if (isSetTimeout) {
+  //       setFightTimeoutLoop(
+  //         setInterval(() => {
+  //           console.log("run setTimeout");
+  //           dispatch(setReport({ history: report.history.slice(1) }));
+  //         }, 2000)
+  //       );
+  //     } else {
+  //       clearInterval(fightTimeoutLoop);
+  //       setFightTimeoutLoop(null);
+  //     }
+  //   },
+  //   [dispatch, fightTimeoutLoop, report.history]
+  // );
+
+  // useEffect(() => {
+  //   console.log("run useEffect");
+  //   if (report.history.length === 0 || fightTimeoutLoop !== null) {
+  //     return;
+  //   }
+  //   if (stop === false) {
+  //     //start settimeout
+  //     test(true);
+  //   } else {
+  //     //break settimeout
+  //     test(false);
+  //   }
+  //   return () => {
+  //     console.log("return");
+  //     //break settimeout
+  //     test(false);
+  //   };
+  // }, [fightTimeoutLoop, report.history.length, stop, test]);
 
   return (
     <div className="w-full min-h-full">
