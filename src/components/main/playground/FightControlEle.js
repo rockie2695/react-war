@@ -36,8 +36,16 @@ const FightControlEle = () => {
     //setFightTimeoutLoop(
     let fightTimeoutLoop = setInterval(() => {
       console.log("run setTimeout", reportHistory);
+
+      //row
+      let showRowReportHistory=reportHistory[0]
+      console.log(showRowReportHistory)
+
+      //save 
       reportHistory = reportHistory.slice(1);
       dispatch(setReport({ history: reportHistory }));
+      
+      //break loop
       if (reportHistory.length === 0) {
         console.log("we should stop interval");
         clearInterval(fightTimeoutLoop);
