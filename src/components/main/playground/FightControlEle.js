@@ -30,7 +30,7 @@ const FightControlEle = () => {
   //state
   const [fightTimeoutLoop, setFightTimeoutLoop] = useState(null);
 
-  const testInterval = (report) => {
+  const testInterval = useCallback((report) => {
     console.log("test");
     let reportHistory = report.history;
     //setFightTimeoutLoop(
@@ -52,7 +52,7 @@ const FightControlEle = () => {
       }
     }, 2000);
     //);
-  };
+  },[dispatch]);
 
   const calFight = useCallback(
     (attacker, defender) => {
@@ -225,7 +225,7 @@ const FightControlEle = () => {
     console.log(processLeaders, report);
     dispatch(setReport(report));
     testInterval(report);
-  }, [fightInEachLevel, leaderLevel, leaders, dispatch, sideName]);
+  }, [fightInEachLevel, leaderLevel, leaders, dispatch, sideName,testInterval]);
 
   return (
     <div className="text-center md:space-x-4 space-x-2">
