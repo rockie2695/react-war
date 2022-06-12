@@ -45,13 +45,25 @@ export const leaderSlice = createSlice({
         ...action.payload,
       });
     },
-  },
-  setCloneLeader: (state, action) => {
-    state.clone = action.payload;
+    setCloneLeader: (state, action) => {
+      console.log(action);
+      state.clone = action.payload;
+    },
+    changeOneRealLeader: (state, action) => {
+      console.log(action.payload);
+      let index = state.real[action.payload.leaderLevel].findIndex(
+        (leader) => leader.id === action.payload.id
+      );
+      state.real[action.payload.leaderLevel][index] = {
+        ...state.real[action.payload.leaderLevel][index],
+        ...action.payload,
+      };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addLeader, setCloneLeader } = leaderSlice.actions;
+export const { addLeader, setCloneLeader, changeOneRealLeader } =
+  leaderSlice.actions;
 
 export default leaderSlice.reducer;

@@ -3,6 +3,10 @@ import { memo, useCallback, useEffect, useState } from "react";
 
 //redux
 import { setReport, setStop } from "../../../features/report/reportSlice";
+import {
+  setCloneLeader,
+  changeOneRealLeader,
+} from "../../../features/leader/leaderSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 //react icons
@@ -14,6 +18,8 @@ import NormalButton from "../NormalButton";
 
 //script
 import { randomInteger, shuffle } from "../../../script/random";
+
+import { useLocation } from "react-router-dom";
 
 const FightControlEle = () => {
   console.log("render FightControlRow");
@@ -30,29 +36,41 @@ const FightControlEle = () => {
   //state
   const [fightTimeoutLoop, setFightTimeoutLoop] = useState(null);
 
-  const testInterval = useCallback((report) => {
-    console.log("test");
-    let reportHistory = report.history;
-    //setFightTimeoutLoop(
-    let fightTimeoutLoop = setInterval(() => {
-      console.log("run setTimeout", reportHistory);
+  const location = useLocation();
 
-      //row
-      let showRowReportHistory=reportHistory[0]
-      console.log(showRowReportHistory)
+  const testInterval = useCallback(
+    (reportHistory) => {
+      let selfReportHistory = reportHistory;
+      //setFightTimeoutLoop(
+      let selfFightTimeoutLoop = setTimeout(() => {
+        //row
+        let showRowReportHistory = selfReportHistory[0];
+        console.log(showRowReportHistory);
+        dispatch(changeOneRealLeader(showRowReportHistory.attackerAfter));
+        dispatch(changeOneRealLeader(showRowReportHistory.defenderAfter));
+        
+        //save
+        selfReportHistory = selfReportHistory.slice(1);
+        dispatch(setReport({ history: selfReportHistory }));
 
-      //save 
-      reportHistory = reportHistory.slice(1);
-      dispatch(setReport({ history: reportHistory }));
-      
-      //break loop
-      if (reportHistory.length === 0) {
-        console.log("we should stop interval");
-        clearInterval(fightTimeoutLoop);
-      }
-    }, 2000);
-    //);
-  },[dispatch]);
+        //clear
+        clearInterval(selfFightTimeoutLoop);
+        setFightTimeoutLoop(null);
+      }, 2000);
+      setFightTimeoutLoop(selfFightTimeoutLoop);
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    if (
+      report.history.length > 0 &&
+      fightTimeoutLoop === null &&
+      location.pathname === "/playground"
+    ) {
+      testInterval(report.history);
+    }
+  }, [report.history, fightTimeoutLoop, testInterval, location.pathname]);
 
   const calFight = useCallback(
     (attacker, defender) => {
@@ -222,10 +240,18 @@ const FightControlEle = () => {
       }
     }
     report.cloneHistory = report.history;
-    console.log(processLeaders, report);
+    console.log("fight result:", processLeaders, report);
+    dispatch(setCloneLeader(leaders));
     dispatch(setReport(report));
-    testInterval(report);
-  }, [fightInEachLevel, leaderLevel, leaders, dispatch, sideName,testInterval]);
+    //testInterval(report);
+  }, [
+    fightInEachLevel,
+    leaderLevel,
+    leaders,
+    dispatch,
+    sideName,
+    //testInterval,
+  ]);
 
   return (
     <div className="text-center md:space-x-4 space-x-2">

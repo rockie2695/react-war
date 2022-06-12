@@ -67,7 +67,17 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
             .map((leader, index2) => (
               <div
                 key={index2}
-                className="border hover:border-zinc-700 p-1 rounded-lg hover:ease-in-out duration-300"
+                className={
+                  "border hover:border-zinc-700 p-1 rounded-lg hover:ease-in-out duration-300 border-transparent" +
+                  (typeof leader.borderColor !== "undefined" &&
+                  leader.borderColor === "red"
+                    ? " border-red-500"
+                    : "") +
+                  (typeof leader.borderColor !== "undefined" &&
+                  leader.borderColor === "blue"
+                    ? " border-blue-500"
+                    : "")
+                }
               >
                 <CircularProgressbarWithChildren
                   value={(leader.soliderNum / leader.maxSoliderNum) * 100}
