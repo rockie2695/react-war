@@ -48,7 +48,7 @@ const FightControlEle = () => {
         console.log(showRowReportHistory);
         dispatch(changeOneRealLeader(showRowReportHistory.attackerAfter));
         dispatch(changeOneRealLeader(showRowReportHistory.defenderAfter));
-        
+
         //save
         selfReportHistory = selfReportHistory.slice(1);
         dispatch(setReport({ history: selfReportHistory }));
@@ -56,7 +56,7 @@ const FightControlEle = () => {
         //clear
         clearInterval(selfFightTimeoutLoop);
         setFightTimeoutLoop(null);
-      }, 2000);
+      }, 1000);
       setFightTimeoutLoop(selfFightTimeoutLoop);
     },
     [dispatch]
@@ -97,6 +97,10 @@ const FightControlEle = () => {
         attackRandomNum,
         attacker.leaderPower
       );
+
+      if (selfDefender.soliderNum < 0) {
+        selfDefender.soliderNum = 0;
+      }
 
       return [attacker, selfDefender];
     },

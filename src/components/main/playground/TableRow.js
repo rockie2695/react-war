@@ -89,7 +89,10 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
                   </div>
                   <div className="text-xs md:text-sm">
                     <span>
-                      {(leader.soliderNum / leader.maxSoliderNum) * 100}%
+                      {parseInt(
+                        (leader.soliderNum / leader.maxSoliderNum) * 100
+                      )}
+                      %
                     </span>
                   </div>
                 </CircularProgressbarWithChildren>
