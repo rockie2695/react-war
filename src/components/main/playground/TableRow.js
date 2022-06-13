@@ -71,11 +71,11 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
                   "border hover:border-zinc-700 p-1 rounded-lg hover:ease-in-out duration-300 border-transparent" +
                   (typeof leader.borderColor !== "undefined" &&
                   leader.borderColor === "red"
-                    ? " border-red-500"
+                    ? " border-red-600"
                     : "") +
                   (typeof leader.borderColor !== "undefined" &&
                   leader.borderColor === "blue"
-                    ? " border-blue-500"
+                    ? " border-blue-600"
                     : "")
                 }
               >

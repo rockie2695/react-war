@@ -19,6 +19,7 @@ import NormalButton from "../NormalButton";
 //script
 import { randomInteger, shuffle } from "../../../script/random";
 
+//react router
 import { useLocation } from "react-router-dom";
 
 const FightControlEle = () => {

@@ -1,5 +1,5 @@
 //react
-import { useEffect, startTransition, useState } from "react";
+import { useEffect, startTransition, useState, memo } from "react";
 
 //react responsive
 import MediaQuery from "react-responsive";
@@ -65,4 +65,4 @@ const SoliderNumRow = () => {
     </div>
   );
 };
-export default SoliderNumRow;
+export default memo(SoliderNumRow);

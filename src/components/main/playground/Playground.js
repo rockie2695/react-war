@@ -1,5 +1,5 @@
 //react
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo } from "react";
 
 //circle
 import "react-circular-progressbar/dist/styles.css";
@@ -15,9 +15,8 @@ import NormalButton from "../NormalButton";
 import SoliderNumRow from "./SoliderNumRow";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import MobileControlRow from "./MobileControlRow";
-import { setReport, setStop } from "../../../features/report/reportSlice";
 
 //react responsive
 import MediaQuery from "react-responsive";
@@ -26,10 +25,7 @@ const Playground = () => {
   console.log("render Playground");
   //redux
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
-  const report = useSelector((state) => state.reportReducer);
-  const stop = useSelector((state) => state.reportReducer.stop);
-  const dispatch = useDispatch();
- 
+
   return (
     <div className="w-full min-h-full">
       <Header title="Playground" />
@@ -68,4 +64,4 @@ const Playground = () => {
   );
 };
 
-export default Playground;
+export default memo(Playground);
