@@ -82,7 +82,16 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
                 <CircularProgressbarWithChildren
                   value={(leader.soliderNum / leader.maxSoliderNum) * 100}
                   background={true}
-                  styles={buildStyles({ backgroundColor: "#ffffff" })}
+                  styles={buildStyles({
+                    backgroundColor: "#ffffff",
+                    // Colors
+                    pathColor:
+                      leader.soliderNum / leader.maxSoliderNum > 0.7
+                        ? "rgb(59 130 246)" //bg-blue-500
+                        : leader.soliderNum / leader.maxSoliderNum > 0.3
+                        ? "rgb(249 115 22)" //bg-orange-500
+                        : "rgb(239 68 68)", //bg-red-500
+                  })}
                 >
                   <div className="text-xs md:text-sm">
                     <span className="truncate">{leader.name}</span>

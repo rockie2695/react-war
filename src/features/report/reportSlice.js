@@ -16,10 +16,13 @@ export const reportSlice = createSlice({
     setStop: (state, action) => {
       state.stop = action.payload;
     },
+    setRound: (state, action) => {
+      state.round = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setReport, setStop } = reportSlice.actions;
+export const { setReport, setStop, setRound } = reportSlice.actions;
 
 export default reportSlice.reducer;

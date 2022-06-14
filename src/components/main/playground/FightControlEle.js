@@ -2,7 +2,11 @@
 import { memo, useCallback, useEffect, useState } from "react";
 
 //redux
-import { setReport, setStop } from "../../../features/report/reportSlice";
+import {
+  setReport,
+  setStop,
+  setRound,
+} from "../../../features/report/reportSlice";
 import {
   setCloneLeader,
   changeOneRealLeader,
@@ -47,16 +51,44 @@ const FightControlEle = () => {
         //row
         let showRowReportHistory = selfReportHistory[0];
         console.log(showRowReportHistory);
-        dispatch(changeOneRealLeader(showRowReportHistory.attackerAfter));
-        dispatch(changeOneRealLeader(showRowReportHistory.defenderAfter));
+        dispatch(
+          changeOneRealLeader({
+            ...showRowReportHistory.attackerAfter,
+            borderColor: "blue",
+          })
+        );
+        dispatch(
+          changeOneRealLeader({
+            ...showRowReportHistory.defenderAfter,
+            borderColor: "red",
+          })
+        );
 
         //save
         selfReportHistory = selfReportHistory.slice(1);
         dispatch(setReport({ history: selfReportHistory }));
+        dispatch(setRound(showRowReportHistory.round));
+        //remove border
+        setTimeout(() => {
+          dispatch(
+            changeOneRealLeader({
+              id: showRowReportHistory.attackerAfter.id,
+              leaderLevel: showRowReportHistory.attackerAfter.leaderLevel,
+              borderColor: null,
+            })
+          );
+          dispatch(
+            changeOneRealLeader({
+              id: showRowReportHistory.defenderAfter.id,
+              leaderLevel: showRowReportHistory.defenderAfter.leaderLevel,
+              borderColor: null,
+            })
+          );
 
-        //clear
-        clearInterval(selfFightTimeoutLoop);
-        setFightTimeoutLoop(null);
+          //clear
+          clearInterval(selfFightTimeoutLoop);
+          setFightTimeoutLoop(null);
+        }, 500);
       }, 1000);
       setFightTimeoutLoop(selfFightTimeoutLoop);
     },
