@@ -24,40 +24,121 @@ function randomPeopleName() {
   return { name: firstName + secondName + thirdName, firstName: firstName };
 }
 
-function randomWorldName() {
-  const firstNameList =
-    "格聖蘭尼斯伊韋因羅艾塞阿埃詹奎魯法維莫基磨特屬安帕索阪班厄姑易沙奧希塔邁肯寧浦吉巴";
-  const secondNameList =
-    "爾弗克萊倫瓦宿霍隆納塔達戈瑟蘭沙拉敘德格斯門姆佛卡苟雷哈瑞康清";
-  const thirdNameList = "文里哈拉洛丹蘭倫加徹爾茲斯羅科達納柏瑪特希瓦";
-  const forthNameList = "奧卡斯德尼丹布什隆雷爾特坦";
-  const fifthNameList = "萊哈";
-  const firstName = firstNameList.charAt(
-    randomInteger(1, firstNameList.length) - 1
-  );
-  const secondName = secondNameList.charAt(
-    randomInteger(1, secondNameList.length) - 1
-  );
-  const thirdName =
-    randomInteger(1, 10) > 7
-      ? thirdNameList.charAt(randomInteger(1, thirdNameList.length) - 1)
-      : "";
-  let forthName = "";
+function randomSideName() {
+  const firstNameList = [
+    "民主",
+    "自由",
+    "永恒",
+    "天使",
+    "天色",
+    "白月",
+    "淘金",
+    "避風",
+    "冷泉",
+    "赤岩",
+    "雪白",
+    "激流",
+    "春田",
+    "格蘭",
+    "尼斯",
+    "艾爾",
+    "七星",
+    "追風",
+    "暗影",
+    "風沙",
+    "飛霜",
+    "北斗",
+    "紫雲",
+    "血海",
+    "無上",
+    "琉璃",
+    "天心",
+    "日炎",
+    "月光",
+    "疾風",
+    "百花",
+    "寒風",
+    "落日",
+    "萬妖",
+    "赤血",
+    "飄渺",
+    "碧雲",
+    "龍虎",
+    "滿月",
+    "光明",
+    "迷失",
+    "星辰",
+    "白骨",
+    "黑暗",
+    "霧隱",
+    "雲海",
+    "月牙",
+    "明月",
+    "幽冥",
+    "死亡",
+    "水雲",
+    "清風",
+    "吉浦",
+    "奧希",
+    "肯寧",
+    "安帕",
+    "法魯",
+    "埃羅",
+    "餘暉",
+    "紅石",
+    "火磷",
+    "萬獸",
+    "諸神",
+    "亡靈",
+    "簫月",
+    "璀璨",
+    "鳳凰",
+    "斷魂",
+    "神龍",
+    "混沌",
+    "暗黑",
+    "無界",
+    "白金",
+    "黑日",
+    "紅月",
+    "黃金",
+    "白銀",
+    "黃銅",
+    "統一",
+  ];
+  const secondNameList = [
+    "合眾國",
+    "共和國",
+    "酋長國",
+    "帝國",
+    "王國",
+    "國",
+    "聯邦",
+    "聯盟",
+    "城",
+    "府",
+    "神殿",
+    "山",
+    "神教",
+    "教",
+    "門",
+    "盟",
+    "聖殿",
+    "島",
+    "幫",
+    "同盟",
+    "邦聯",
+  ];
 
-  let fifthName = "";
-  if (thirdName !== "") {
-    forthName =
-      randomInteger(1, 10) === 10
-        ? forthNameList.charAt(randomInteger(1, forthNameList.length) - 1)
-        : "";
-  }
-  if (forthName !== "") {
-    fifthName =
-      randomInteger(1, 10) === 10
-        ? fifthNameList.charAt(randomInteger(1, fifthNameList.length) - 1)
-        : "";
-  }
-  return firstName + secondName + thirdName + forthName + fifthName;
+  const firstName =
+    firstNameList[randomInteger(1, firstNameList.length) - 1] +
+    (randomInteger(1, 10) >= 5
+      ? firstNameList[randomInteger(1, firstNameList.length) - 1]
+      : "");
+  const secondName =
+    secondNameList[randomInteger(1, secondNameList.length) - 1];
+
+  return firstName + secondName;
 }
 
 function randomInteger(min = 10, max = 25) {
@@ -73,4 +154,4 @@ function shuffle(array = []) {
   }
   return randomArray;
 }
-export { randomPeopleName, randomInteger, shuffle, randomWorldName };
+export { randomPeopleName, randomInteger, shuffle, randomSideName };

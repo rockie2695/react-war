@@ -10,7 +10,7 @@ const RoundEle = () => {
 
   return (
     <div className="flex items-center justify-center h-full text-lg font-bold">
-      R: {round}
+      回合: {round}
     </div>
   );
 };

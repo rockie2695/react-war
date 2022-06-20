@@ -93,10 +93,10 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
                         : "rgb(239 68 68)", //bg-red-500
                   })}
                 >
-                  <div className="text-xs md:text-sm bg-white/50">
+                  <div className="text-xs md:text-sm bg-white/50 rounded-lg">
                     <span className="truncate">{leader.name}</span>
                   </div>
-                  <div className="text-xs md:text-sm bg-white/50">
+                  <div className="text-xs md:text-sm bg-white/50 rounded-lg">
                     <span>
                       {parseInt(
                         (leader.soliderNum / leader.maxSoliderNum) * 100
