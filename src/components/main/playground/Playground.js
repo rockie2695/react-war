@@ -15,8 +15,9 @@ import NormalButton from "../NormalButton";
 import SoliderNumRow from "./SoliderNumRow";
 
 //redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MobileControlRow from "./MobileControlRow";
+import { addLeaderLevel } from "../../../features/leader/leaderLevelSlice";
 
 //react responsive
 import MediaQuery from "react-responsive";
@@ -25,6 +26,7 @@ const Playground = () => {
   console.log("render Playground");
   //redux
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
+  const dispatch = useDispatch();
 
   return (
     <div className="w-full min-h-full">
@@ -58,7 +60,12 @@ const Playground = () => {
             )}
           />
         </div>
-        <NormalButton className="w-full h-10">add lower level</NormalButton>
+        <NormalButton
+          className="w-full h-10"
+          onClick={() => dispatch(addLeaderLevel())}
+        >
+          add lower level
+        </NormalButton>
       </div>
     </div>
   );
