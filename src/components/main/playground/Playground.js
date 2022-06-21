@@ -17,10 +17,17 @@ import SoliderNumRow from "./SoliderNumRow";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import MobileControlRow from "./MobileControlRow";
-import { addLeaderLevel } from "../../../features/leader/leaderLevelSlice";
+import {
+  addLeaderLevel,
+  minusLeaderLevel,
+} from "../../../features/leader/leaderLevelSlice";
 
 //react responsive
 import MediaQuery from "react-responsive";
+
+//react icons
+import { MdSouth, MdNorth } from "react-icons/md";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const Playground = () => {
   console.log("render Playground");
@@ -60,12 +67,24 @@ const Playground = () => {
             )}
           />
         </div>
-        <NormalButton
-          className="w-full h-10"
-          onClick={() => dispatch(addLeaderLevel())}
-        >
-          add lower level
-        </NormalButton>
+        <div className="grid grid-cols-2 md:gap-4 gap-2">
+          <NormalButton
+            className="w-full h-10"
+            onClick={() => dispatch(minusLeaderLevel())}
+          >
+            <AiOutlineMinus />
+            <MdSouth />
+            minus lower level
+          </NormalButton>
+          <NormalButton
+            className="w-full h-10"
+            onClick={() => dispatch(addLeaderLevel())}
+          >
+            <AiOutlinePlus />
+            <MdSouth />
+            add lower level
+          </NormalButton>
+        </div>
       </div>
     </div>
   );
