@@ -18,8 +18,8 @@ import SoliderNumRow from "./SoliderNumRow";
 import { useSelector, useDispatch } from "react-redux";
 import MobileControlRow from "./MobileControlRow";
 import {
-  addLeaderLevel,
-  minusLeaderLevel,
+  addLowerLeaderLevel,
+  minusLowerLeaderLevel,
 } from "../../../features/leader/leaderLevelSlice";
 
 //react responsive
@@ -48,8 +48,18 @@ const Playground = () => {
         <SideNameRow />
 
         <SoliderNumRow />
-
-        <NormalButton className="w-full h-10">add higher level</NormalButton>
+        <div className="grid grid-cols-2 md:gap-4 gap-2">
+          <NormalButton className="w-full h-10">
+            <AiOutlineMinus />
+            <MdNorth />
+            minus higher level
+          </NormalButton>
+          <NormalButton className="w-full h-10">
+            <AiOutlinePlus />
+            <MdNorth />
+            add higher level
+          </NormalButton>
+        </div>
 
         <div className="h-[50vh] overflow-hidden">
           <Virtuoso
@@ -70,7 +80,7 @@ const Playground = () => {
         <div className="grid grid-cols-2 md:gap-4 gap-2">
           <NormalButton
             className="w-full h-10"
-            onClick={() => dispatch(minusLeaderLevel())}
+            onClick={() => dispatch(minusLowerLeaderLevel())}
           >
             <AiOutlineMinus />
             <MdSouth />
@@ -78,7 +88,7 @@ const Playground = () => {
           </NormalButton>
           <NormalButton
             className="w-full h-10"
-            onClick={() => dispatch(addLeaderLevel())}
+            onClick={() => dispatch(addLowerLeaderLevel())}
           >
             <AiOutlinePlus />
             <MdSouth />

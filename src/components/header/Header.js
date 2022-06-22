@@ -3,7 +3,7 @@ import Tab from "./Tab";
 
 export default function Header() {
   return (
-    <header className="bg-zinc-700 shadow-md md:border-r md:border-b-0 border-gray-500 border-b">
+    <header className="bg-zinc-700 shadow-md md:border-b-0 border-gray-500 border-b">
       <nav className="flex md:flex-col flex-row text-base h-auto top-0 sticky ">
         <Tab
           title="react war"
