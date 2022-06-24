@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { action } from "@storybook/addon-actions";
 import { randomPeopleName } from "../../script/random";
 
 const testData = [
@@ -46,8 +47,12 @@ export const leaderSlice = createSlice({
       });
     },
     setCloneLeader: (state, action) => {
-      console.log(action);
       state.clone = action.payload;
+    },
+    moveLeaderToLevel: (state, action) => {
+      state.real[action.payload.toLeaderLevel] =
+        state.real[action.payload.fromLeaderLevel];
+      state.real[action.payload.fromLeaderLevel] = [];
     },
     changeOneRealLeader: (state, action) => {
       console.log(action.payload);

@@ -65,9 +65,42 @@ export default function Setting() {
                     min={setting.numAddPeople.min}
                     max={setting.numAddPeople.max}
                     value={setting.numAddPeople.value}
+                    step={setting.numAddPeople.step}
                     onChange={handleInputChange}
                   />
                 </div>
+              </div>
+
+              <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
+                <div className="flex-1">
+                  <label htmlFor="eachFightPlayTime">
+                    each fight play time (s):
+                  </label>
+                </div>
+                <div className="flex-1 flex items-center">
+                  <input
+                    type="number"
+                    id="eachFightPlayTime"
+                    name="eachFightPlayTime"
+                    className="rounded p-1 text-center flex-1"
+                    minLength={setting.eachFightPlayTime.minLength}
+                    maxLength={setting.eachFightPlayTime.maxLength}
+                    min={setting.eachFightPlayTime.min}
+                    max={setting.eachFightPlayTime.max}
+                    value={setting.eachFightPlayTime.value}
+                    step={setting.eachFightPlayTime.step}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+
+              <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
+                <div className="flex-1">
+                  <label htmlFor="numAddPeople">
+                    show percentage or soliderNum:
+                  </label>
+                </div>
+                <div className="flex-1 flex items-center"></div>
               </div>
             </div>
           </div>

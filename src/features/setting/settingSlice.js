@@ -4,6 +4,14 @@ export const settingSlice = createSlice({
   name: "setting",
   initialState: {
     numAddPeople: { value: 1, minLength: 1, maxLength: 3, min: 1, max: 100 },
+    eachFightPlayTime: {
+      value: 1,
+      minLength: 1,
+      maxLength: 3,
+      step: 0.01,
+      max: 1,
+      min: 0.01,
+    },
     attackRandomFlowUpper: {
       value: 110,
       minLength: 1,

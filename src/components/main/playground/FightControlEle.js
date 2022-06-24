@@ -95,11 +95,11 @@ const FightControlEle = () => {
           //clear
           clearInterval(selfFightTimeoutLoop);
           setFightTimeoutLoop(null);
-        }, 500);
-      }, 1000);
+        }, (setting.eachFightPlayTime.value * 1000) / 2);
+      }, setting.eachFightPlayTime.value * 1000);
       setFightTimeoutLoop(selfFightTimeoutLoop);
     },
-    [dispatch]
+    [dispatch, setting.eachFightPlayTime.value]
   );
 
   useEffect(() => {
