@@ -50,8 +50,10 @@ export const leaderSlice = createSlice({
       state.clone = action.payload;
     },
     moveLeaderToLevel: (state, action) => {
-      state.real[action.payload.toLeaderLevel] =
-        state.real[action.payload.fromLeaderLevel];
+      state.real[action.payload.toLeaderLevel] = [
+        ...state.real[action.payload.toLeaderLevel],
+        ...state.real[action.payload.fromLeaderLevel],
+      ];
       state.real[action.payload.fromLeaderLevel] = [];
     },
     changeOneRealLeader: (state, action) => {
@@ -68,7 +70,11 @@ export const leaderSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addLeader, setCloneLeader, changeOneRealLeader } =
-  leaderSlice.actions;
+export const {
+  addLeader,
+  setCloneLeader,
+  changeOneRealLeader,
+  moveLeaderToLevel,
+} = leaderSlice.actions;
 
 export default leaderSlice.reducer;

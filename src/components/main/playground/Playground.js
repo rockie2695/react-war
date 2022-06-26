@@ -21,6 +21,7 @@ import {
   addLowerLeaderLevel,
   minusLowerLeaderLevel,
 } from "../../../features/leader/leaderLevelSlice";
+import { moveLeaderToLevel } from "../../../features/leader/leaderSlice";
 
 //react responsive
 import MediaQuery from "react-responsive";
@@ -48,17 +49,29 @@ const Playground = () => {
         <SideNameRow />
 
         <SoliderNumRow />
-        <div className="grid grid-cols-2 md:gap-4 gap-2">
-          <NormalButton className="w-full h-10">
-            <AiOutlineMinus />
-            <MdNorth />
-            minus higher level
-          </NormalButton>
-          <NormalButton className="w-full h-10">
-            <AiOutlinePlus />
-            <MdNorth />
-            add higher level
-          </NormalButton>
+        <div className="flex md:space-x-4 space-x-2">
+          {leaderLevel > 1 && (
+            <NormalButton className="w-full h-10">
+              <AiOutlineMinus />
+              <MdNorth />
+              minus higher level
+            </NormalButton>
+          )}
+          {leaderLevel < 10 && (
+            <NormalButton
+              className="w-full h-10"
+              onClick={() => {
+                dispatch(addLowerLeaderLevel());
+                dispatch(
+                  moveLeaderToLevel({ fromLeaderLevel: 1, toLeaderLevel: 2 })
+                );
+              }}
+            >
+              <AiOutlinePlus />
+              <MdNorth />
+              add higher level
+            </NormalButton>
+          )}
         </div>
 
         <div className="h-[50vh] overflow-hidden">
@@ -77,23 +90,27 @@ const Playground = () => {
             )}
           />
         </div>
-        <div className="grid grid-cols-2 md:gap-4 gap-2">
-          <NormalButton
-            className="w-full h-10"
-            onClick={() => dispatch(minusLowerLeaderLevel())}
-          >
-            <AiOutlineMinus />
-            <MdSouth />
-            minus lower level
-          </NormalButton>
-          <NormalButton
-            className="w-full h-10"
-            onClick={() => dispatch(addLowerLeaderLevel())}
-          >
-            <AiOutlinePlus />
-            <MdSouth />
-            add lower level
-          </NormalButton>
+        <div className="flex md:space-x-4 space-x-2">
+          {leaderLevel > 1 && (
+            <NormalButton
+              className="w-full h-10"
+              onClick={() => dispatch(minusLowerLeaderLevel())}
+            >
+              <AiOutlineMinus />
+              <MdSouth />
+              minus lower level
+            </NormalButton>
+          )}
+          {leaderLevel < 10 && (
+            <NormalButton
+              className="w-full h-10"
+              onClick={() => dispatch(addLowerLeaderLevel())}
+            >
+              <AiOutlinePlus />
+              <MdSouth />
+              add lower level
+            </NormalButton>
+          )}
         </div>
       </div>
     </div>
