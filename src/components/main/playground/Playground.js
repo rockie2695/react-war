@@ -51,7 +51,20 @@ const Playground = () => {
         <SoliderNumRow />
         <div className="flex md:space-x-4 space-x-2">
           {leaderLevel > 1 && (
-            <NormalButton className="w-full h-10">
+            <NormalButton
+              className="w-full h-10"
+              onClick={() => {
+                dispatch(minusLowerLeaderLevel());
+                for (let i = 1; i < leaderLevel; i++) {
+                  dispatch(
+                    moveLeaderToLevel({
+                      fromLeaderLevel: i+1,
+                      toLeaderLevel: i,
+                    })
+                  );
+                }
+              }}
+            >
               <AiOutlineMinus />
               <MdNorth />
               minus higher level
@@ -62,9 +75,14 @@ const Playground = () => {
               className="w-full h-10"
               onClick={() => {
                 dispatch(addLowerLeaderLevel());
-                dispatch(
-                  moveLeaderToLevel({ fromLeaderLevel: 1, toLeaderLevel: 2 })
-                );
+                for (let i = leaderLevel; i >= 1; i--) {
+                  dispatch(
+                    moveLeaderToLevel({
+                      fromLeaderLevel: i,
+                      toLeaderLevel: i + 1,
+                    })
+                  );
+                }
               }}
             >
               <AiOutlinePlus />
