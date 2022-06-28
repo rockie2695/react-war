@@ -34,6 +34,7 @@ const Playground = () => {
   console.log("render Playground");
   //redux
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
+  const leader = useSelector((state) => state.leaderReducer);
   const dispatch = useDispatch();
 
   return (
@@ -58,7 +59,7 @@ const Playground = () => {
                 for (let i = 1; i < leaderLevel; i++) {
                   dispatch(
                     moveLeaderToLevel({
-                      fromLeaderLevel: i+1,
+                      fromLeaderLevel: i + 1,
                       toLeaderLevel: i,
                     })
                   );
@@ -112,7 +113,20 @@ const Playground = () => {
           {leaderLevel > 1 && (
             <NormalButton
               className="w-full h-10"
-              onClick={() => dispatch(minusLowerLeaderLevel())}
+              onClick={() => {
+                dispatch(minusLowerLeaderLevel());
+                if (leader.real[leaderLevel].length > 0) {
+                  console.log("123");
+                  for (let i = 1; i < leaderLevel; i++) {
+                    dispatch(
+                      moveLeaderToLevel({
+                        fromLeaderLevel: i + 1,
+                        toLeaderLevel: i,
+                      })
+                    );
+                  }
+                }
+              }}
             >
               <AiOutlineMinus />
               <MdSouth />
