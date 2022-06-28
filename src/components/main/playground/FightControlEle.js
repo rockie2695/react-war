@@ -50,7 +50,7 @@ const FightControlEle = () => {
     setEnemySideTopestLeader(leaders[1].filter((row) => row.side === "enemy"));
   }, [leaders]);
 
-  const testInterval = useCallback(
+  const intervalReport = useCallback(
     (reportHistory) => {
       let selfReportHistory = reportHistory;
       //setFightTimeoutLoop(
@@ -108,11 +108,11 @@ const FightControlEle = () => {
       fightTimeoutLoop === null &&
       location.pathname === "/playground"
     ) {
-      testInterval(report.history);
+      intervalReport(report.history);
     }
-  }, [report.history, fightTimeoutLoop, testInterval, location.pathname]);
+  }, [report.history, fightTimeoutLoop, intervalReport, location.pathname]);
 
-  const calFight = useCallback(
+  const calcFight = useCallback(
     (attacker, defender) => {
       let selfDefender = JSON.parse(JSON.stringify(defender));
       const attackerLeaderPowerTimes = 1 + (attacker.leaderPower / 100) * 5;
@@ -207,7 +207,7 @@ const FightControlEle = () => {
           break;
         }
         //just fight
-        [attacker, defender] = calFight(attacker, defender);
+        [attacker, defender] = calcFight(attacker, defender);
         //find attacker and defender from processLeaders
         let needChangeAttackerIndex = processLeaders.findIndex(
           (leader) => leader.id === attacker.id
@@ -237,7 +237,7 @@ const FightControlEle = () => {
       }
       return [noDefender, report];
     },
-    [calFight, findDefender]
+    [calcFight, findDefender]
   );
 
   const fight = useCallback(() => {
@@ -262,6 +262,25 @@ const FightControlEle = () => {
       for (const rowLevel of level) {
         //make first round,only the lowest level can attack,second round,only the second lowest and lowest level can attack,and so on
         if (round >= level.indexOf(rowLevel) + 1) {
+          //check first row defender soliderNum or attacker soliderNum is 0,then break
+          let mySideFirstRowSoliderNum = processLeaders
+            .filter(
+              (leader) => leader.leaderLevel === 1 && leader.side === "my"
+            )
+            .reduce((a, b) => a + b.soliderNum, 0);
+          let enemySideFirstRowSoliderNum = processLeaders
+            .filter(
+              (leader) => leader.leaderLevel === 1 && leader.side === "enemy"
+            )
+            .reduce((a, b) => a + b.soliderNum, 0);
+
+          if (
+            mySideFirstRowSoliderNum === 0 ||
+            enemySideFirstRowSoliderNum === 0
+          ) {
+            break;
+          }
+          //fight in each level
           const [subNoDefender, subReport] = fightInEachLevel(
             rowLevel,
             processLeaders,
