@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const leaderLevelSlice = createSlice({
   name: "leaderLevel",
-  initialState: 3,
+  initialState: 1,
   reducers: {
-    addLeaderLevel: (state, action) => state + 1,
-    minusLeaderLevel: (state, action) => state - 1,
+    addLowerLeaderLevel: (state, action) => state + 1,
+    minusLowerLeaderLevel: (state, action) => state - 1,
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addLeaderLevel, minusLeaderLevel } = leaderLevelSlice.actions;
+export const { addLowerLeaderLevel, minusLowerLeaderLevel } = leaderLevelSlice.actions;
 
 export default leaderLevelSlice.reducer;

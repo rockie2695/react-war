@@ -15,16 +15,27 @@ import NormalButton from "../NormalButton";
 import SoliderNumRow from "./SoliderNumRow";
 
 //redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MobileControlRow from "./MobileControlRow";
+import {
+  addLowerLeaderLevel,
+  minusLowerLeaderLevel,
+} from "../../../features/leader/leaderLevelSlice";
+import { moveLeaderToLevel } from "../../../features/leader/leaderSlice";
 
 //react responsive
 import MediaQuery from "react-responsive";
+
+//react icons
+import { MdSouth, MdNorth } from "react-icons/md";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const Playground = () => {
   console.log("render Playground");
   //redux
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
+  const leader = useSelector((state) => state.leaderReducer);
+  const dispatch = useDispatch();
 
   return (
     <div className="w-full min-h-full">
@@ -39,8 +50,48 @@ const Playground = () => {
         <SideNameRow />
 
         <SoliderNumRow />
-
-        <NormalButton className="w-full h-10">add higher level</NormalButton>
+        <div className="flex md:space-x-4 space-x-2">
+          {leaderLevel > 1 && (
+            <NormalButton
+              className="w-full h-10"
+              onClick={() => {
+                dispatch(minusLowerLeaderLevel());
+                for (let i = 1; i < leaderLevel; i++) {
+                  dispatch(
+                    moveLeaderToLevel({
+                      fromLeaderLevel: i + 1,
+                      toLeaderLevel: i,
+                    })
+                  );
+                }
+              }}
+            >
+              <AiOutlineMinus />
+              <MdNorth />
+              minus higher level
+            </NormalButton>
+          )}
+          {leaderLevel < 10 && (
+            <NormalButton
+              className="w-full h-10"
+              onClick={() => {
+                dispatch(addLowerLeaderLevel());
+                for (let i = leaderLevel; i >= 1; i--) {
+                  dispatch(
+                    moveLeaderToLevel({
+                      fromLeaderLevel: i,
+                      toLeaderLevel: i + 1,
+                    })
+                  );
+                }
+              }}
+            >
+              <AiOutlinePlus />
+              <MdNorth />
+              add higher level
+            </NormalButton>
+          )}
+        </div>
 
         <div className="h-[50vh] overflow-hidden">
           <Virtuoso
@@ -58,7 +109,41 @@ const Playground = () => {
             )}
           />
         </div>
-        <NormalButton className="w-full h-10">add lower level</NormalButton>
+        <div className="flex md:space-x-4 space-x-2">
+          {leaderLevel > 1 && (
+            <NormalButton
+              className="w-full h-10"
+              onClick={() => {
+                dispatch(minusLowerLeaderLevel());
+                if (leader.real[leaderLevel].length > 0) {
+                  console.log("123");
+                  for (let i = 1; i < leaderLevel; i++) {
+                    dispatch(
+                      moveLeaderToLevel({
+                        fromLeaderLevel: i + 1,
+                        toLeaderLevel: i,
+                      })
+                    );
+                  }
+                }
+              }}
+            >
+              <AiOutlineMinus />
+              <MdSouth />
+              minus lower level
+            </NormalButton>
+          )}
+          {leaderLevel < 10 && (
+            <NormalButton
+              className="w-full h-10"
+              onClick={() => dispatch(addLowerLeaderLevel())}
+            >
+              <AiOutlinePlus />
+              <MdSouth />
+              add lower level
+            </NormalButton>
+          )}
+        </div>
       </div>
     </div>
   );

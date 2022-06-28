@@ -40,8 +40,15 @@ const FightControlEle = () => {
 
   //state
   const [fightTimeoutLoop, setFightTimeoutLoop] = useState(null);
+  const [mySideTopestLeader, setMySideTopestLeader] = useState([]);
+  const [enemySideTopestLeader, setEnemySideTopestLeader] = useState([]);
 
   const location = useLocation();
+
+  useEffect(() => {
+    setMySideTopestLeader(leaders[1].filter((row) => row.side === "my"));
+    setEnemySideTopestLeader(leaders[1].filter((row) => row.side === "enemy"));
+  }, [leaders]);
 
   const testInterval = useCallback(
     (reportHistory) => {
@@ -88,11 +95,11 @@ const FightControlEle = () => {
           //clear
           clearInterval(selfFightTimeoutLoop);
           setFightTimeoutLoop(null);
-        }, 500);
-      }, 1000);
+        }, (setting.eachFightPlayTime.value * 1000) / 2);
+      }, setting.eachFightPlayTime.value * 1000);
       setFightTimeoutLoop(selfFightTimeoutLoop);
     },
-    [dispatch]
+    [dispatch, setting.eachFightPlayTime.value]
   );
 
   useEffect(() => {
@@ -291,16 +298,18 @@ const FightControlEle = () => {
   ]);
 
   return (
-    <div className="text-center md:space-x-4 space-x-2">
-      {report.history.length <= 0 && (
-        <NormalButton
-          className="h-12 w-12 text-lg"
-          onClick={() => fight()}
-          aria-label="fight"
-        >
-          <RiSwordFill />
-        </NormalButton>
-      )}
+    <div className="text-center md:space-x-4 space-x-2 h-12">
+      {mySideTopestLeader.length > 0 &&
+        enemySideTopestLeader.length > 0 &&
+        report.history.length <= 0 && (
+          <NormalButton
+            className="h-12 w-12 text-lg"
+            onClick={() => fight()}
+            aria-label="fight"
+          >
+            <RiSwordFill />
+          </NormalButton>
+        )}
 
       {report.history.length > 0 && (
         <>
