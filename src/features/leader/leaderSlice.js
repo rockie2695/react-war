@@ -46,11 +46,16 @@ export const leaderSlice = createSlice({
         ...action.payload,
       });
     },
+    setLeader: (state, action) => {
+      state.real = action.payload;
+    },
     setCloneLeader: (state, action) => {
       state.clone = action.payload;
     },
     moveLeaderToLevel: (state, action) => {
-      state.real[action.payload.fromLeaderLevel]=state.real[action.payload.fromLeaderLevel].map((row) => {
+      state.real[action.payload.fromLeaderLevel] = state.real[
+        action.payload.fromLeaderLevel
+      ].map((row) => {
         return { ...row, leaderLevel: action.payload.toLeaderLevel };
       });
       state.real[action.payload.toLeaderLevel] = [
@@ -77,6 +82,7 @@ export const {
   setCloneLeader,
   changeOneRealLeader,
   moveLeaderToLevel,
+  setLeader,
 } = leaderSlice.actions;
 
 export default leaderSlice.reducer;

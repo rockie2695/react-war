@@ -10,11 +10,17 @@ import {
 import {
   setCloneLeader,
   changeOneRealLeader,
+  setLeader,
 } from "../../../features/leader/leaderSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 //react icons
-import { MdPlayArrow, MdOutlinePause } from "react-icons/md"; //play,pause,
+import {
+  MdPlayArrow,
+  MdOutlinePause,
+  MdReplay,
+  MdOutlineArrowBack,
+} from "react-icons/md"; //play,pause,replay
 import { RiSwordFill } from "react-icons/ri"; //fight
 
 //component
@@ -31,6 +37,7 @@ const FightControlEle = () => {
 
   //redux
   const leaders = useSelector((state) => state.leaderReducer.real);
+  const cloneLeaders = useSelector((state) => state.leaderReducer.clone);
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
   const setting = useSelector((state) => state.settingReducer);
   const sideName = useSelector((state) => state.sideNameReducer);
@@ -104,13 +111,28 @@ const FightControlEle = () => {
 
   useEffect(() => {
     if (
+      fightTimeoutLoop !== null &&
+      (location.pathname !== "/playground" || stop === true)
+    ) {
+      dispatch(setStop(true));
+      clearInterval(fightTimeoutLoop);
+      setFightTimeoutLoop(null);
+    } else if (
       report.history.length > 0 &&
       fightTimeoutLoop === null &&
-      location.pathname === "/playground"
+      location.pathname === "/playground" &&
+      stop === false
     ) {
       intervalReport(report.history);
     }
-  }, [report.history, fightTimeoutLoop, intervalReport, location.pathname]);
+  }, [
+    report.history,
+    fightTimeoutLoop,
+    intervalReport,
+    location.pathname,
+    stop,
+    dispatch,
+  ]);
 
   const calcFight = useCallback(
     (attacker, defender) => {
@@ -306,21 +328,14 @@ const FightControlEle = () => {
     console.log("fight result:", processLeaders, report);
     dispatch(setCloneLeader(leaders));
     dispatch(setReport(report));
-    //testInterval(report);
-  }, [
-    fightInEachLevel,
-    leaderLevel,
-    leaders,
-    dispatch,
-    sideName,
-    //testInterval,
-  ]);
+  }, [fightInEachLevel, leaderLevel, leaders, dispatch, sideName]);
 
   return (
     <div className="text-center md:space-x-4 space-x-2 h-12">
       {mySideTopestLeader.length > 0 &&
         enemySideTopestLeader.length > 0 &&
-        report.history.length <= 0 && (
+        report.history.length === 0 &&
+        report.cloneHistory.length === 0 && (
           <NormalButton
             className="h-12 w-12 text-lg"
             onClick={() => fight()}
@@ -344,12 +359,39 @@ const FightControlEle = () => {
           {!stop && (
             <NormalButton
               className="h-12 w-12 text-lg"
-              aria-label="play"
+              aria-label="pause"
               onClick={() => dispatch(setStop(true))}
             >
               <MdOutlinePause />
             </NormalButton>
           )}
+        </>
+      )}
+
+      {report.history.length === 0 && report.cloneHistory.length !== 0 && (
+        <>
+          <NormalButton
+            className="h-12 w-12 text-lg"
+            aria-label="replay"
+            onClick={() => {
+              dispatch(setStop(true));
+              dispatch(setReport({ history: report.cloneHistory }));
+              dispatch(setLeader(cloneLeaders));
+            }}
+          >
+            <MdReplay />
+          </NormalButton>
+          <NormalButton
+            className="h-12 w-12 text-lg"
+            aria-label="back"
+            onClick={() => {
+              dispatch(setReport({ history: [], cloneHistory: [] }));
+              dispatch(setLeader(cloneLeaders));
+              dispatch(setStop(false));
+            }}
+          >
+            <MdOutlineArrowBack />
+          </NormalButton>
         </>
       )}
     </div>

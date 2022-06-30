@@ -33,6 +33,9 @@ export const settingSlice = createSlice({
       min: 1,
       max: 100,
     },
+    showSoliderNumOrPerc: {
+      value: "percentage",
+    },
   },
   reducers: {
     changeSetting: (state, action) => {

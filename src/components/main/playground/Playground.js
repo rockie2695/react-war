@@ -35,6 +35,7 @@ const Playground = () => {
   //redux
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
   const leader = useSelector((state) => state.leaderReducer);
+  const report = useSelector((state) => state.reportReducer);
   const dispatch = useDispatch();
 
   return (
@@ -50,48 +51,50 @@ const Playground = () => {
         <SideNameRow />
 
         <SoliderNumRow />
-        <div className="flex md:space-x-4 space-x-2">
-          {leaderLevel > 1 && (
-            <NormalButton
-              className="w-full h-10"
-              onClick={() => {
-                dispatch(minusLowerLeaderLevel());
-                for (let i = 1; i < leaderLevel; i++) {
-                  dispatch(
-                    moveLeaderToLevel({
-                      fromLeaderLevel: i + 1,
-                      toLeaderLevel: i,
-                    })
-                  );
-                }
-              }}
-            >
-              <AiOutlineMinus />
-              <MdNorth />
-              minus higher level
-            </NormalButton>
-          )}
-          {leaderLevel < 10 && (
-            <NormalButton
-              className="w-full h-10"
-              onClick={() => {
-                dispatch(addLowerLeaderLevel());
-                for (let i = leaderLevel; i >= 1; i--) {
-                  dispatch(
-                    moveLeaderToLevel({
-                      fromLeaderLevel: i,
-                      toLeaderLevel: i + 1,
-                    })
-                  );
-                }
-              }}
-            >
-              <AiOutlinePlus />
-              <MdNorth />
-              add higher level
-            </NormalButton>
-          )}
-        </div>
+        {report.history.length === 0 && report.cloneHistory.length === 0 && (
+          <div className="flex md:space-x-4 space-x-2">
+            {leaderLevel > 1 && (
+              <NormalButton
+                className="w-full h-10"
+                onClick={() => {
+                  dispatch(minusLowerLeaderLevel());
+                  for (let i = 1; i < leaderLevel; i++) {
+                    dispatch(
+                      moveLeaderToLevel({
+                        fromLeaderLevel: i + 1,
+                        toLeaderLevel: i,
+                      })
+                    );
+                  }
+                }}
+              >
+                <AiOutlineMinus />
+                <MdNorth />
+                minus higher level
+              </NormalButton>
+            )}
+            {leaderLevel < 10 && (
+              <NormalButton
+                className="w-full h-10"
+                onClick={() => {
+                  dispatch(addLowerLeaderLevel());
+                  for (let i = leaderLevel; i >= 1; i--) {
+                    dispatch(
+                      moveLeaderToLevel({
+                        fromLeaderLevel: i,
+                        toLeaderLevel: i + 1,
+                      })
+                    );
+                  }
+                }}
+              >
+                <AiOutlinePlus />
+                <MdNorth />
+                add higher level
+              </NormalButton>
+            )}
+          </div>
+        )}
 
         <div className="h-[50vh] overflow-hidden">
           <Virtuoso
@@ -109,41 +112,43 @@ const Playground = () => {
             )}
           />
         </div>
-        <div className="flex md:space-x-4 space-x-2">
-          {leaderLevel > 1 && (
-            <NormalButton
-              className="w-full h-10"
-              onClick={() => {
-                dispatch(minusLowerLeaderLevel());
-                if (leader.real[leaderLevel].length > 0) {
-                  console.log("123");
-                  for (let i = 1; i < leaderLevel; i++) {
-                    dispatch(
-                      moveLeaderToLevel({
-                        fromLeaderLevel: i + 1,
-                        toLeaderLevel: i,
-                      })
-                    );
+        {report.history.length === 0 && report.cloneHistory.length === 0 && (
+          <div className="flex md:space-x-4 space-x-2">
+            {leaderLevel > 1 && (
+              <NormalButton
+                className="w-full h-10"
+                onClick={() => {
+                  dispatch(minusLowerLeaderLevel());
+                  if (leader.real[leaderLevel].length > 0) {
+                    console.log("123");
+                    for (let i = 1; i < leaderLevel; i++) {
+                      dispatch(
+                        moveLeaderToLevel({
+                          fromLeaderLevel: i + 1,
+                          toLeaderLevel: i,
+                        })
+                      );
+                    }
                   }
-                }
-              }}
-            >
-              <AiOutlineMinus />
-              <MdSouth />
-              minus lower level
-            </NormalButton>
-          )}
-          {leaderLevel < 10 && (
-            <NormalButton
-              className="w-full h-10"
-              onClick={() => dispatch(addLowerLeaderLevel())}
-            >
-              <AiOutlinePlus />
-              <MdSouth />
-              add lower level
-            </NormalButton>
-          )}
-        </div>
+                }}
+              >
+                <AiOutlineMinus />
+                <MdSouth />
+                minus lower level
+              </NormalButton>
+            )}
+            {leaderLevel < 10 && (
+              <NormalButton
+                className="w-full h-10"
+                onClick={() => dispatch(addLowerLeaderLevel())}
+              >
+                <AiOutlinePlus />
+                <MdSouth />
+                add lower level
+              </NormalButton>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

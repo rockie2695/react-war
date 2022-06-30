@@ -30,6 +30,7 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
   const setting = useSelector((state) => state.settingReducer);
   const leaderId = useSelector((state) => state.leaderIdReducer);
   const leaders = useSelector((state) => state.leaderReducer.real);
+  const report = useSelector((state) => state.reportReducer);
   const rowLeaders = leaders[rowLeaderLevel];
   const dispatch = useDispatch();
 
@@ -98,23 +99,26 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
                   </div>
                   <div className="text-xs md:text-sm bg-white/50 rounded-lg">
                     <span>
-                      {parseInt(
-                        (leader.soliderNum / leader.maxSoliderNum) * 100
-                      )}
-                      %
+                      {setting.showSoliderNumOrPerc.value === "percentage" &&
+                        parseInt(
+                          (leader.soliderNum / leader.maxSoliderNum) * 100
+                        ) + "%"}
+                      {setting.showSoliderNumOrPerc.value === "soliderNum" &&
+                        leader.soliderNum}
                     </span>
                   </div>
                 </CircularProgressbarWithChildren>
               </div>
             ))}
-
-          <NormalButton
-            onClick={() => selfAddLeader(rowLeaderLevel, side)}
-            className="h-full aspect-square"
-            aria-label="add leader in this row"
-          >
-            <MdAdd />
-          </NormalButton>
+          {report.history.length === 0 && report.cloneHistory.length === 0 && (
+            <NormalButton
+              onClick={() => selfAddLeader(rowLeaderLevel, side)}
+              className="h-full aspect-square"
+              aria-label="add leader in this row"
+            >
+              <MdAdd />
+            </NormalButton>
+          )}
         </div>
       ))}
     </div>
