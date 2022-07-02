@@ -1,5 +1,5 @@
 //react
-import { memo } from "react";
+import { memo, useState } from "react";
 
 //circle
 import "react-circular-progressbar/dist/styles.css";
@@ -13,6 +13,7 @@ import TableRow from "./TableRow";
 import SideNameRow from "./SideNameRow";
 import NormalButton from "../NormalButton";
 import SoliderNumRow from "./SoliderNumRow";
+import LeaderMouseOverEle from "./LeaderMouseOverEle";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -38,6 +39,15 @@ const Playground = () => {
   const report = useSelector((state) => state.reportReducer);
   const dispatch = useDispatch();
 
+  //useState
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (event) => {
+    setCoords({
+      x: event.screenX - 120, //event.clientX - event.target.offsetLeft - 130,
+      y: event.screenY - 80, //event.clientY - event.target.offsetTop - 260,
+    });
+  };
   return (
     <div className="w-full min-h-full">
       <Header title="Playground" />
@@ -110,7 +120,9 @@ const Playground = () => {
                 //rowLeaders={leaders[leaderLevel]}
               />
             )}
+            onMouseMove={handleMouseMove}
           />
+          <LeaderMouseOverEle mouseCoords={coords} />
         </div>
         {report.history.length === 0 && report.cloneHistory.length === 0 && (
           <div className="flex md:space-x-4 space-x-2">

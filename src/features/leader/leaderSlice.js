@@ -1,27 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { action } from "@storybook/addon-actions";
-import { randomPeopleName } from "../../script/random";
-
-const testData = [
-  {
-    name: randomPeopleName().name,
-    soliderNum: 100,
-    maxSoliderNum: 100,
-    leaderLevel: 1,
-    leaderPower: 5,
-    side: "my",
-    id: 1,
-  },
-  {
-    name: randomPeopleName().name,
-    soliderNum: 50,
-    maxSoliderNum: 100,
-    leaderLevel: 1,
-    leaderPower: 3,
-    side: "enemy",
-    id: 2,
-  },
-];
 
 export const leaderSlice = createSlice({
   name: "leader",

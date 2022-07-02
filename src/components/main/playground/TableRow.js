@@ -22,6 +22,7 @@ import { addLeaderId } from "../../../features/leader/leaderIdSlice";
 import { randomInteger, randomPeopleName } from "../../../script/random";
 
 import NormalButton from "../NormalButton";
+import { setMouseOverLeader } from "../../../features/leader/mouseOverLeaderSlice";
 
 const TableRow = ({ rowLeaderLevel, ...props }) => {
   console.log("render TableRow " + rowLeaderLevel);
@@ -53,6 +54,7 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
     },
     [dispatch, leaderId, setting.numAddPeople.value]
   );
+
   return (
     <div className={"grid grid-cols-2 md:gap-4 gap-2 " + props.className}>
       {["my", "enemy"].map((side, index) => (
@@ -69,7 +71,7 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
               <div
                 key={index2}
                 className={
-                  "border-2 hover:border-zinc-700 p-1 rounded-lg hover:ease-in-out duration-300 border-transparent" +
+                  "border-2 hover:border-zinc-700 p-1 rounded-lg hover:ease-in-out border-transparent cursor-pointer" +
                   (typeof leader.borderColor !== "undefined" &&
                   leader.borderColor === "red"
                     ? " border-red-600"
@@ -79,6 +81,16 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
                     ? " border-blue-600"
                     : "")
                 }
+                onMouseOver={() => {
+                  dispatch(setMouseOverLeader(leader));
+                }}
+                onMouseOut={() => {
+                  dispatch(setMouseOverLeader(null));
+                }}
+                style={{
+                  transitionDuration:
+                    setting.eachFightPlayTime.value * 1000 * 0.3 + "ms",
+                }}
               >
                 <CircularProgressbarWithChildren
                   value={(leader.soliderNum / leader.maxSoliderNum) * 100}

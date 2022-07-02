@@ -50,6 +50,7 @@ const FightControlEle = () => {
   const [mySideTopestLeader, setMySideTopestLeader] = useState([]);
   const [enemySideTopestLeader, setEnemySideTopestLeader] = useState([]);
 
+  //react router
   const location = useLocation();
 
   useEffect(() => {
@@ -102,7 +103,7 @@ const FightControlEle = () => {
           //clear
           clearInterval(selfFightTimeoutLoop);
           setFightTimeoutLoop(null);
-        }, (setting.eachFightPlayTime.value * 1000) / 2);
+        }, setting.eachFightPlayTime.value * 1000 * 0.7);
       }, setting.eachFightPlayTime.value * 1000);
       setFightTimeoutLoop(selfFightTimeoutLoop);
     },
