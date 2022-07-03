@@ -3,6 +3,7 @@ import Header from "../Header";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { changeSetting } from "../../../features/setting/settingSlice";
+import Selector from "./Selector";
 
 export default function Setting() {
   console.log("render Setting");
@@ -16,20 +17,22 @@ export default function Setting() {
       let value = event.target.value;
       if (!setting[name]?.step) {
         value = parseInt(value);
+      } else {
+        value = parseFloat(value);
       }
       if (isNaN(value)) {
         return;
       }
       if (
         setting[name]?.min &&
-        Number.isInteger(setting[name].min) &&
+        typeof setting[name].min === "number" &&
         value < setting[name].min
       ) {
         return;
       }
       if (
         setting[name]?.max &&
-        Number.isInteger(setting[name].max) &&
+        typeof setting[name].max === "number" &&
         value > setting[name].max
       ) {
         return;
@@ -74,7 +77,7 @@ export default function Setting() {
               <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
                 <div className="flex-1">
                   <label htmlFor="eachFightPlayTime">
-                    each fight play time (s):
+                    each fight play time:
                   </label>
                 </div>
                 <div className="flex-1 flex items-center">
@@ -82,7 +85,7 @@ export default function Setting() {
                     type="number"
                     id="eachFightPlayTime"
                     name="eachFightPlayTime"
-                    className="rounded p-1 text-center flex-1"
+                    className="p-1 text-center flex-1 rounded-l"
                     minLength={setting.eachFightPlayTime.minLength}
                     maxLength={setting.eachFightPlayTime.maxLength}
                     min={setting.eachFightPlayTime.min}
@@ -91,16 +94,25 @@ export default function Setting() {
                     step={setting.eachFightPlayTime.step}
                     onChange={handleInputChange}
                   />
+                  <div className="p-1 bg-white rounded-r">s</div>
                 </div>
               </div>
 
               <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
                 <div className="flex-1">
                   <label htmlFor="numAddPeople">
-                    show percentage or soliderNum:
+                    show 百分比 or 士兵數值:
                   </label>
                 </div>
-                <div className="flex-1 flex items-center"></div>
+                <div className="flex-1 flex items-center">
+                  <Selector
+                    option={[
+                      { display: "百分比", value: "percentage" },
+                      { display: "士兵數值", value: "soliderNum" },
+                    ]}
+                    name="showSoliderNumOrPerc"
+                  />
+                </div>
               </div>
             </div>
           </div>

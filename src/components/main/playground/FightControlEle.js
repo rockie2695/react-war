@@ -10,11 +10,17 @@ import {
 import {
   setCloneLeader,
   changeOneRealLeader,
+  setLeader,
 } from "../../../features/leader/leaderSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 //react icons
-import { MdPlayArrow, MdOutlinePause } from "react-icons/md"; //play,pause,
+import {
+  MdPlayArrow,
+  MdOutlinePause,
+  MdReplay,
+  MdOutlineArrowBack,
+} from "react-icons/md"; //play,pause,replay
 import { RiSwordFill } from "react-icons/ri"; //fight
 
 //component
@@ -31,6 +37,7 @@ const FightControlEle = () => {
 
   //redux
   const leaders = useSelector((state) => state.leaderReducer.real);
+  const cloneLeaders = useSelector((state) => state.leaderReducer.clone);
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
   const setting = useSelector((state) => state.settingReducer);
   const sideName = useSelector((state) => state.sideNameReducer);
@@ -43,6 +50,7 @@ const FightControlEle = () => {
   const [mySideTopestLeader, setMySideTopestLeader] = useState([]);
   const [enemySideTopestLeader, setEnemySideTopestLeader] = useState([]);
 
+  //react router
   const location = useLocation();
 
   useEffect(() => {
@@ -50,7 +58,7 @@ const FightControlEle = () => {
     setEnemySideTopestLeader(leaders[1].filter((row) => row.side === "enemy"));
   }, [leaders]);
 
-  const testInterval = useCallback(
+  const intervalReport = useCallback(
     (reportHistory) => {
       let selfReportHistory = reportHistory;
       //setFightTimeoutLoop(
@@ -95,7 +103,7 @@ const FightControlEle = () => {
           //clear
           clearInterval(selfFightTimeoutLoop);
           setFightTimeoutLoop(null);
-        }, (setting.eachFightPlayTime.value * 1000) / 2);
+        }, setting.eachFightPlayTime.value * 1000 * 0.7);
       }, setting.eachFightPlayTime.value * 1000);
       setFightTimeoutLoop(selfFightTimeoutLoop);
     },
@@ -104,15 +112,30 @@ const FightControlEle = () => {
 
   useEffect(() => {
     if (
+      fightTimeoutLoop !== null &&
+      (location.pathname !== "/playground" || stop === true)
+    ) {
+      dispatch(setStop(true));
+      clearInterval(fightTimeoutLoop);
+      setFightTimeoutLoop(null);
+    } else if (
       report.history.length > 0 &&
       fightTimeoutLoop === null &&
-      location.pathname === "/playground"
+      location.pathname === "/playground" &&
+      stop === false
     ) {
-      testInterval(report.history);
+      intervalReport(report.history);
     }
-  }, [report.history, fightTimeoutLoop, testInterval, location.pathname]);
+  }, [
+    report.history,
+    fightTimeoutLoop,
+    intervalReport,
+    location.pathname,
+    stop,
+    dispatch,
+  ]);
 
-  const calFight = useCallback(
+  const calcFight = useCallback(
     (attacker, defender) => {
       let selfDefender = JSON.parse(JSON.stringify(defender));
       const attackerLeaderPowerTimes = 1 + (attacker.leaderPower / 100) * 5;
@@ -207,7 +230,7 @@ const FightControlEle = () => {
           break;
         }
         //just fight
-        [attacker, defender] = calFight(attacker, defender);
+        [attacker, defender] = calcFight(attacker, defender);
         //find attacker and defender from processLeaders
         let needChangeAttackerIndex = processLeaders.findIndex(
           (leader) => leader.id === attacker.id
@@ -237,7 +260,7 @@ const FightControlEle = () => {
       }
       return [noDefender, report];
     },
-    [calFight, findDefender]
+    [calcFight, findDefender]
   );
 
   const fight = useCallback(() => {
@@ -262,6 +285,25 @@ const FightControlEle = () => {
       for (const rowLevel of level) {
         //make first round,only the lowest level can attack,second round,only the second lowest and lowest level can attack,and so on
         if (round >= level.indexOf(rowLevel) + 1) {
+          //check first row defender soliderNum or attacker soliderNum is 0,then break
+          let mySideFirstRowSoliderNum = processLeaders
+            .filter(
+              (leader) => leader.leaderLevel === 1 && leader.side === "my"
+            )
+            .reduce((a, b) => a + b.soliderNum, 0);
+          let enemySideFirstRowSoliderNum = processLeaders
+            .filter(
+              (leader) => leader.leaderLevel === 1 && leader.side === "enemy"
+            )
+            .reduce((a, b) => a + b.soliderNum, 0);
+
+          if (
+            mySideFirstRowSoliderNum === 0 ||
+            enemySideFirstRowSoliderNum === 0
+          ) {
+            break;
+          }
+          //fight in each level
           const [subNoDefender, subReport] = fightInEachLevel(
             rowLevel,
             processLeaders,
@@ -287,21 +329,14 @@ const FightControlEle = () => {
     console.log("fight result:", processLeaders, report);
     dispatch(setCloneLeader(leaders));
     dispatch(setReport(report));
-    //testInterval(report);
-  }, [
-    fightInEachLevel,
-    leaderLevel,
-    leaders,
-    dispatch,
-    sideName,
-    //testInterval,
-  ]);
+  }, [fightInEachLevel, leaderLevel, leaders, dispatch, sideName]);
 
   return (
     <div className="text-center md:space-x-4 space-x-2 h-12">
       {mySideTopestLeader.length > 0 &&
         enemySideTopestLeader.length > 0 &&
-        report.history.length <= 0 && (
+        report.history.length === 0 &&
+        report.cloneHistory.length === 0 && (
           <NormalButton
             className="h-12 w-12 text-lg"
             onClick={() => fight()}
@@ -325,12 +360,39 @@ const FightControlEle = () => {
           {!stop && (
             <NormalButton
               className="h-12 w-12 text-lg"
-              aria-label="play"
+              aria-label="pause"
               onClick={() => dispatch(setStop(true))}
             >
               <MdOutlinePause />
             </NormalButton>
           )}
+        </>
+      )}
+
+      {report.history.length === 0 && report.cloneHistory.length !== 0 && (
+        <>
+          <NormalButton
+            className="h-12 w-12 text-lg"
+            aria-label="replay"
+            onClick={() => {
+              dispatch(setStop(true));
+              dispatch(setReport({ history: report.cloneHistory }));
+              dispatch(setLeader(cloneLeaders));
+            }}
+          >
+            <MdReplay />
+          </NormalButton>
+          <NormalButton
+            className="h-12 w-12 text-lg"
+            aria-label="back"
+            onClick={() => {
+              dispatch(setReport({ history: [], cloneHistory: [] }));
+              dispatch(setLeader(cloneLeaders));
+              dispatch(setStop(false));
+            }}
+          >
+            <MdOutlineArrowBack />
+          </NormalButton>
         </>
       )}
     </div>
