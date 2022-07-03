@@ -81,10 +81,10 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
                     ? " border-blue-600"
                     : "")
                 }
-                onMouseOver={() => {
+                onMouseEnter={() => {
                   dispatch(setMouseOverLeader(leader));
                 }}
-                onMouseOut={() => {
+                onMouseLeave={() => {
                   dispatch(setMouseOverLeader(null));
                 }}
                 style={{

@@ -37,16 +37,32 @@ const Playground = () => {
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
   const leader = useSelector((state) => state.leaderReducer);
   const report = useSelector((state) => state.reportReducer);
+  const mouseOverLeader = useSelector((state) => state.mouseOverLeaderReducer);
   const dispatch = useDispatch();
 
   //useState
   const [coords, setCoords] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (event) => {
-    setCoords({
-      x: event.screenX - 120, //event.clientX - event.target.offsetLeft - 130,
-      y: event.screenY - 80, //event.clientY - event.target.offsetTop - 260,
-    });
+    if (mouseOverLeader !== null) {
+      let [x, y] = [event.clientX - 120, event.clientY + 20];
+      let [divWidth, divHeight] = [
+        document.querySelector('div[data-test-id="virtuoso-scroller"]')
+          .clientWidth,
+        document.querySelector('div[data-test-id="virtuoso-scroller"]')
+          .clientHeight,
+      ];
+      if (x + 160 > divWidth) {
+        x = divWidth - 160;
+      }
+      if (y - 180 > divHeight) {
+        y = divHeight+40;
+      }
+      setCoords({
+        x: x, //event.clientX - event.target.offsetLeft - 130,
+        y: y, //event.clientY - event.target.offsetTop - 260,
+      });
+    }
   };
   return (
     <div className="w-full min-h-full">
