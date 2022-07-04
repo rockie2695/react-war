@@ -1,5 +1,5 @@
 //react
-import { memo, useState } from "react";
+import { memo, useState, startTransition } from "react";
 
 //circle
 import "react-circular-progressbar/dist/styles.css";
@@ -14,6 +14,7 @@ import SideNameRow from "./SideNameRow";
 import NormalButton from "../NormalButton";
 import SoliderNumRow from "./SoliderNumRow";
 import LeaderMouseOverEle from "./LeaderMouseOverEle";
+import PopUpModal from "./PopUpModal";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -44,6 +45,7 @@ const Playground = () => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (event) => {
+    //show delay data
     if (mouseOverLeader !== null) {
       let [x, y] = [event.clientX - 120, event.clientY + 20];
       let [divWidth, divHeight] = [
@@ -56,11 +58,13 @@ const Playground = () => {
         x = divWidth - 160;
       }
       if (y - 180 > divHeight) {
-        y = divHeight+40;
+        y = divHeight + 40;
       }
-      setCoords({
-        x: x, //event.clientX - event.target.offsetLeft - 130,
-        y: y, //event.clientY - event.target.offsetTop - 260,
+      startTransition(() => {
+        setCoords({
+          x: x, //event.clientX - event.target.offsetLeft - 130,
+          y: y, //event.clientY - event.target.offsetTop - 260,
+        });
       });
     }
   };
@@ -139,6 +143,7 @@ const Playground = () => {
             onMouseMove={handleMouseMove}
           />
           <LeaderMouseOverEle mouseCoords={coords} />
+          <PopUpModal />
         </div>
         {report.history.length === 0 && report.cloneHistory.length === 0 && (
           <div className="flex md:space-x-4 space-x-2">
