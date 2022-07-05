@@ -9,7 +9,7 @@ import MediaQuery from "react-responsive";
 
 const LeaderMouseOverEle = ({ mouseCoords }) => {
   //redux
-  const mouseOverLeader = useSelector((state) => state.mouseOverLeaderReducer);
+  const mouseOverLeader = useSelector((state) => state.selectedLeaderReducer.mouseOverLeader);
   const leaders = useSelector((state) => state.leaderReducer.real);
   const sideName = useSelector((state) => state.sideNameReducer);
 

@@ -22,9 +22,9 @@ import { addLeaderId } from "../../../features/leader/leaderIdSlice";
 import { randomInteger, randomPeopleName } from "../../../script/random";
 
 import NormalButton from "../NormalButton";
-import { setMouseOverLeader } from "../../../features/leader/mouseOverLeaderSlice";
+import { setMouseOverLeader } from "../../../features/leader/selectedLeaderSlice";
 
-const TableRow = ({ rowLeaderLevel, ...props }) => {
+const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
   console.log("render TableRow " + rowLeaderLevel);
 
   //redux
@@ -81,8 +81,9 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
                     ? " border-blue-600"
                     : "")
                 }
-                onMouseEnter={() => {
+                onMouseEnter={(e) => {
                   dispatch(setMouseOverLeader(leader));
+                  handleMouseMove(e,true)
                 }}
                 onMouseLeave={() => {
                   dispatch(setMouseOverLeader(null));

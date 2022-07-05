@@ -38,15 +38,15 @@ const Playground = () => {
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
   const leader = useSelector((state) => state.leaderReducer);
   const report = useSelector((state) => state.reportReducer);
-  const mouseOverLeader = useSelector((state) => state.mouseOverLeaderReducer);
+  const mouseOverLeader = useSelector((state) => state.selectedLeaderReducer.mouseOverLeader);
   const dispatch = useDispatch();
 
   //useState
   const [coords, setCoords] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = (event, preventCheckLeader = false) => {
     //show delay data
-    if (mouseOverLeader !== null) {
+    if (mouseOverLeader !== null || preventCheckLeader) {
       let [x, y] = [event.clientX - 120, event.clientY + 20];
       let [divWidth, divHeight] = [
         document.querySelector('div[data-test-id="virtuoso-scroller"]')
@@ -137,6 +137,7 @@ const Playground = () => {
                 key={index}
                 className={index > 0 ? "md:mt-4 mt-2" : ""}
                 rowLeaderLevel={leaderLevel}
+                handleMouseMove={handleMouseMove}
                 //rowLeaders={leaders[leaderLevel]}
               />
             )}
@@ -153,7 +154,6 @@ const Playground = () => {
                 onClick={() => {
                   dispatch(minusLowerLeaderLevel());
                   if (leader.real[leaderLevel].length > 0) {
-                    console.log("123");
                     for (let i = 1; i < leaderLevel; i++) {
                       dispatch(
                         moveLeaderToLevel({
