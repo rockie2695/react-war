@@ -17,12 +17,16 @@ import { MdAdd } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { addLeader } from "../../../features/leader/leaderSlice";
 import { addLeaderId } from "../../../features/leader/leaderIdSlice";
+import {
+  setMouseOverLeader,
+  setClickedLeader,
+} from "../../../features/leader/selectedLeaderSlice";
 
 //random js
 import { randomInteger, randomPeopleName } from "../../../script/random";
 
+//local component
 import NormalButton from "../NormalButton";
-import { setMouseOverLeader } from "../../../features/leader/selectedLeaderSlice";
 
 const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
   console.log("render TableRow " + rowLeaderLevel);
@@ -83,10 +87,13 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
                 }
                 onMouseEnter={(e) => {
                   dispatch(setMouseOverLeader(leader));
-                  handleMouseMove(e,true)
+                  handleMouseMove(e, true);
                 }}
                 onMouseLeave={() => {
                   dispatch(setMouseOverLeader(null));
+                }}
+                onClick={() => {
+                  dispatch(setClickedLeader(leader));
                 }}
                 style={{
                   transitionDuration:
