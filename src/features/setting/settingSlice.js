@@ -3,8 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const settingSlice = createSlice({
   name: "setting",
   initialState: {
-    numAddPeople: { value: 1, minLength: 1, maxLength: 3, min: 1, max: 100 },
+    numAddPeople: {
+      type:"number",
+      name: "numAddPeople",
+      value: 1,
+      minLength: 1,
+      maxLength: 3,
+      min: 1,
+      max: 100,
+    },
     eachFightPlayTime: {
+      type:"number",
+      name: "eachFightPlayTime",
       value: 1,
       minLength: 1,
       maxLength: 3,
@@ -13,6 +23,8 @@ export const settingSlice = createSlice({
       min: 0.01,
     },
     attackRandomFlowUpper: {
+      type:"number",
+      name: "attackRandomFlowUpper",
       value: 110,
       minLength: 1,
       maxLength: 3,
@@ -20,6 +32,8 @@ export const settingSlice = createSlice({
       max: 999,
     },
     attackRandomFlowLower: {
+      type:"number",
+      name: "attackRandomFlowLower",
       value: 90,
       minLength: 1,
       maxLength: 3,
@@ -27,6 +41,8 @@ export const settingSlice = createSlice({
       max: 999,
     },
     attackAndSoliderRatio: {
+      type:"number",
+      name: "attackAndSoliderRatio",
       value: 10,
       minLength: 1,
       maxLength: 3,
@@ -34,6 +50,8 @@ export const settingSlice = createSlice({
       max: 100,
     },
     showSoliderNumOrPerc: {
+      type:"string",
+      name: "showSoliderNumOrPerc",
       value: "percentage",
     },
   },

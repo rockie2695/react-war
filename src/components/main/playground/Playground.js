@@ -72,7 +72,7 @@ const Playground = () => {
     <div className="w-full min-h-full">
       <Header title="Playground" />
       <div className="main-content md:p-4 p-2 md:space-y-4 space-y-2">
-        <h2>war table</h2>
+        <h2 className="title text-lg font-bold">war table</h2>
 
         <MediaQuery maxWidth={767}>
           <MobileControlRow />

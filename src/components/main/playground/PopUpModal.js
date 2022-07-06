@@ -5,12 +5,20 @@ import { memo, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setClickedLeader } from "../../../features/leader/selectedLeaderSlice";
 
+//react icons
+import { MdClose } from "react-icons/md"; //close
+
+//component
+import NormalButton from "../NormalButton";
+import InputBox from "../InputBox";
+
 const PopUpModal = () => {
   //redux
   const dispatch = useDispatch();
   const clickedLeader = useSelector(
     (state) => state.selectedLeaderReducer.clickedLeader
   );
+  const clickedLeaderInputLimit=useSelector((state)=>state.selectedLeaderReducer.clickedLeaderInputLimit)
   const leaders = useSelector((state) => state.leaderReducer.real);
   const sideName = useSelector((state) => state.sideNameReducer);
 
@@ -43,7 +51,15 @@ const PopUpModal = () => {
       }}
     >
       <div className="md:w-1/2 w-full md:h-1/2 h-full p-2 border border-gray-500/50">
-        <button onClick={() => dispatch(setClickedLeader(null))}>close</button>
+        <div className="w-full text-right">
+          <NormalButton
+            className="h-12 w-12 text-lg"
+            onClick={() => dispatch(setClickedLeader(null))}
+            aria-label="close"
+          >
+            <MdClose />
+          </NormalButton>
+        </div>
         <table className="w-full">
           <tbody>
             <tr>
@@ -55,7 +71,19 @@ const PopUpModal = () => {
               <td>soliderNum</td>
               <td>:</td>
               <td>
-                {selfClickedLeader.soliderNum}/{selfClickedLeader.maxSoliderNum}{" "}
+                <InputBox
+                  className="flex-1 rounded-r-none"
+                  objInReducer={clickedLeaderInputLimit.soliderNum}
+                  // onChangeFunc={(name, value) => {
+                  //   dispatch(
+                  //     changeSetting({
+                  //       key: name,
+                  //       value: value,
+                  //     })
+                  //   );
+                  // }}
+                />
+                {selfClickedLeader.soliderNum}/{selfClickedLeader.maxSoliderNum}
                 (
                 {parseInt(
                   (selfClickedLeader.soliderNum /
