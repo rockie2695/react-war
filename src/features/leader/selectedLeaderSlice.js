@@ -9,11 +9,8 @@ export const selectedLeaderSlice = createSlice({
       soliderNum: {
         type: "number",
         name: "soliderNum",
-        value: 1,
         minLength: 1,
-        maxLength: 7,
         min: 1,
-        max: 9999999,
       },
     },
   },

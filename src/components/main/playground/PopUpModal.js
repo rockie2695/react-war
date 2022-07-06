@@ -4,6 +4,7 @@ import { memo, useState, useEffect } from "react";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { setClickedLeader } from "../../../features/leader/selectedLeaderSlice";
+import { changeOneRealLeader } from "../../../features/leader/leaderSlice";
 
 //react icons
 import { MdClose } from "react-icons/md"; //close
@@ -18,7 +19,9 @@ const PopUpModal = () => {
   const clickedLeader = useSelector(
     (state) => state.selectedLeaderReducer.clickedLeader
   );
-  const clickedLeaderInputLimit=useSelector((state)=>state.selectedLeaderReducer.clickedLeaderInputLimit)
+  const clickedLeaderInputLimit = useSelector(
+    (state) => state.selectedLeaderReducer.clickedLeaderInputLimit
+  );
   const leaders = useSelector((state) => state.leaderReducer.real);
   const sideName = useSelector((state) => state.sideNameReducer);
 
@@ -39,7 +42,7 @@ const PopUpModal = () => {
 
   return selfClickedLeader ? (
     <div
-      className="bg-white/30 absolute w-full h-full z-[1] top-0 left-0 backdrop-blur-sm"
+      className="bg-white/50 absolute w-full h-full z-[1] top-0 left-0 backdrop-blur-sm"
       style={{
         display: "flex",
         justifyContent: "center",
@@ -74,17 +77,19 @@ const PopUpModal = () => {
                 <InputBox
                   className="flex-1 rounded-r-none"
                   objInReducer={clickedLeaderInputLimit.soliderNum}
-                  // onChangeFunc={(name, value) => {
-                  //   dispatch(
-                  //     changeSetting({
-                  //       key: name,
-                  //       value: value,
-                  //     })
-                  //   );
-                  // }}
+                  inputValue={selfClickedLeader.soliderNum}
+                  maxValue={selfClickedLeader.maxSoliderNum}
+                  onChangeFunc={(name, value) => {
+                    dispatch(
+                      changeOneRealLeader({
+                        id: selfClickedLeader.id,
+                        leaderLevel: selfClickedLeader.leaderLevel,
+                        [name]: value,
+                      })
+                    );
+                  }}
                 />
-                {selfClickedLeader.soliderNum}/{selfClickedLeader.maxSoliderNum}
-                (
+                /{selfClickedLeader.maxSoliderNum}(
                 {parseInt(
                   (selfClickedLeader.soliderNum /
                     selfClickedLeader.maxSoliderNum) *
