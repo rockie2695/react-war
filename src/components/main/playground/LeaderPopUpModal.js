@@ -98,7 +98,7 @@ const LeaderPopUpModal = () => {
               <div className="p-1 bg-white basis-1/5 text-center">/</div>
               <div className="basis-2/5">
                 <InputBox
-                  className="rounded-l-none  w-full"
+                  className="rounded-l-none w-full"
                   objInReducer={clickedLeaderInputLimit.maxSoliderNum}
                   inputValue={selfClickedLeader.maxSoliderNum}
                   onChangeFunc={(name, value) => {
@@ -122,13 +122,28 @@ const LeaderPopUpModal = () => {
                 />
               </div>
             </div>
-            <div>
-              {parseInt(
-                (selfClickedLeader.soliderNum /
-                  selfClickedLeader.maxSoliderNum) *
-                  100
-              )}
-              %
+            <div className="flex">
+              <InputBox
+                className="rounded-r-none w-full"
+                objInReducer={clickedLeaderInputLimit.soliderNumPerc}
+                inputValue={parseInt(
+                  (selfClickedLeader.soliderNum /
+                    selfClickedLeader.maxSoliderNum) *
+                    100
+                )}
+                onChangeFunc={(name, value) => {
+                  dispatch(
+                    changeOneRealLeader({
+                      id: selfClickedLeader.id,
+                      leaderLevel: selfClickedLeader.leaderLevel,
+                      soliderNum: parseInt(
+                        (value / 100) * selfClickedLeader.maxSoliderNum
+                      ),
+                    })
+                  );
+                }}
+              />
+              <div className="p-1 bg-white">%</div>
             </div>
           </div>
 
@@ -138,7 +153,11 @@ const LeaderPopUpModal = () => {
 
           <div className="col-span-2 self-center">Side</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4">{selfClickedLeader.side}</div>
+          <div className="col-span-4">{sideName[selfClickedLeader.side]}</div>
+
+          <div className="col-span-2 self-center">LeaderLevel</div>
+          <div className="text-center self-center">:</div>
+          <div className="col-span-4">{selfClickedLeader.leaderLevel}</div>
         </div>
       </div>
     </animated.div>

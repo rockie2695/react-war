@@ -18,6 +18,14 @@ export const selectedLeaderSlice = createSlice({
         minLength: 1,
         min: 1,
       },
+      soliderNumPerc: {
+        type: "number",
+        name: "soliderNumPerc",
+        minLength: 1,
+        min: 0,
+        max: 100,
+        maxLength: 3,
+      },
     },
   },
   reducers: {
