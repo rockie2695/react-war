@@ -14,7 +14,7 @@ import SideNameRow from "./SideNameRow";
 import NormalButton from "../NormalButton";
 import SoliderNumRow from "./SoliderNumRow";
 import LeaderMouseOverEle from "./LeaderMouseOverEle";
-import PopUpModal from "./PopUpModal";
+import LeaderPopUpModal from "./LeaderPopUpModal";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -144,7 +144,7 @@ const Playground = () => {
             onMouseMove={handleMouseMove}
           />
           <LeaderMouseOverEle mouseCoords={coords} />
-          <PopUpModal />
+          <LeaderPopUpModal />
         </div>
         {report.history.length === 0 && report.cloneHistory.length === 0 && (
           <div className="flex md:space-x-4 space-x-2">

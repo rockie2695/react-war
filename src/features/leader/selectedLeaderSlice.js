@@ -12,6 +12,12 @@ export const selectedLeaderSlice = createSlice({
         minLength: 1,
         min: 1,
       },
+      maxSoliderNum: {
+        type: "number",
+        name: "maxSoliderNum",
+        minLength: 1,
+        min: 1,
+      },
     },
   },
   reducers: {
