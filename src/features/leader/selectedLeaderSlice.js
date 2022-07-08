@@ -6,6 +6,11 @@ export const selectedLeaderSlice = createSlice({
     mouseOverLeader: null,
     clickedLeader: null,
     clickedLeaderInputLimit: {
+      name: {
+        type: "text",
+        name: "name",
+        minLength: 1,
+      },
       soliderNum: {
         type: "number",
         name: "soliderNum",

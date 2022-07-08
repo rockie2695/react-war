@@ -54,7 +54,7 @@ const LeaderMouseOverEle = ({ mouseCoords }) => {
                 <td>
                   {selfMouseOverLeader.soliderNum}/
                   {selfMouseOverLeader.maxSoliderNum} (
-                  {parseInt(
+                  {Math.round(
                     (selfMouseOverLeader.soliderNum /
                       selfMouseOverLeader.maxSoliderNum) *
                       100

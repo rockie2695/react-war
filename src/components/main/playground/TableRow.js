@@ -48,7 +48,10 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
             name: randomPeopleName().name,
             soliderNum: 100,
             maxSoliderNum: 100,
-            leaderPower: randomInteger(1, 10),
+            leaderPower: randomInteger(
+              setting.leaderPowerLower.value,
+              setting.leaderPowerUpper.value
+            ),
             side: side,
             id: leaderId + i,
           })
@@ -56,7 +59,13 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
         dispatch(addLeaderId());
       });
     },
-    [dispatch, leaderId, setting.numAddPeople.value]
+    [
+      dispatch,
+      leaderId,
+      setting.numAddPeople.value,
+      setting.leaderPowerLower.value,
+      setting.leaderPowerUpper.value,
+    ]
   );
 
   return (
@@ -120,7 +129,7 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
                   <div className="text-xs md:text-sm bg-white/50 rounded-lg">
                     <span>
                       {setting.showSoliderNumOrPerc.value === "percentage" &&
-                        parseInt(
+                        Math.round(
                           (leader.soliderNum / leader.maxSoliderNum) * 100
                         ) + "%"}
                       {setting.showSoliderNumOrPerc.value === "soliderNum" &&

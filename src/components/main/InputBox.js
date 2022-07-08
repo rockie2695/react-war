@@ -4,9 +4,9 @@ import { memo } from "react";
 const InputBox = memo(
   ({ objInReducer, onChangeFunc, inputValue, maxValue, ...props }) => {
     const handleInputChange = (event) => {
+      let name = objInReducer.name;
+      let value = event.target.value;
       if (event.target.type === "number") {
-        let name = objInReducer.name;
-        let value = event.target.value;
         if (!objInReducer?.step) {
           value = parseInt(value);
         } else {
@@ -29,7 +29,39 @@ const InputBox = memo(
         ) {
           return;
         }
+        if (
+          objInReducer?.minLength &&
+          typeof objInReducer.minLength === "number" &&
+          value.length < objInReducer.minLength
+        ) {
+          return;
+        }
+        if (
+          objInReducer?.maxLength &&
+          typeof objInReducer.maxLength === "number" &&
+          value.length > objInReducer.maxLength
+        ) {
+          return;
+        }
         if (maxValue && typeof maxValue === "number" && value > maxValue) {
+          return;
+        }
+        if (onChangeFunc) {
+          onChangeFunc(name, value);
+        }
+      } else if (event.target.type === "text") {
+        if (
+          objInReducer?.minLength &&
+          typeof objInReducer.minLength === "number" &&
+          value.length < objInReducer.minLength
+        ) {
+          return;
+        }
+        if (
+          objInReducer?.maxLength &&
+          typeof objInReducer.maxLength === "number" &&
+          value.length > objInReducer.maxLength
+        ) {
           return;
         }
         if (onChangeFunc) {

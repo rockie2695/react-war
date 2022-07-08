@@ -57,7 +57,7 @@ const LeaderPopUpModal = () => {
         dispatch(setClickedLeader(null));
       }}
     >
-      <div className="md:w-1/2 w-full md:h-1/2 h-full p-2 border border-gray-500/50 bg-gray-300/50">
+      <div className="md:w-1/2 w-full md:h-1/2 h-full p-2 border border-gray-500/50 bg-gray-200/50 shadow-md">
         <div className="w-full text-right">
           <NormalButton
             className="h-12 w-12 text-lg"
@@ -71,11 +71,28 @@ const LeaderPopUpModal = () => {
         <div className="grid grid-cols-7 gap-y-2">
           <div className="col-span-2 self-center">Name</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4">{selfClickedLeader.name}</div>
+          <div className="col-span-4">
+            <InputBox
+              className="rounded-r-none w-full"
+              objInReducer={clickedLeaderInputLimit.name}
+              inputValue={selfClickedLeader.name}
+              minLength={selfClickedLeader.name}
+              onChangeFunc={(name, value) => {
+                console.log(value);
+                dispatch(
+                  changeOneRealLeader({
+                    id: selfClickedLeader.id,
+                    leaderLevel: selfClickedLeader.leaderLevel,
+                    [name]: value,
+                  })
+                );
+              }}
+            />
+          </div>
 
           <div className="col-span-2 self-center">soliderNum</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4">
+          <div className="col-span-4 space-y-2">
             <div className="flex">
               <div className="basis-2/5">
                 <InputBox
@@ -126,7 +143,7 @@ const LeaderPopUpModal = () => {
               <InputBox
                 className="rounded-r-none w-full"
                 objInReducer={clickedLeaderInputLimit.soliderNumPerc}
-                inputValue={parseInt(
+                inputValue={Math.round(
                   (selfClickedLeader.soliderNum /
                     selfClickedLeader.maxSoliderNum) *
                     100
@@ -136,7 +153,7 @@ const LeaderPopUpModal = () => {
                     changeOneRealLeader({
                       id: selfClickedLeader.id,
                       leaderLevel: selfClickedLeader.leaderLevel,
-                      soliderNum: parseInt(
+                      soliderNum: Math.round(
                         (value / 100) * selfClickedLeader.maxSoliderNum
                       ),
                     })
