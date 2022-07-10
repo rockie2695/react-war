@@ -45,10 +45,24 @@ export const leaderSlice = createSlice({
       let index = state.real[action.payload.leaderLevel].findIndex(
         (leader) => leader.id === action.payload.id
       );
-      state.real[action.payload.leaderLevel][index] = {
-        ...state.real[action.payload.leaderLevel][index],
-        ...action.payload,
-      };
+      if (index > -1) {
+        state.real[action.payload.leaderLevel][index] = {
+          ...state.real[action.payload.leaderLevel][index],
+          ...action.payload,
+        };
+      }
+    },
+    changeOneRealLeaderLevel: (state, action) => {
+      let index = state.real[action.payload.oldLeaderLevel].findIndex(
+        (leader) => leader.id === action.payload.id
+      );
+      if (index > -1) {
+        state.real[action.payload.newLeaderLevel].push({
+          ...state.real[action.payload.oldLeaderLevel][index],
+          leaderLevel: action.payload.newLeaderLevel,
+        });
+        state.real[action.payload.oldLeaderLevel].splice(index, 1);
+      }
     },
   },
 });
@@ -60,6 +74,7 @@ export const {
   changeOneRealLeader,
   moveLeaderToLevel,
   setLeader,
+  changeOneRealLeaderLevel,
 } = leaderSlice.actions;
 
 export default leaderSlice.reducer;

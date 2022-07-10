@@ -102,6 +102,7 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
                   dispatch(setMouseOverLeader(null));
                 }}
                 onClick={() => {
+                  dispatch(setMouseOverLeader(null));
                   dispatch(setClickedLeader(leader));
                 }}
                 style={{

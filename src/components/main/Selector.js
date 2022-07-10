@@ -52,7 +52,7 @@ const RowSelector = ({ row, index, name, onClick, selectedValue }) => {
     "bg-white font-bold": selectedValue === row.value,
     "bg-black text-zinc-300": selectedValue !== row.value,
   });
-
+  console.log(typeof row.value);
   return (
     <button
       key={index}

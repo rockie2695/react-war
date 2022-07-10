@@ -4,7 +4,10 @@ import { memo, useState, useEffect } from "react";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { setClickedLeader } from "../../../features/leader/selectedLeaderSlice";
-import { changeOneRealLeader } from "../../../features/leader/leaderSlice";
+import {
+  changeOneRealLeader,
+  changeOneRealLeaderLevel,
+} from "../../../features/leader/leaderSlice";
 
 //react icons
 import { MdClose } from "react-icons/md"; //close
@@ -28,6 +31,7 @@ const LeaderPopUpModal = () => {
   const leaders = useSelector((state) => state.leaderReducer.real);
   const sideName = useSelector((state) => state.sideNameReducer);
   const setting = useSelector((state) => state.settingReducer);
+  const leaderLevel = useSelector((state) => state.leaderLevelReducer);
 
   //state
   const [selfClickedLeader, setSelfClickedLeader] = useState(null);
@@ -60,14 +64,25 @@ const LeaderPopUpModal = () => {
       }}
     >
       <div className="md:w-1/2 w-full md:h-1/2 h-full p-2 border border-gray-500/50 bg-gray-200/50 shadow-md overflow-y-auto space-y-2">
-        <div className="w-full text-right">
-          <NormalButton
-            className="h-12 w-12 text-lg"
-            onClick={() => dispatch(setClickedLeader(null))}
-            aria-label="close"
-          >
-            <MdClose />
-          </NormalButton>
+        <div className="w-full flex">
+          <div className="text-left">
+            <NormalButton
+              className="h-12 w-12 text-lg"
+              onClick={() => dispatch(setClickedLeader(null))}
+              aria-label="delete"
+            >
+              <MdClose />
+            </NormalButton>
+          </div>
+          <div className="text-right">
+            <NormalButton
+              className="h-12 w-12 text-lg"
+              onClick={() => dispatch(setClickedLeader(null))}
+              aria-label="close"
+            >
+              <MdClose />
+            </NormalButton>
+          </div>
         </div>
 
         <div className="grid grid-cols-7 gap-y-2">
@@ -212,7 +227,34 @@ const LeaderPopUpModal = () => {
 
           <div className="col-span-2 self-center">LeaderLevel</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4">{selfClickedLeader.leaderLevel}</div>
+          <div className="col-span-4 flex">
+            <Selector
+              option={[...Array(leaderLevel).keys()].map((rowLeaderLevel) => {
+                return {
+                  display: rowLeaderLevel + 1,
+                  value: rowLeaderLevel + 1,
+                };
+              })}
+              name="leaderLevel"
+              onChangeFunc={(name, value) => {
+                console.log(name, value);
+                dispatch(
+                  changeOneRealLeaderLevel({
+                    id: selfClickedLeader.id,
+                    oldLeaderLevel: selfClickedLeader.leaderLevel,
+                    newLeaderLevel: parseInt(value),
+                  })
+                );
+                dispatch(
+                  setClickedLeader({
+                    ...clickedLeader,
+                    leaderLevel: parseInt(value),
+                  })
+                );
+              }}
+              selectedValue={selfClickedLeader.leaderLevel}
+            />
+          </div>
         </div>
       </div>
     </animated.div>
