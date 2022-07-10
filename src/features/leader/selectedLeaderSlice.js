@@ -31,6 +31,12 @@ export const selectedLeaderSlice = createSlice({
         max: 100,
         maxLength: 3,
       },
+      leaderPower: {
+        type: "number",
+        name: "leaderPower",
+        minLength: 1,
+        maxLength: 3,
+      },
     },
   },
   reducers: {

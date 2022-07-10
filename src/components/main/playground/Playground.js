@@ -38,7 +38,12 @@ const Playground = () => {
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
   const leader = useSelector((state) => state.leaderReducer);
   const report = useSelector((state) => state.reportReducer);
-  const mouseOverLeader = useSelector((state) => state.selectedLeaderReducer.mouseOverLeader);
+  const mouseOverLeader = useSelector(
+    (state) => state.selectedLeaderReducer.mouseOverLeader
+  );
+  const clickedLeader = useSelector(
+    (state) => state.selectedLeaderReducer.clickedLeader
+  );
   const dispatch = useDispatch();
 
   //useState
@@ -144,7 +149,7 @@ const Playground = () => {
             onMouseMove={handleMouseMove}
           />
           <LeaderMouseOverEle mouseCoords={coords} />
-          <LeaderPopUpModal />
+          {clickedLeader ? <LeaderPopUpModal /> : null}
         </div>
         {report.history.length === 0 && report.cloneHistory.length === 0 && (
           <div className="flex md:space-x-4 space-x-2">

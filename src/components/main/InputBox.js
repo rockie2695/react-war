@@ -2,7 +2,14 @@
 import { memo } from "react";
 
 const InputBox = memo(
-  ({ objInReducer, onChangeFunc, inputValue, maxValue, ...props }) => {
+  ({
+    objInReducer,
+    onChangeFunc,
+    inputValue,
+    maxValue,
+    minValue,
+    ...props
+  }) => {
     const handleInputChange = (event) => {
       let name = objInReducer.name;
       let value = event.target.value;
@@ -46,6 +53,9 @@ const InputBox = memo(
         if (maxValue && typeof maxValue === "number" && value > maxValue) {
           return;
         }
+        if (minValue && typeof minValue === "number" && value < minValue) {
+          return;
+        }
         if (onChangeFunc) {
           onChangeFunc(name, value);
         }
@@ -79,9 +89,9 @@ const InputBox = memo(
             ? "rounded p-1 text-center " + props.className
             : "rounded p-1 text-center"
         }
-        minLength={objInReducer.minLength}
+        minLength={objInReducer.minLength || minValue?.toString().length}
         maxLength={objInReducer.maxLength || maxValue?.toString().length}
-        min={objInReducer.min}
+        min={objInReducer.min || minValue}
         max={objInReducer.max || maxValue}
         value={objInReducer.value || inputValue}
         step={objInReducer.step}

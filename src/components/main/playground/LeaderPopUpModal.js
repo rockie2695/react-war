@@ -12,6 +12,7 @@ import { MdClose } from "react-icons/md"; //close
 //component
 import NormalButton from "../NormalButton";
 import InputBox from "../InputBox";
+import Selector from "../Selector";
 
 import { useSpring, animated } from "react-spring";
 
@@ -26,6 +27,7 @@ const LeaderPopUpModal = () => {
   );
   const leaders = useSelector((state) => state.leaderReducer.real);
   const sideName = useSelector((state) => state.sideNameReducer);
+  const setting = useSelector((state) => state.settingReducer);
 
   //state
   const [selfClickedLeader, setSelfClickedLeader] = useState(null);
@@ -43,9 +45,9 @@ const LeaderPopUpModal = () => {
   }, [clickedLeader, leaders]);
 
   const props = useSpring({
-    to: { backdropFilter: "blur(4px)" },
-    from: { backdropFilter: "blur(0px)" },
-    config: { duration: 1000 },
+    to: { backdropFilter: "blur(4px)", transform: "translateY(0px)" },
+    from: { backdropFilter: "blur(0px)", transform: "translateY(-100%)" },
+    config: { duration: 100, delay: 0 },
   });
 
   return selfClickedLeader ? (
@@ -57,7 +59,7 @@ const LeaderPopUpModal = () => {
         dispatch(setClickedLeader(null));
       }}
     >
-      <div className="md:w-1/2 w-full md:h-1/2 h-full p-2 border border-gray-500/50 bg-gray-200/50 shadow-md">
+      <div className="md:w-1/2 w-full md:h-1/2 h-full p-2 border border-gray-500/50 bg-gray-200/50 shadow-md overflow-y-auto space-y-2">
         <div className="w-full text-right">
           <NormalButton
             className="h-12 w-12 text-lg"
@@ -166,11 +168,47 @@ const LeaderPopUpModal = () => {
 
           <div className="col-span-2 self-center">LeaderPower</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4">{selfClickedLeader.leaderPower}</div>
+          <div className="col-span-4">
+            <InputBox
+              className="rounded-r-none w-full"
+              objInReducer={clickedLeaderInputLimit.leaderPower}
+              inputValue={selfClickedLeader.leaderPower}
+              maxValue={setting.leaderPowerUpper.value}
+              minValue={setting.leaderPowerLower.value}
+              onChangeFunc={(name, value) => {
+                dispatch(
+                  changeOneRealLeader({
+                    id: selfClickedLeader.id,
+                    leaderLevel: selfClickedLeader.leaderLevel,
+                    [name]: value,
+                  })
+                );
+              }}
+            />
+          </div>
 
           <div className="col-span-2 self-center">Side</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4">{sideName[selfClickedLeader.side]}</div>
+          <div className="col-span-4 flex">
+            <Selector
+              option={[
+                { display: sideName["my"], value: "my" },
+                { display: sideName["enemy"], value: "enemy" },
+              ]}
+              name="side"
+              onChangeFunc={(name, value) => {
+                console.log(name, value);
+                dispatch(
+                  changeOneRealLeader({
+                    id: selfClickedLeader.id,
+                    leaderLevel: selfClickedLeader.leaderLevel,
+                    [name]: value,
+                  })
+                );
+              }}
+              selectedValue={selfClickedLeader.side}
+            />
+          </div>
 
           <div className="col-span-2 self-center">LeaderLevel</div>
           <div className="text-center self-center">:</div>

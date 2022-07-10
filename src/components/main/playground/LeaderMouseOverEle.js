@@ -52,7 +52,7 @@ const LeaderMouseOverEle = ({ mouseCoords }) => {
                 <td>soliderNum</td>
                 <td>:</td>
                 <td>
-                  {selfMouseOverLeader.soliderNum}/
+                  {selfMouseOverLeader.soliderNum} /{" "}
                   {selfMouseOverLeader.maxSoliderNum} (
                   {Math.round(
                     (selfMouseOverLeader.soliderNum /

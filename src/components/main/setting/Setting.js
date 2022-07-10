@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeSetting } from "../../../features/setting/settingSlice";
 
 //component
-import Selector from "./Selector";
+import Selector from "../Selector";
 import InputBox from "../InputBox";
 
 export default function Setting() {
@@ -14,13 +14,12 @@ export default function Setting() {
   //redux
   const setting = useSelector((state) => state.settingReducer);
   const dispatch = useDispatch();
-  
+
   return (
     <div className="w-full min-h-full">
       <Header title="Setting" />
       <div className="main-content md:p-4 p-2 grid grid-cols-4">
         <div className="md:col-span-3 col-span-4 md:space-y-4 space-y-2">
-
           <div>
             <h2 className="title text-lg font-bold">war table board</h2>
             <div className="content md:py-2 py-2 bg-gray-300 rounded-lg">
@@ -69,7 +68,7 @@ export default function Setting() {
 
               <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
                 <div className="flex-1">
-                  <label htmlFor="numAddPeople">show 百分比 or 士兵數值:</label>
+                  <label>show 百分比 or 士兵數值:</label>
                 </div>
                 <div className="flex-1 flex items-center">
                   <Selector
@@ -78,6 +77,15 @@ export default function Setting() {
                       { display: "士兵數值", value: "soliderNum" },
                     ]}
                     name="showSoliderNumOrPerc"
+                    onChangeFunc={(name, value) => {
+                      dispatch(
+                        changeSetting({
+                          key: name,
+                          value: value,
+                        })
+                      );
+                    }}
+                    selectedValue={setting.showSoliderNumOrPerc.value}
                   />
                 </div>
               </div>
