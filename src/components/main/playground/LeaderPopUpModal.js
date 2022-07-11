@@ -7,10 +7,11 @@ import { setClickedLeader } from "../../../features/leader/selectedLeaderSlice";
 import {
   changeOneRealLeader,
   changeOneRealLeaderLevel,
+  deleteOneRealLeader,
 } from "../../../features/leader/leaderSlice";
 
 //react icons
-import { MdClose } from "react-icons/md"; //close
+import { MdClose, MdOutlineDelete } from "react-icons/md"; //close,delete
 
 //component
 import NormalButton from "../NormalButton";
@@ -63,18 +64,21 @@ const LeaderPopUpModal = () => {
         dispatch(setClickedLeader(null));
       }}
     >
-      <div className="md:w-1/2 w-full md:h-1/2 h-full p-2 border border-gray-500/50 bg-gray-200/50 shadow-md overflow-y-auto space-y-2">
+      <div className="md:w-1/2 w-full md:h-1/2 h-full md:p-4 p-2 border border-gray-500/50 bg-gray-200/50 shadow-md overflow-y-auto md:space-y-4 space-y-2">
         <div className="w-full flex">
-          <div className="text-left">
+          <div className="text-left flex-1">
             <NormalButton
               className="h-12 w-12 text-lg"
-              onClick={() => dispatch(setClickedLeader(null))}
+              onClick={() => {
+                dispatch(deleteOneRealLeader(clickedLeader));
+                dispatch(setClickedLeader(null));
+              }}
               aria-label="delete"
             >
-              <MdClose />
+              <MdOutlineDelete />
             </NormalButton>
           </div>
-          <div className="text-right">
+          <div className="text-right flex-1">
             <NormalButton
               className="h-12 w-12 text-lg"
               onClick={() => dispatch(setClickedLeader(null))}
@@ -85,7 +89,7 @@ const LeaderPopUpModal = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-7 gap-y-2">
+        <div className="grid grid-cols-7 md:gap-y-4 gap-y-2">
           <div className="col-span-2 self-center">Name</div>
           <div className="text-center self-center">:</div>
           <div className="col-span-4">
