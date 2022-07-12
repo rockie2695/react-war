@@ -27,6 +27,7 @@ import { moveLeaderToLevel } from "../../../features/leader/leaderSlice";
 
 //react responsive
 import MediaQuery from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 
 //react icons
 import { MdSouth, MdNorth } from "react-icons/md";
@@ -34,6 +35,11 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const Playground = () => {
   console.log("render Playground");
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 768px)",
+  });
+
   //redux
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
   const leader = useSelector((state) => state.leaderReducer);
@@ -50,27 +56,29 @@ const Playground = () => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (event, preventCheckLeader = false) => {
-    //show delay data
-    if (mouseOverLeader !== null || preventCheckLeader) {
-      let [x, y] = [event.clientX - 120, event.clientY + 20];
-      let [divWidth, divHeight] = [
-        document.querySelector('div[data-test-id="virtuoso-scroller"]')
-          .clientWidth,
-        document.querySelector('div[data-test-id="virtuoso-scroller"]')
-          .clientHeight,
-      ];
-      if (x + 160 > divWidth) {
-        x = divWidth - 160;
-      }
-      if (y - 180 > divHeight) {
-        y = divHeight + 40;
-      }
-      startTransition(() => {
-        setCoords({
-          x: x, //event.clientX - event.target.offsetLeft - 130,
-          y: y, //event.clientY - event.target.offsetTop - 260,
+    if (isDesktopOrLaptop) {
+      //show delay data
+      if (mouseOverLeader !== null || preventCheckLeader) {
+        let [x, y] = [event.clientX - 120, event.clientY + 20];
+        let [divWidth, divHeight] = [
+          document.querySelector('div[data-test-id="virtuoso-scroller"]')
+            .clientWidth,
+          document.querySelector('div[data-test-id="virtuoso-scroller"]')
+            .clientHeight,
+        ];
+        if (x + 160 > divWidth) {
+          x = divWidth - 160;
+        }
+        if (y - 180 > divHeight) {
+          y = divHeight + 40;
+        }
+        startTransition(() => {
+          setCoords({
+            x: x, //event.clientX - event.target.offsetLeft - 130,
+            y: y, //event.clientY - event.target.offsetTop - 260,
+          });
         });
-      });
+      }
     }
   };
   return (

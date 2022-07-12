@@ -145,6 +145,7 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
               onClick={() => selfAddLeader(rowLeaderLevel, side)}
               className="h-full aspect-square"
               aria-label="add leader in this row"
+              isMouseMove={true}
             >
               <MdAdd />
             </NormalButton>

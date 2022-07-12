@@ -97,7 +97,7 @@ export default function Setting() {
                 <div className="flex-1 flex items-center">
                   <div className="basis-2/5 flex">
                     <InputBox
-                      className="flex-1 rounded-r-none"
+                      className="flex-1"
                       objInReducer={setting.leaderPowerLower}
                       onChangeFunc={(name, value) => {
                         dispatch(
@@ -112,7 +112,7 @@ export default function Setting() {
                   <span className="basis-1/5 text-center">&nbsp;-&nbsp;</span>
                   <div className="basis-2/5 flex">
                     <InputBox
-                      className="flex-1 rounded-r-none"
+                      className="flex-1"
                       objInReducer={setting.leaderPowerUpper}
                       onChangeFunc={(name, value) => {
                         dispatch(
