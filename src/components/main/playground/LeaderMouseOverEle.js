@@ -34,9 +34,8 @@ const LeaderMouseOverEle = ({ mouseCoords }) => {
     selfMouseOverLeader !== null && (
       <MediaQuery minWidth={768}>
         <div
-          className="w-48 bg-white border border-gray-400 rounded py-1 px-2 break-words text-sm"
+          className="w-48 bg-white border border-gray-400 rounded py-1 px-2 break-words text-sm transition-all pointer-events-none will-change-[top,left] absolute"
           style={{
-            position: "absolute",
             top: mouseCoords.y,
             left: mouseCoords.x,
           }}

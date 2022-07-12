@@ -15,13 +15,13 @@ const NormalButton = memo(({ isMouseMove = false, ...props }) => {
         (e.target.getBoundingClientRect().top +
           e.target.getBoundingClientRect().height / 2)) /
         (e.target.getBoundingClientRect().height / 2)) *
-      -30;
+      -35;
     let rotateY =
       ((e.clientX -
         (e.target.getBoundingClientRect().left +
           e.target.getBoundingClientRect().width / 2)) /
         (e.target.getBoundingClientRect().width / 2)) *
-      30;
+      35;
     setCoords({ x: rotateX.toFixed(2), y: rotateY.toFixed(2) });
   };
 

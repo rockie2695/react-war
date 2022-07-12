@@ -99,11 +99,10 @@ const FightControlEle = () => {
               borderColor: null,
             })
           );
-
-          //clear
-          clearInterval(selfFightTimeoutLoop);
-          setFightTimeoutLoop(null);
         }, setting.eachFightPlayTime.value * 1000 * 0.7);
+        //clear
+        clearInterval(selfFightTimeoutLoop);
+        setFightTimeoutLoop(null);
       }, setting.eachFightPlayTime.value * 1000);
       setFightTimeoutLoop(selfFightTimeoutLoop);
     },

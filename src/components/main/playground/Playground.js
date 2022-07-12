@@ -1,5 +1,5 @@
 //react
-import { memo, useState, startTransition } from "react";
+import { memo, useState, startTransition, useEffect } from "react";
 
 //circle
 import "react-circular-progressbar/dist/styles.css";
@@ -32,7 +32,7 @@ import { useMediaQuery } from "react-responsive";
 //react icons
 import { MdSouth, MdNorth } from "react-icons/md";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-
+import { useLocation } from "react-router-dom";
 const Playground = () => {
   console.log("render Playground");
 
