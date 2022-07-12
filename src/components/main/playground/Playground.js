@@ -1,5 +1,5 @@
 //react
-import { memo, useState } from "react";
+import { memo, useState, startTransition } from "react";
 
 //circle
 import "react-circular-progressbar/dist/styles.css";
@@ -14,6 +14,7 @@ import SideNameRow from "./SideNameRow";
 import NormalButton from "../NormalButton";
 import SoliderNumRow from "./SoliderNumRow";
 import LeaderMouseOverEle from "./LeaderMouseOverEle";
+import LeaderPopUpModal from "./LeaderPopUpModal";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -26,6 +27,7 @@ import { moveLeaderToLevel } from "../../../features/leader/leaderSlice";
 
 //react responsive
 import MediaQuery from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 
 //react icons
 import { MdSouth, MdNorth } from "react-icons/md";
@@ -33,42 +35,57 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const Playground = () => {
   console.log("render Playground");
+
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 768px)",
+  });
+
   //redux
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
   const leader = useSelector((state) => state.leaderReducer);
   const report = useSelector((state) => state.reportReducer);
-  const mouseOverLeader = useSelector((state) => state.mouseOverLeaderReducer);
+  const mouseOverLeader = useSelector(
+    (state) => state.selectedLeaderReducer.mouseOverLeader
+  );
+  const clickedLeader = useSelector(
+    (state) => state.selectedLeaderReducer.clickedLeader
+  );
   const dispatch = useDispatch();
 
   //useState
   const [coords, setCoords] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (event) => {
-    if (mouseOverLeader !== null) {
-      let [x, y] = [event.clientX - 120, event.clientY + 20];
-      let [divWidth, divHeight] = [
-        document.querySelector('div[data-test-id="virtuoso-scroller"]')
-          .clientWidth,
-        document.querySelector('div[data-test-id="virtuoso-scroller"]')
-          .clientHeight,
-      ];
-      if (x + 160 > divWidth) {
-        x = divWidth - 160;
+  const handleMouseMove = (event, preventCheckLeader = false) => {
+    if (isDesktopOrLaptop) {
+      //show delay data
+      if (mouseOverLeader !== null || preventCheckLeader) {
+        let [x, y] = [event.clientX - 120, event.clientY + 20];
+        let [divWidth, divHeight] = [
+          document.querySelector('div[data-test-id="virtuoso-scroller"]')
+            .clientWidth,
+          document.querySelector('div[data-test-id="virtuoso-scroller"]')
+            .clientHeight,
+        ];
+        if (x + 160 > divWidth) {
+          x = divWidth - 160;
+        }
+        if (y - 180 > divHeight) {
+          y = divHeight + 40;
+        }
+        startTransition(() => {
+          setCoords({
+            x: x, //event.clientX - event.target.offsetLeft - 130,
+            y: y, //event.clientY - event.target.offsetTop - 260,
+          });
+        });
       }
-      if (y - 180 > divHeight) {
-        y = divHeight+40;
-      }
-      setCoords({
-        x: x, //event.clientX - event.target.offsetLeft - 130,
-        y: y, //event.clientY - event.target.offsetTop - 260,
-      });
     }
   };
   return (
     <div className="w-full min-h-full">
       <Header title="Playground" />
       <div className="main-content md:p-4 p-2 md:space-y-4 space-y-2">
-        <h2>war table</h2>
+        <h2 className="title text-lg font-bold">war table</h2>
 
         <MediaQuery maxWidth={767}>
           <MobileControlRow />
@@ -133,12 +150,14 @@ const Playground = () => {
                 key={index}
                 className={index > 0 ? "md:mt-4 mt-2" : ""}
                 rowLeaderLevel={leaderLevel}
+                handleMouseMove={handleMouseMove}
                 //rowLeaders={leaders[leaderLevel]}
               />
             )}
             onMouseMove={handleMouseMove}
           />
           <LeaderMouseOverEle mouseCoords={coords} />
+          {clickedLeader ? <LeaderPopUpModal /> : null}
         </div>
         {report.history.length === 0 && report.cloneHistory.length === 0 && (
           <div className="flex md:space-x-4 space-x-2">
@@ -148,7 +167,6 @@ const Playground = () => {
                 onClick={() => {
                   dispatch(minusLowerLeaderLevel());
                   if (leader.real[leaderLevel].length > 0) {
-                    console.log("123");
                     for (let i = 1; i < leaderLevel; i++) {
                       dispatch(
                         moveLeaderToLevel({

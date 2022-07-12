@@ -332,17 +332,18 @@ const FightControlEle = () => {
   }, [fightInEachLevel, leaderLevel, leaders, dispatch, sideName]);
 
   return (
-    <div className="text-center md:space-x-4 space-x-2 h-12">
+    <div className="text-center md:space-x-8 space-x-4 h-12">
       {mySideTopestLeader.length > 0 &&
         enemySideTopestLeader.length > 0 &&
         report.history.length === 0 &&
         report.cloneHistory.length === 0 && (
           <NormalButton
-            className="h-12 w-12 text-lg"
+            className="h-11 w-11 text-lg -rotate-45"
+            roundedClassName="rounded"
             onClick={() => fight()}
             aria-label="fight"
           >
-            <RiSwordFill />
+            <RiSwordFill className="text-xl rotate-45" />
           </NormalButton>
         )}
 
@@ -350,20 +351,22 @@ const FightControlEle = () => {
         <>
           {stop && (
             <NormalButton
-              className="h-12 w-12 text-lg"
+              className="h-11 w-11 text-lg -rotate-45"
+              roundedClassName="rounded"
               aria-label="play"
               onClick={() => dispatch(setStop(false))}
             >
-              <MdPlayArrow />
+              <MdPlayArrow className="text-xl rotate-45" />
             </NormalButton>
           )}
           {!stop && (
             <NormalButton
-              className="h-12 w-12 text-lg"
+              className="h-11 w-11 text-lg -rotate-45"
+              roundedClassName="rounded"
               aria-label="pause"
               onClick={() => dispatch(setStop(true))}
             >
-              <MdOutlinePause />
+              <MdOutlinePause className="text-xl rotate-45" />
             </NormalButton>
           )}
         </>
@@ -372,7 +375,8 @@ const FightControlEle = () => {
       {report.history.length === 0 && report.cloneHistory.length !== 0 && (
         <>
           <NormalButton
-            className="h-12 w-12 text-lg"
+            className="h-11 w-11 text-lg -rotate-45"
+            roundedClassName="rounded"
             aria-label="replay"
             onClick={() => {
               dispatch(setStop(true));
@@ -380,10 +384,11 @@ const FightControlEle = () => {
               dispatch(setLeader(cloneLeaders));
             }}
           >
-            <MdReplay />
+            <MdReplay className="text-xl rotate-45" />
           </NormalButton>
           <NormalButton
-            className="h-12 w-12 text-lg"
+            className="h-11 w-11 text-lg -rotate-45"
+            roundedClassName="rounded"
             aria-label="back"
             onClick={() => {
               dispatch(setReport({ history: [], cloneHistory: [] }));
@@ -391,7 +396,7 @@ const FightControlEle = () => {
               dispatch(setStop(false));
             }}
           >
-            <MdOutlineArrowBack />
+            <MdOutlineArrowBack className="text-xl rotate-45" />
           </NormalButton>
         </>
       )}

@@ -30,6 +30,7 @@ export const leaderSlice = createSlice({
       state.clone = action.payload;
     },
     moveLeaderToLevel: (state, action) => {
+      //for add higher level button
       state.real[action.payload.fromLeaderLevel] = state.real[
         action.payload.fromLeaderLevel
       ].map((row) => {
@@ -45,10 +46,32 @@ export const leaderSlice = createSlice({
       let index = state.real[action.payload.leaderLevel].findIndex(
         (leader) => leader.id === action.payload.id
       );
-      state.real[action.payload.leaderLevel][index] = {
-        ...state.real[action.payload.leaderLevel][index],
-        ...action.payload,
-      };
+      if (index > -1) {
+        state.real[action.payload.leaderLevel][index] = {
+          ...state.real[action.payload.leaderLevel][index],
+          ...action.payload,
+        };
+      }
+    },
+    changeOneRealLeaderLevel: (state, action) => {
+      let index = state.real[action.payload.oldLeaderLevel].findIndex(
+        (leader) => leader.id === action.payload.id
+      );
+      if (index > -1) {
+        state.real[action.payload.newLeaderLevel].push({
+          ...state.real[action.payload.oldLeaderLevel][index],
+          leaderLevel: action.payload.newLeaderLevel,
+        });
+        state.real[action.payload.oldLeaderLevel].splice(index, 1);
+      }
+    },
+    deleteOneRealLeader: (state, action) => {
+      let index = state.real[action.payload.leaderLevel].findIndex(
+        (leader) => leader.id === action.payload.id
+      );
+      if (index > -1) {
+        state.real[action.payload.leaderLevel].splice(index, 1);
+      }
     },
   },
 });
@@ -60,6 +83,8 @@ export const {
   changeOneRealLeader,
   moveLeaderToLevel,
   setLeader,
+  changeOneRealLeaderLevel,
+  deleteOneRealLeader,
 } = leaderSlice.actions;
 
 export default leaderSlice.reducer;

@@ -1,23 +1,16 @@
-//redux
-import { useSelector, useDispatch } from "react-redux";
-import { changeSetting } from "../../../features/setting/settingSlice";
-
 //className
 let classNames = require("classnames");
 
-export default function Selector({ option, name }) {
-
-  //redux
-  const dispatch = useDispatch();
-
+export default function Selector({
+  option,
+  name,
+  onChangeFunc,
+  selectedValue,
+}) {
   const handleSelectorChange = (event) => {
-    console.log(event.target.value, name);
-    dispatch(
-      changeSetting({
-        key: name,
-        value: event.target.value,
-      })
-    );
+    if (onChangeFunc) {
+      onChangeFunc(name, event.target.value);
+    }
   };
   return (
     <>
@@ -28,6 +21,7 @@ export default function Selector({ option, name }) {
             index={index}
             key={index}
             name={name}
+            selectedValue={selectedValue}
             onClick={handleSelectorChange}
           />
         ))}
@@ -36,6 +30,7 @@ export default function Selector({ option, name }) {
           onChange={handleSelectorChange}
           name={name}
           className="rounded p-1 text-center flex-1"
+          value={selectedValue}
         >
           {option.map((row, index) => (
             <option value={row.value} key={index}>
@@ -48,16 +43,12 @@ export default function Selector({ option, name }) {
   );
 }
 
-const RowSelector = ({ row, index, name, onClick }) => {
-  //redux
-  const setting = useSelector((state) => state.settingReducer);
-
+const RowSelector = ({ row, index, name, onClick, selectedValue }) => {
   let btnClass = classNames({
     "flex-1 hover:bg-zinc-400 hover:text-zinc-700 rounded p-1 hover:ease-in-out duration-300": true,
-    "bg-white font-bold": setting[name].value === row.value,
-    "bg-black text-zinc-300": setting[name].value !== row.value,
+    "bg-white font-bold": selectedValue === row.value,
+    "bg-black text-zinc-300": selectedValue !== row.value,
   });
-
   return (
     <button
       key={index}

@@ -17,14 +17,18 @@ import { MdAdd } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { addLeader } from "../../../features/leader/leaderSlice";
 import { addLeaderId } from "../../../features/leader/leaderIdSlice";
+import {
+  setMouseOverLeader,
+  setClickedLeader,
+} from "../../../features/leader/selectedLeaderSlice";
 
 //random js
 import { randomInteger, randomPeopleName } from "../../../script/random";
 
+//local component
 import NormalButton from "../NormalButton";
-import { setMouseOverLeader } from "../../../features/leader/mouseOverLeaderSlice";
 
-const TableRow = ({ rowLeaderLevel, ...props }) => {
+const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
   console.log("render TableRow " + rowLeaderLevel);
 
   //redux
@@ -44,7 +48,10 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
             name: randomPeopleName().name,
             soliderNum: 100,
             maxSoliderNum: 100,
-            leaderPower: randomInteger(1, 10),
+            leaderPower: randomInteger(
+              setting.leaderPowerLower.value,
+              setting.leaderPowerUpper.value
+            ),
             side: side,
             id: leaderId + i,
           })
@@ -52,7 +59,13 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
         dispatch(addLeaderId());
       });
     },
-    [dispatch, leaderId, setting.numAddPeople.value]
+    [
+      dispatch,
+      leaderId,
+      setting.numAddPeople.value,
+      setting.leaderPowerLower.value,
+      setting.leaderPowerUpper.value,
+    ]
   );
 
   return (
@@ -81,11 +94,16 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
                     ? " border-blue-600"
                     : "")
                 }
-                onMouseEnter={() => {
+                onMouseEnter={(e) => {
                   dispatch(setMouseOverLeader(leader));
+                  handleMouseMove(e, true);
                 }}
                 onMouseLeave={() => {
                   dispatch(setMouseOverLeader(null));
+                }}
+                onClick={() => {
+                  dispatch(setMouseOverLeader(null));
+                  dispatch(setClickedLeader(leader));
                 }}
                 style={{
                   transitionDuration:
@@ -112,7 +130,7 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
                   <div className="text-xs md:text-sm bg-white/50 rounded-lg">
                     <span>
                       {setting.showSoliderNumOrPerc.value === "percentage" &&
-                        parseInt(
+                        Math.round(
                           (leader.soliderNum / leader.maxSoliderNum) * 100
                         ) + "%"}
                       {setting.showSoliderNumOrPerc.value === "soliderNum" &&
@@ -127,6 +145,7 @@ const TableRow = ({ rowLeaderLevel, ...props }) => {
               onClick={() => selfAddLeader(rowLeaderLevel, side)}
               className="h-full aspect-square"
               aria-label="add leader in this row"
+              isMouseMove={true}
             >
               <MdAdd />
             </NormalButton>

@@ -3,7 +3,10 @@ import Header from "../Header";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { changeSetting } from "../../../features/setting/settingSlice";
-import Selector from "./Selector";
+
+//component
+import Selector from "../Selector";
+import InputBox from "../InputBox";
 
 export default function Setting() {
   console.log("render Setting");
@@ -11,40 +14,7 @@ export default function Setting() {
   //redux
   const setting = useSelector((state) => state.settingReducer);
   const dispatch = useDispatch();
-  const handleInputChange = (event) => {
-    if (event.target.type === "number") {
-      let name = event.target.name;
-      let value = event.target.value;
-      if (!setting[name]?.step) {
-        value = parseInt(value);
-      } else {
-        value = parseFloat(value);
-      }
-      if (isNaN(value)) {
-        return;
-      }
-      if (
-        setting[name]?.min &&
-        typeof setting[name].min === "number" &&
-        value < setting[name].min
-      ) {
-        return;
-      }
-      if (
-        setting[name]?.max &&
-        typeof setting[name].max === "number" &&
-        value > setting[name].max
-      ) {
-        return;
-      }
-      dispatch(
-        changeSetting({
-          key: name,
-          value: value,
-        })
-      );
-    }
-  };
+
   return (
     <div className="w-full min-h-full">
       <Header title="Setting" />
@@ -58,18 +28,17 @@ export default function Setting() {
                   <label htmlFor="numAddPeople">增加leader數:</label>
                 </div>
                 <div className="flex-1 flex items-center">
-                  <input
-                    type="number"
-                    id="numAddPeople"
-                    name="numAddPeople"
-                    className="rounded p-1 text-center flex-1"
-                    minLength={setting.numAddPeople.minLength}
-                    maxLength={setting.numAddPeople.maxLength}
-                    min={setting.numAddPeople.min}
-                    max={setting.numAddPeople.max}
-                    value={setting.numAddPeople.value}
-                    step={setting.numAddPeople.step}
-                    onChange={handleInputChange}
+                  <InputBox
+                    className="flex-1"
+                    objInReducer={setting.numAddPeople}
+                    onChangeFunc={(name, value) => {
+                      dispatch(
+                        changeSetting({
+                          key: name,
+                          value: value,
+                        })
+                      );
+                    }}
                   />
                 </div>
               </div>
@@ -81,18 +50,17 @@ export default function Setting() {
                   </label>
                 </div>
                 <div className="flex-1 flex items-center">
-                  <input
-                    type="number"
-                    id="eachFightPlayTime"
-                    name="eachFightPlayTime"
-                    className="p-1 text-center flex-1 rounded-l"
-                    minLength={setting.eachFightPlayTime.minLength}
-                    maxLength={setting.eachFightPlayTime.maxLength}
-                    min={setting.eachFightPlayTime.min}
-                    max={setting.eachFightPlayTime.max}
-                    value={setting.eachFightPlayTime.value}
-                    step={setting.eachFightPlayTime.step}
-                    onChange={handleInputChange}
+                  <InputBox
+                    className="flex-1 rounded-r-none"
+                    objInReducer={setting.eachFightPlayTime}
+                    onChangeFunc={(name, value) => {
+                      dispatch(
+                        changeSetting({
+                          key: name,
+                          value: value,
+                        })
+                      );
+                    }}
                   />
                   <div className="p-1 bg-white rounded-r">s</div>
                 </div>
@@ -100,9 +68,7 @@ export default function Setting() {
 
               <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
                 <div className="flex-1">
-                  <label htmlFor="numAddPeople">
-                    show 百分比 or 士兵數值:
-                  </label>
+                  <label>show 百分比 or 士兵數值:</label>
                 </div>
                 <div className="flex-1 flex items-center">
                   <Selector
@@ -111,7 +77,53 @@ export default function Setting() {
                       { display: "士兵數值", value: "soliderNum" },
                     ]}
                     name="showSoliderNumOrPerc"
+                    onChangeFunc={(name, value) => {
+                      dispatch(
+                        changeSetting({
+                          key: name,
+                          value: value,
+                        })
+                      );
+                    }}
+                    selectedValue={setting.showSoliderNumOrPerc.value}
                   />
+                </div>
+              </div>
+
+              <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
+                <div className="flex-1">
+                  <span>leaderPower:</span>
+                </div>
+                <div className="flex-1 flex items-center">
+                  <div className="basis-2/5 flex">
+                    <InputBox
+                      className="flex-1"
+                      objInReducer={setting.leaderPowerLower}
+                      onChangeFunc={(name, value) => {
+                        dispatch(
+                          changeSetting({
+                            key: name,
+                            value: value,
+                          })
+                        );
+                      }}
+                    />
+                  </div>
+                  <span className="basis-1/5 text-center">&nbsp;-&nbsp;</span>
+                  <div className="basis-2/5 flex">
+                    <InputBox
+                      className="flex-1"
+                      objInReducer={setting.leaderPowerUpper}
+                      onChangeFunc={(name, value) => {
+                        dispatch(
+                          changeSetting({
+                            key: name,
+                            value: value,
+                          })
+                        );
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -127,17 +139,17 @@ export default function Setting() {
                   </label>
                 </div>
                 <div className="flex-1 flex items-center">
-                  <input
-                    type="number"
-                    id="attackAndSoliderRatio"
-                    name="attackAndSoliderRatio"
-                    className=" rounded-l p-1 text-center flex-1"
-                    minLength={setting.attackAndSoliderRatio.minLength}
-                    maxLength={setting.attackAndSoliderRatio.maxLength}
-                    min={setting.attackAndSoliderRatio.min}
-                    max={setting.attackAndSoliderRatio.max}
-                    value={setting.attackAndSoliderRatio.value}
-                    onChange={(e) => handleInputChange(e)}
+                  <InputBox
+                    className="flex-1 rounded-r-none"
+                    objInReducer={setting.attackAndSoliderRatio}
+                    onChangeFunc={(name, value) => {
+                      dispatch(
+                        changeSetting({
+                          key: name,
+                          value: value,
+                        })
+                      );
+                    }}
                   />
                   <div className="p-1 bg-white rounded-r">%</div>
                 </div>
@@ -149,33 +161,33 @@ export default function Setting() {
                 </div>
                 <div className="flex-1 flex items-center">
                   <div className="basis-2/5 flex">
-                    <input
-                      type="number"
-                      id="attackRandomFlowLower"
-                      name="attackRandomFlowLower"
-                      className="p-1 text-center flex-1 rounded-l"
-                      minLength={setting.attackRandomFlowLower.minLength}
-                      maxLength={setting.attackRandomFlowLower.maxLength}
-                      min={setting.attackRandomFlowLower.min}
-                      max={setting.attackRandomFlowLower.max}
-                      value={setting.attackRandomFlowLower.value}
-                      onChange={(e) => handleInputChange(e)}
+                    <InputBox
+                      className="flex-1 rounded-r-none"
+                      objInReducer={setting.attackRandomFlowLower}
+                      onChangeFunc={(name, value) => {
+                        dispatch(
+                          changeSetting({
+                            key: name,
+                            value: value,
+                          })
+                        );
+                      }}
                     />
                     <div className="p-1 bg-white rounded-r">%</div>
                   </div>
                   <span className="basis-1/5 text-center">&nbsp;-&nbsp;</span>
                   <div className="basis-2/5 flex">
-                    <input
-                      type="number"
-                      id="attackRandomFlowUpper"
-                      name="attackRandomFlowUpper"
-                      className="p-1 text-center flex-1 rounded-l"
-                      minLength={setting.attackRandomFlowLower.minLength}
-                      maxLength={setting.attackRandomFlowLower.maxLength}
-                      min={setting.attackRandomFlowLower.min}
-                      max={setting.attackRandomFlowLower.max}
-                      value={setting.attackRandomFlowUpper.value}
-                      onChange={(e) => handleInputChange(e)}
+                    <InputBox
+                      className="flex-1 rounded-r-none"
+                      objInReducer={setting.attackRandomFlowUpper}
+                      onChangeFunc={(name, value) => {
+                        dispatch(
+                          changeSetting({
+                            key: name,
+                            value: value,
+                          })
+                        );
+                      }}
                     />
                     <span className="p-1 bg-white rounded-r">%</span>
                   </div>

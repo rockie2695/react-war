@@ -9,7 +9,9 @@ import MediaQuery from "react-responsive";
 
 const LeaderMouseOverEle = ({ mouseCoords }) => {
   //redux
-  const mouseOverLeader = useSelector((state) => state.mouseOverLeaderReducer);
+  const mouseOverLeader = useSelector(
+    (state) => state.selectedLeaderReducer.mouseOverLeader
+  );
   const leaders = useSelector((state) => state.leaderReducer.real);
   const sideName = useSelector((state) => state.sideNameReducer);
 
@@ -50,9 +52,9 @@ const LeaderMouseOverEle = ({ mouseCoords }) => {
                 <td>soliderNum</td>
                 <td>:</td>
                 <td>
-                  {selfMouseOverLeader.soliderNum}/
+                  {selfMouseOverLeader.soliderNum} /{" "}
                   {selfMouseOverLeader.maxSoliderNum} (
-                  {parseInt(
+                  {Math.round(
                     (selfMouseOverLeader.soliderNum /
                       selfMouseOverLeader.maxSoliderNum) *
                       100
@@ -69,6 +71,11 @@ const LeaderMouseOverEle = ({ mouseCoords }) => {
                 <td>Side</td>
                 <td>:</td>
                 <td>{sideName[selfMouseOverLeader.side]}</td>
+              </tr>
+              <tr>
+                <td>LeaderLevel</td>
+                <td>:</td>
+                <td>{selfMouseOverLeader.leaderLevel}</td>
               </tr>
             </tbody>
           </table>
