@@ -1,5 +1,5 @@
 //react
-import { memo, useState, startTransition, useEffect } from "react";
+import { memo, useState, startTransition, useEffect, useCallback } from "react";
 
 //circle
 import "react-circular-progressbar/dist/styles.css";
@@ -32,7 +32,6 @@ import { useMediaQuery } from "react-responsive";
 //react icons
 import { MdSouth, MdNorth } from "react-icons/md";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { useLocation } from "react-router-dom";
 const Playground = () => {
   console.log("render Playground");
 
@@ -55,32 +54,35 @@ const Playground = () => {
   //useState
   const [coords, setCoords] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (event, preventCheckLeader = false) => {
-    if (isDesktopOrLaptop) {
-      //show delay data
-      if (mouseOverLeader !== null || preventCheckLeader) {
-        let [x, y] = [event.clientX - 120, event.clientY + 20];
-        let [divWidth, divHeight] = [
-          document.querySelector('div[data-test-id="virtuoso-scroller"]')
-            .clientWidth,
-          document.querySelector('div[data-test-id="virtuoso-scroller"]')
-            .clientHeight,
-        ];
-        if (x + 160 > divWidth) {
-          x = divWidth - 160;
-        }
-        if (y - 180 > divHeight) {
-          y = divHeight + 40;
-        }
-        startTransition(() => {
-          setCoords({
-            x: x, //event.clientX - event.target.offsetLeft - 130,
-            y: y, //event.clientY - event.target.offsetTop - 260,
+  const handleMouseMove = useCallback(
+    (event, preventCheckLeader = false) => {
+      if (isDesktopOrLaptop) {
+        //show delay data
+        if (mouseOverLeader !== null || preventCheckLeader) {
+          let [x, y] = [event.clientX - 120, event.clientY + 20];
+          let [divWidth, divHeight] = [
+            document.querySelector('div[data-test-id="virtuoso-scroller"]')
+              .clientWidth,
+            document.querySelector('div[data-test-id="virtuoso-scroller"]')
+              .clientHeight,
+          ];
+          if (x + 160 > divWidth) {
+            x = divWidth - 160;
+          }
+          if (y - 165 > divHeight) {
+            y = divHeight + 160;
+          }
+          startTransition(() => {
+            setCoords({
+              x: x, //event.clientX - event.target.offsetLeft - 130,
+              y: y, //event.clientY - event.target.offsetTop - 260,
+            });
           });
-        });
+        }
       }
-    }
-  };
+    },
+    [isDesktopOrLaptop, mouseOverLeader]
+  );
   return (
     <div className="w-full min-h-full">
       <Header title="Playground" />

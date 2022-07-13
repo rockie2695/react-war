@@ -84,7 +84,7 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
               <div
                 key={index2}
                 className={
-                  "border-2 hover:border-zinc-700 p-1 rounded-lg hover:ease-in-out border-transparent cursor-pointer" +
+                  "border-2 hover:border-zinc-700 rounded-lg hover:ease-in-out border-transparent cursor-pointer" +
                   (typeof leader.borderColor !== "undefined" &&
                   leader.borderColor === "red"
                     ? " border-red-600"
@@ -102,8 +102,10 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
                   dispatch(setMouseOverLeader(null));
                 }}
                 onClick={() => {
-                  dispatch(setMouseOverLeader(null));
-                  dispatch(setClickedLeader(leader));
+                  if (report.cloneHistory.length === 0) {
+                    dispatch(setMouseOverLeader(null));
+                    dispatch(setClickedLeader(leader));
+                  }
                 }}
                 style={{
                   transitionDuration:
