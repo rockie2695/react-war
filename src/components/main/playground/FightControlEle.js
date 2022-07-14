@@ -239,12 +239,11 @@ const FightControlEle = () => {
         );
         report.push({
           round: round,
-          attackerId: attacker.id,
-          defenderId: defender.id,
           attackerBefore: processLeaders[needChangeAttackerIndex],
           defenderBefore: processLeaders[needChangeDefenderIndex],
           attackerAfter: attacker,
           defenderAfter: defender,
+          type: "attack",
         });
         //update attacker to processLeaders
         processLeaders[needChangeAttackerIndex] = {

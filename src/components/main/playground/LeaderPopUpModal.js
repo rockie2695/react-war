@@ -12,12 +12,17 @@ import {
 
 //react icons
 import { MdClose, MdOutlineDelete } from "react-icons/md"; //close,delete
+import { FaRandom } from "react-icons/fa"; //random
 
 //component
 import NormalButton from "../NormalButton";
 import InputBox from "../InputBox";
 import Selector from "../Selector";
 
+//random js
+import { randomPeopleName } from "../../../script/random";
+
+//react spring
 import { useSpring, animated } from "react-spring";
 
 const LeaderPopUpModal = () => {
@@ -92,14 +97,13 @@ const LeaderPopUpModal = () => {
         <div className="grid grid-cols-7 md:gap-y-4 gap-y-2">
           <div className="col-span-2 self-center">Name</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4">
+          <div className="col-span-4 flex">
             <InputBox
-              className="rounded-r-none w-full"
+              className="rounded-r-none w-full h-8"
               objInReducer={clickedLeaderInputLimit.name}
               inputValue={selfClickedLeader.name}
               minLength={selfClickedLeader.name}
               onChangeFunc={(name, value) => {
-                console.log(value);
                 dispatch(
                   changeOneRealLeader({
                     id: selfClickedLeader.id,
@@ -109,6 +113,22 @@ const LeaderPopUpModal = () => {
                 );
               }}
             />
+            <NormalButton
+              className="h-8 w-11"
+              aria-label="random left side name"
+              roundedClassName="rounded-l-none"
+              onClick={() => {
+                dispatch(
+                  changeOneRealLeader({
+                    id: selfClickedLeader.id,
+                    leaderLevel: selfClickedLeader.leaderLevel,
+                    name: randomPeopleName().name,
+                  })
+                );
+              }}
+            >
+              <FaRandom />
+            </NormalButton>
           </div>
 
           <div className="col-span-2 self-center">soliderNum</div>
@@ -117,7 +137,7 @@ const LeaderPopUpModal = () => {
             <div className="flex">
               <div className="basis-2/5">
                 <InputBox
-                  className="rounded-r-none w-full"
+                  className="rounded-r-none w-full h-8"
                   objInReducer={clickedLeaderInputLimit.soliderNum}
                   inputValue={selfClickedLeader.soliderNum}
                   maxValue={selfClickedLeader.maxSoliderNum}
@@ -136,7 +156,7 @@ const LeaderPopUpModal = () => {
               <div className="p-1 bg-white basis-1/5 text-center">/</div>
               <div className="basis-2/5">
                 <InputBox
-                  className="rounded-l-none w-full"
+                  className="rounded-l-none w-full h-8"
                   objInReducer={clickedLeaderInputLimit.maxSoliderNum}
                   inputValue={selfClickedLeader.maxSoliderNum}
                   onChangeFunc={(name, value) => {
@@ -162,7 +182,7 @@ const LeaderPopUpModal = () => {
             </div>
             <div className="flex">
               <InputBox
-                className="rounded-r-none w-full"
+                className="rounded-r-none w-full h-8"
                 objInReducer={clickedLeaderInputLimit.soliderNumPerc}
                 inputValue={Math.round(
                   (selfClickedLeader.soliderNum /
@@ -181,7 +201,7 @@ const LeaderPopUpModal = () => {
                   );
                 }}
               />
-              <div className="p-1 bg-white">%</div>
+              <div className="p-1 bg-white h-8">%</div>
             </div>
           </div>
 
@@ -189,7 +209,7 @@ const LeaderPopUpModal = () => {
           <div className="text-center self-center">:</div>
           <div className="col-span-4">
             <InputBox
-              className="rounded-r-none w-full"
+              className="rounded-r-none w-full h-8"
               objInReducer={clickedLeaderInputLimit.leaderPower}
               inputValue={selfClickedLeader.leaderPower}
               maxValue={setting.leaderPowerUpper.value}
@@ -208,7 +228,7 @@ const LeaderPopUpModal = () => {
 
           <div className="col-span-2 self-center">Side</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4 flex">
+          <div className="col-span-4 flex h-8">
             <Selector
               option={[
                 { display: sideName["my"], value: "my" },
@@ -231,7 +251,7 @@ const LeaderPopUpModal = () => {
 
           <div className="col-span-2 self-center">LeaderLevel</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4 flex">
+          <div className="col-span-4 flex h-8">
             <Selector
               option={[...Array(leaderLevel).keys()].map((rowLeaderLevel) => {
                 return {

@@ -48,7 +48,7 @@ const SoliderNumRow = () => {
   }, [leaders, leaderLevel]);
 
   return (
-    <div className="grid md:grid-cols-11 grid-cols-2 md:gap-4 gap-2 h-12">
+    <div className="grid md:grid-cols-11 grid-cols-2 md:gap-4 gap-2 h-6">
       <div className="md:col-span-4 h-full flex justify-center items-center text-blue-600 font-bold text-lg">
         {sideSoliderNum.my}
       </div>

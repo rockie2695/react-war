@@ -1,5 +1,5 @@
 //react
-import { memo, useState, startTransition, useEffect, useCallback } from "react";
+import { memo, useState, startTransition, useCallback } from "react";
 
 //circle
 import "react-circular-progressbar/dist/styles.css";
@@ -15,6 +15,7 @@ import NormalButton from "../NormalButton";
 import SoliderNumRow from "./SoliderNumRow";
 import LeaderMouseOverEle from "./LeaderMouseOverEle";
 import LeaderPopUpModal from "./LeaderPopUpModal";
+import MessageBox from "./MessageBox";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -67,10 +68,10 @@ const Playground = () => {
               .clientHeight,
           ];
           if (x + 160 > divWidth) {
-            x = divWidth - 160;
+            x = x - 220;
           }
           if (y - 165 > divHeight) {
-            y = divHeight + 160;
+            y = y - 160;
           }
           startTransition(() => {
             setCoords({
@@ -197,6 +198,7 @@ const Playground = () => {
             )}
           </div>
         )}
+        <MessageBox />
       </div>
     </div>
   );
