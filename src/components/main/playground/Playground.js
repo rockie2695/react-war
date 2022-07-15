@@ -198,7 +198,7 @@ const Playground = () => {
             )}
           </div>
         )}
-        <MessageBox />
+        {report.cloneHistory.length > 0 && <MessageBox />}
       </div>
     </div>
   );
