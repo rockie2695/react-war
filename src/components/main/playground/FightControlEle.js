@@ -65,7 +65,6 @@ const FightControlEle = () => {
       let selfFightTimeoutLoop = setTimeout(() => {
         //row
         let showRowReportHistory = selfReportHistory[0];
-        console.log(showRowReportHistory);
         dispatch(
           changeOneRealLeader({
             ...showRowReportHistory.attackerAfter,
@@ -83,6 +82,12 @@ const FightControlEle = () => {
         selfReportHistory = selfReportHistory.slice(1);
         dispatch(setReport({ history: selfReportHistory }));
         dispatch(setRound(showRowReportHistory.round));
+
+        //messagebox
+        document
+          .querySelector("div#MessageBox" + showRowReportHistory.id)
+          .scrollIntoView({ behavior: "smooth", block: "center" });
+
         //remove border
         setTimeout(() => {
           dispatch(
@@ -202,7 +207,7 @@ const FightControlEle = () => {
   );
 
   const fightInEachLevel = useCallback(
-    (rowLeaderLevel, processLeaders, round) => {
+    (rowLeaderLevel, processLeaders, round, reportHistoryLength) => {
       let report = [],
         noDefender = false;
       let shuffleLeaderInSameLevel = shuffle(
@@ -244,6 +249,7 @@ const FightControlEle = () => {
           attackerAfter: attacker,
           defenderAfter: defender,
           type: "attack",
+          id: reportHistoryLength + index + 1,
         });
         //update attacker to processLeaders
         processLeaders[needChangeAttackerIndex] = {
@@ -305,7 +311,8 @@ const FightControlEle = () => {
           const [subNoDefender, subReport] = fightInEachLevel(
             rowLevel,
             processLeaders,
-            round
+            round,
+            report.history.length
           );
 
           noDefender = subNoDefender;
