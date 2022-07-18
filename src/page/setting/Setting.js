@@ -1,12 +1,12 @@
-import Header from "../Header";
+import Header from "../../components/main/Header";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { changeSetting } from "../../../features/setting/settingSlice";
+import { changeSetting } from "../../reducers/setting/settingSlice";
 
 //component
-import Selector from "../Selector";
-import InputBox from "../InputBox";
+import Selector from "../../components/main/Selector";
+import InputBox from "../../components/main/InputBox";
 
 export default function Setting() {
   console.log("render Setting");

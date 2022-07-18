@@ -15,12 +15,12 @@ import { MdAdd } from "react-icons/md";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { addLeader } from "../../../features/leader/leaderSlice";
-import { addLeaderId } from "../../../features/leader/leaderIdSlice";
+import { addLeader } from "../../../reducers/leader/leaderSlice";
+import { addLeaderId } from "../../../reducers/leader/leaderIdSlice";
 import {
   setMouseOverLeader,
   setClickedLeader,
-} from "../../../features/leader/selectedLeaderSlice";
+} from "../../../reducers/leader/selectedLeaderSlice";
 
 //random js
 import { randomInteger, randomPeopleName } from "../../../script/random";

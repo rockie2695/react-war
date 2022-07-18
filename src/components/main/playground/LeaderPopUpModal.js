@@ -3,12 +3,12 @@ import { memo, useState, useEffect } from "react";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { setClickedLeader } from "../../../features/leader/selectedLeaderSlice";
+import { setClickedLeader } from "../../../reducers/leader/selectedLeaderSlice";
 import {
   changeOneRealLeader,
   changeOneRealLeaderLevel,
   deleteOneRealLeader,
-} from "../../../features/leader/leaderSlice";
+} from "../../../reducers/leader/leaderSlice";
 
 //react icons
 import { MdClose, MdOutlineDelete } from "react-icons/md"; //close,delete

@@ -6,12 +6,12 @@ import {
   setReport,
   setStop,
   setRound,
-} from "../../../features/report/reportSlice";
+} from "../../../reducers/report/reportSlice";
 import {
   setCloneLeader,
   changeOneRealLeader,
   setLeader,
-} from "../../../features/leader/leaderSlice";
+} from "../../../reducers/leader/leaderSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 //react icons

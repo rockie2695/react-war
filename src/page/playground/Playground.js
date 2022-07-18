@@ -8,23 +8,23 @@ import "react-circular-progressbar/dist/styles.css";
 import { Virtuoso } from "react-virtuoso";
 
 //local file
-import Header from "../Header";
-import TableRow from "./TableRow";
-import SideNameRow from "./SideNameRow";
-import NormalButton from "../NormalButton";
-import SoliderNumRow from "./SoliderNumRow";
-import LeaderMouseOverEle from "./LeaderMouseOverEle";
-import LeaderPopUpModal from "./LeaderPopUpModal";
-import MessageBox from "./MessageBox";
+import Header from "../../components/main/Header";
+import TableRow from "../../components/main/playground/TableRow";
+import SideNameRow from "../../components/main/playground/SideNameRow";
+import NormalButton from "../../components/main/NormalButton";
+import SoliderNumRow from "../../components/main/playground/SoliderNumRow";
+import LeaderMouseOverEle from "../../components/main/playground/LeaderMouseOverEle";
+import LeaderPopUpModal from "../../components/main/playground/LeaderPopUpModal";
+import MessageBox from "../../components/main/playground/MessageBox";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import MobileControlRow from "./MobileControlRow";
+import MobileControlRow from "../../components/main/playground/MobileControlRow";
 import {
   addLowerLeaderLevel,
   minusLowerLeaderLevel,
-} from "../../../features/leader/leaderLevelSlice";
-import { moveLeaderToLevel } from "../../../features/leader/leaderSlice";
+} from "../../reducers/leader/leaderLevelSlice";
+import { moveLeaderToLevel } from "../../reducers/leader/leaderSlice";
 
 //react responsive
 import MediaQuery from "react-responsive";

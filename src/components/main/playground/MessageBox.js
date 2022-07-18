@@ -5,7 +5,7 @@ import { memo } from "react";
 import { useSelector } from "react-redux";
 
 //local
-import useMessage from "../hook/useMessage";
+import useMessage from "../../../hook/useMessage";
 
 const MessageBox = () => {
   const report = useSelector((state) => state.reportReducer);

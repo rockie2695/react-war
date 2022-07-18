@@ -4,12 +4,12 @@ import "../css/AnimationRoutes.css";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { setStop } from "../features/report/reportSlice";
+import { setStop } from "../reducers/report/reportSlice";
 
 const Playground = lazy(() =>
-  import("../components/main/playground/Playground")
+  import("../page/playground/Playground")
 );
-const Setting = lazy(() => import("../components/main/setting/Setting"));
+const Setting = lazy(() => import("../page/setting/Setting"));
 
 export default function AnimationRoutes() {
   const location = useLocation();
