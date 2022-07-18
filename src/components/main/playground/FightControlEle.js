@@ -87,6 +87,9 @@ const FightControlEle = () => {
         document
           .querySelector("div#MessageBox" + showRowReportHistory.id)
           .scrollIntoView({ behavior: "smooth", block: "center" });
+        document.querySelector(
+          "div#MessageBox" + showRowReportHistory.id
+        ).style.background = "rgb(253 224 71)"; //text-yellow-300
 
         //remove border
         setTimeout(() => {
@@ -104,6 +107,11 @@ const FightControlEle = () => {
               borderColor: null,
             })
           );
+
+          //remove messagebox
+          document.querySelector(
+            "div#MessageBox" + showRowReportHistory.id
+          ).style.background = null;
         }, setting.eachFightPlayTime.value * 1000 * 0.7);
         //clear
         clearInterval(selfFightTimeoutLoop);

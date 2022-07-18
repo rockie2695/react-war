@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import useMessage from "../../../hook/useMessage";
 
 const MessageBox = () => {
+  //redux
+  const setting = useSelector((state) => state.settingReducer);
   const report = useSelector((state) => state.reportReducer);
   const message = useMessage();
   return (
@@ -23,8 +25,12 @@ const MessageBox = () => {
                 return row.type === "attack" ? (
                   <div
                     key={index2}
-                    className="md:px-2 px-1"
+                    className="md:px-2 px-1 transition-[background]"
                     id={"MessageBox" + row.id}
+                    style={{
+                      transitionDuration:
+                        setting.eachFightPlayTime.value * 1000 * 0.3 + "ms",
+                    }}
                   >
                     <span
                       className={
