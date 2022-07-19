@@ -84,7 +84,7 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
               <div
                 key={index2}
                 className={
-                  "border-2 hover:border-zinc-700 rounded-lg hover:ease-in-out border-transparent cursor-pointer" +
+                  "border-2 hover:border-zinc-700 rounded-lg hover:ease-in-out border-transparent cursor-pointer hover:shadow-md p-px" +
                   (typeof leader.borderColor !== "undefined" &&
                   leader.borderColor === "red"
                     ? " border-red-600"

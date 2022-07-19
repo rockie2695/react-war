@@ -13,7 +13,7 @@ const MessageBox = () => {
   const report = useSelector((state) => state.reportReducer);
   const message = useMessage();
   return (
-    <div className="hover:opacity-100 md:opacity-50 h-24 w-full overflow-y-auto border border-gray-300 rounded-lg text-xs transition-opacity duration-300">
+    <div className="hover:opacity-100 md:opacity-70 h-24 w-full overflow-y-auto border border-gray-300 rounded-lg text-xs transition-opacity duration-300 hover:shadow-md">
       <div className="space-y-1">
         {Object.keys(message).map((key, index) => {
           return (

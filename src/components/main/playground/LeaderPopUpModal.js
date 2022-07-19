@@ -69,7 +69,7 @@ const LeaderPopUpModal = () => {
         dispatch(setClickedLeader(null));
       }}
     >
-      <div className="md:w-1/2 w-full md:h-1/2 h-full md:p-4 p-2 border border-gray-500/50 bg-gray-200/50 shadow-md overflow-y-auto md:space-y-4 space-y-2">
+      <div className="md:w-1/2 w-full md:h-1/2 h-full md:p-4 p-2 border border-gray-500/50 bg-gray-200/50 shadow-md overflow-y-auto md:space-y-4 space-y-2 rounded-lg">
         <div className="w-full flex">
           <div className="text-left flex-1">
             <NormalButton
