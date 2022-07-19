@@ -7,6 +7,9 @@ import Ripples from "react-ripples";
 //react responsive
 import { useMediaQuery } from "react-responsive";
 
+//css
+import "../../css/NormalButton.css";
+
 const NormalButton = memo(({ isMouseMove = false, ...props }) => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const mouseMoveFunc = (e) => {
@@ -48,7 +51,7 @@ const NormalButton = memo(({ isMouseMove = false, ...props }) => {
       {/*https://stackoverflow.com/questions/6542212/use-css3-transitions-with-gradient-backgrounds */}
       <button
         className={
-          "w-full h-full p-1 bg-gradient-to-r from-gray-200 to-gray-300 border border-gray-300 hover:from-white hover:to-white hover:ease-in-out flex items-center justify-center rounded-lg transition-all duration-300 hover:shadow-md " +
+          "normalButton w-full h-full p-1 border border-gray-300 hover:ease-in-out flex items-center justify-center rounded-lg transition-all duration-300 hover:shadow " +
           (props.hasOwnProperty("roundedClassName")
             ? " " + props.roundedClassName
             : "")
