@@ -48,7 +48,6 @@ const NormalButton = memo(({ isMouseMove = false, ...props }) => {
 
   return (
     <Ripples className={props?.className ? props.className : "h-10"}>
-      {/*https://stackoverflow.com/questions/6542212/use-css3-transitions-with-gradient-backgrounds */}
       <button
         className={
           "normalButton w-full h-full p-1 border border-gray-300 hover:ease-in-out flex items-center justify-center rounded-lg transition-all duration-300 hover:shadow " +
