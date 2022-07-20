@@ -90,6 +90,13 @@ const FightControlEle = () => {
         document.querySelector(
           "div#MessageBox" + showRowReportHistory.id
         ).style.background = "rgb(253 224 71)"; //text-yellow-300
+        //attackOrderList
+        document
+          .querySelector("div#AttackOrderList" + showRowReportHistory.id)
+          .scrollIntoView({ behavior: "smooth", inline: "center" });
+        document.querySelector(
+          "div#AttackOrderList" + showRowReportHistory.id
+        ).style.background = "rgb(253 224 71)"; //text-yellow-300
 
         //remove border
         setTimeout(() => {
@@ -111,6 +118,10 @@ const FightControlEle = () => {
           //remove messagebox
           document.querySelector(
             "div#MessageBox" + showRowReportHistory.id
+          ).style.background = null;
+          //remove attackOrderList
+          document.querySelector(
+            "div#AttackOrderList" + showRowReportHistory.id
           ).style.background = null;
         }, setting.eachFightPlayTime.value * 1000 * 0.7);
         //clear

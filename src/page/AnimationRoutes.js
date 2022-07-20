@@ -6,12 +6,17 @@ import "../css/AnimationRoutes.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setStop } from "../reducers/report/reportSlice";
 
-const Playground = lazy(() =>
-  import("../page/playground/Playground")
-);
+//react responsive
+import { useMediaQuery } from "react-responsive";
+
+const Playground = lazy(() => import("../page/playground/Playground"));
 const Setting = lazy(() => import("../page/setting/Setting"));
 
 export default function AnimationRoutes() {
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 768px)",
+  });
+
   const location = useLocation();
   const stop = useSelector((state) => state.reportReducer.stop);
   const report = useSelector((state) => state.reportReducer);
@@ -29,7 +34,10 @@ export default function AnimationRoutes() {
   }, [location, stop, dispatch, report.cloneHistory]);
 
   return (
-    <main className="relative flex-1 w-full bg-zinc-50">
+    <main
+      className="relative flex-1 bg-zinc-50"
+      style={{ width: isDesktopOrLaptop ? "calc(100% - 122.844px)" : "100%" }}
+    >
       <Suspense fallback={<div>Loading...</div>}>
         <Routes location={location}>
           <Route path="/playground" element={<Playground />} />

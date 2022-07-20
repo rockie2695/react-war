@@ -16,6 +16,7 @@ import SoliderNumRow from "../../components/main/playground/SoliderNumRow";
 import LeaderMouseOverEle from "../../components/main/playground/LeaderMouseOverEle";
 import LeaderPopUpModal from "../../components/main/playground/LeaderPopUpModal";
 import MessageBox from "../../components/main/playground/MessageBox";
+import AttackOrderList from "../../components/main/playground/AttackOrderList";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -33,6 +34,7 @@ import { useMediaQuery } from "react-responsive";
 //react icons
 import { MdSouth, MdNorth } from "react-icons/md";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+
 const Playground = () => {
   console.log("render Playground");
 
@@ -97,6 +99,9 @@ const Playground = () => {
         <SideNameRow />
 
         <SoliderNumRow />
+
+        {report.cloneHistory.length > 0 && <div className="w-full"><AttackOrderList /></div>}
+
         {report.history.length === 0 && report.cloneHistory.length === 0 && (
           <div className="flex md:space-x-4 space-x-2">
             {leaderLevel > 1 && (
