@@ -4,7 +4,7 @@ export const settingSlice = createSlice({
   name: "setting",
   initialState: {
     numAddPeople: {
-      type:"number",
+      type: "number",
       name: "numAddPeople",
       value: 1,
       minLength: 1,
@@ -13,7 +13,7 @@ export const settingSlice = createSlice({
       max: 100,
     },
     eachFightPlayTime: {
-      type:"number",
+      type: "number",
       name: "eachFightPlayTime",
       value: 1,
       minLength: 1,
@@ -22,8 +22,8 @@ export const settingSlice = createSlice({
       max: 1,
       min: 0.01,
     },
-    leaderPowerLower:{
-      type:"number",
+    leaderPowerLower: {
+      type: "number",
       name: "leaderPowerLower",
       value: 1,
       minLength: 1,
@@ -31,8 +31,8 @@ export const settingSlice = createSlice({
       max: 100,
       min: 1,
     },
-    leaderPowerUpper:{
-      type:"number",
+    leaderPowerUpper: {
+      type: "number",
       name: "leaderPowerUpper",
       value: 10,
       minLength: 1,
@@ -41,7 +41,7 @@ export const settingSlice = createSlice({
       min: 1,
     },
     attackRandomFlowUpper: {
-      type:"number",
+      type: "number",
       name: "attackRandomFlowUpper",
       value: 110,
       minLength: 1,
@@ -50,7 +50,7 @@ export const settingSlice = createSlice({
       max: 999,
     },
     attackRandomFlowLower: {
-      type:"number",
+      type: "number",
       name: "attackRandomFlowLower",
       value: 90,
       minLength: 1,
@@ -59,7 +59,7 @@ export const settingSlice = createSlice({
       max: 999,
     },
     attackAndSoliderRatio: {
-      type:"number",
+      type: "number",
       name: "attackAndSoliderRatio",
       value: 10,
       minLength: 1,
@@ -68,9 +68,19 @@ export const settingSlice = createSlice({
       max: 100,
     },
     showSoliderNumOrPerc: {
-      type:"string",
+      type: "string",
       name: "showSoliderNumOrPerc",
       value: "percentage",
+    },
+    leaderPowerTimes: {
+      type: "number",
+      name: "leaderPowerTimes",
+      value: 5,
+      minLength: 1,
+      maxLength: 2,
+      min: 1,
+      max: 10,
+      step: 0.5,
     },
   },
   reducers: {

@@ -91,9 +91,11 @@ const FightControlEle = () => {
           "div#MessageBox" + showRowReportHistory.id
         ).style.background = "rgb(253 224 71)"; //text-yellow-300
         //attackOrderList
-        document
-          .querySelector("div#AttackOrderList" + showRowReportHistory.id)
-          .scrollIntoView({ behavior: "smooth", inline: "center" });
+        setTimeout(() => {
+          document
+            .querySelector("div#AttackOrderList" + showRowReportHistory.id)
+            .scrollIntoView({ behavior: "smooth", inline: "center" });
+        }, [150]);
         document.querySelector(
           "div#AttackOrderList" + showRowReportHistory.id
         ).style.background = "rgb(253 224 71)"; //text-yellow-300
@@ -161,7 +163,8 @@ const FightControlEle = () => {
   const calcFight = useCallback(
     (attacker, defender) => {
       let selfDefender = JSON.parse(JSON.stringify(defender));
-      const attackerLeaderPowerTimes = 1 + (attacker.leaderPower / 100) * 5;
+      const attackerLeaderPowerTimes =
+        1 + (attacker.leaderPower / 100) * setting.leaderPowerTimes.value;
       const attackRandomFlowUpper = setting.attackRandomFlowUpper.value / 100;
       const attackRandomFlowLower = setting.attackRandomFlowLower.value / 100;
       const attackAndSoliderRatio = setting.attackAndSoliderRatio.value / 100;
@@ -194,6 +197,7 @@ const FightControlEle = () => {
       setting.attackRandomFlowUpper,
       setting.attackRandomFlowLower,
       setting.attackAndSoliderRatio,
+      setting.leaderPowerTimes,
     ]
   );
 
@@ -406,6 +410,7 @@ const FightControlEle = () => {
               dispatch(setStop(true));
               dispatch(setReport({ history: report.cloneHistory }));
               dispatch(setLeader(cloneLeaders));
+              document.querySelector("#MessageBox").scrollTop = 0;
             }}
           >
             <MdReplay className="text-xl rotate-45" />

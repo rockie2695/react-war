@@ -193,6 +193,26 @@ export default function Setting() {
                   </div>
                 </div>
               </div>
+
+              <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
+                <div className="flex-1">
+                  <label htmlFor="leaderPowerTimes">leaderPower Times:</label>
+                </div>
+                <div className="flex-1 flex items-center">
+                  <InputBox
+                    className="flex-1"
+                    objInReducer={setting.leaderPowerTimes}
+                    onChangeFunc={(name, value) => {
+                      dispatch(
+                        changeSetting({
+                          key: name,
+                          value: value,
+                        })
+                      );
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

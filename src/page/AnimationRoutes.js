@@ -36,7 +36,7 @@ export default function AnimationRoutes() {
   return (
     <main
       className="relative flex-1 bg-zinc-50"
-      style={{ width: isDesktopOrLaptop ? "calc(100% - 122.844px)" : "100%" }}
+      style={{ width: isDesktopOrLaptop ? "calc(100% - 129px)" : "100%" }}
     >
       <Suspense fallback={<div>Loading...</div>}>
         <Routes location={location}>
