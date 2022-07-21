@@ -95,8 +95,12 @@ const LeaderPopUpModal = () => {
         </div>
 
         <div className="grid grid-cols-7 md:gap-y-4 gap-y-2">
-          <div className="col-span-2 self-center">Name</div>
-          <div className="text-center self-center">:</div>
+          <div className="col-span-2 self-center">
+            <label htmlFor={clickedLeaderInputLimit.name.name}>Name</label>
+          </div>
+          <div className="text-center self-center">
+            <label htmlFor={clickedLeaderInputLimit.name.name}>:</label>
+          </div>
           <div className="col-span-4 flex">
             <InputBox
               className="rounded-r-none w-full h-8"
@@ -205,8 +209,14 @@ const LeaderPopUpModal = () => {
             </div>
           </div>
 
-          <div className="col-span-2 self-center">LeaderPower</div>
-          <div className="text-center self-center">:</div>
+          <div className="col-span-2 self-center">
+            <label htmlFor={clickedLeaderInputLimit.leaderPower.name}>
+              LeaderPower
+            </label>
+          </div>
+          <div className="text-center self-center">
+            <label htmlFor={clickedLeaderInputLimit.leaderPower.name}>:</label>
+          </div>
           <div className="col-span-4">
             <InputBox
               className="rounded-r-none w-full h-8"
@@ -284,7 +294,7 @@ const LeaderPopUpModal = () => {
             <img
               alt="soldier 1"
               loading="lazy"
-              className="md:h-32 w-full rounded-md"
+              className="w-full rounded-md md:aspect-video"
               src="https://media.wizards.com/2021/images/daily/lBRUOyBtUK.jpg"
             />
           </div>
@@ -292,7 +302,7 @@ const LeaderPopUpModal = () => {
             <img
               alt="soldier 2"
               loading="lazy"
-              className="md:h-32 w-full rounded-md"
+              className="w-full rounded-md md:aspect-video"
               src="https://media.wizards.com/2022/images/daily/2DNN28wndy.jpg"
             />
           </div>
