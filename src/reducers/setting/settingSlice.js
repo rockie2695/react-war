@@ -58,18 +58,18 @@ export const settingSlice = createSlice({
       min: 1,
       max: 999,
     },
-    attackAndSoliderRatio: {
+    attackAndsoldierRatio: {
       type: "number",
-      name: "attackAndSoliderRatio",
+      name: "attackAndsoldierRatio",
       value: 10,
       minLength: 1,
       maxLength: 3,
       min: 1,
       max: 100,
     },
-    showSoliderNumOrPerc: {
+    showsoldierNumOrPerc: {
       type: "string",
-      name: "showSoliderNumOrPerc",
+      name: "showsoldierNumOrPerc",
       value: "percentage",
     },
     leaderPowerTimes: {

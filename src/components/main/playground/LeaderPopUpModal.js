@@ -131,16 +131,16 @@ const LeaderPopUpModal = () => {
             </NormalButton>
           </div>
 
-          <div className="col-span-2 self-center">soliderNum</div>
+          <div className="col-span-2 self-center">soldierNum</div>
           <div className="text-center self-center">:</div>
           <div className="col-span-4 space-y-2">
             <div className="flex">
               <div className="basis-2/5">
                 <InputBox
                   className="rounded-r-none w-full h-8"
-                  objInReducer={clickedLeaderInputLimit.soliderNum}
-                  inputValue={selfClickedLeader.soliderNum}
-                  maxValue={selfClickedLeader.maxSoliderNum}
+                  objInReducer={clickedLeaderInputLimit.soldierNum}
+                  inputValue={selfClickedLeader.soldierNum}
+                  maxValue={selfClickedLeader.maxsoldierNum}
                   onChangeFunc={(name, value) => {
                     dispatch(
                       changeOneRealLeader({
@@ -157,8 +157,8 @@ const LeaderPopUpModal = () => {
               <div className="basis-2/5">
                 <InputBox
                   className="rounded-l-none w-full h-8"
-                  objInReducer={clickedLeaderInputLimit.maxSoliderNum}
-                  inputValue={selfClickedLeader.maxSoliderNum}
+                  objInReducer={clickedLeaderInputLimit.maxsoldierNum}
+                  inputValue={selfClickedLeader.maxsoldierNum}
                   onChangeFunc={(name, value) => {
                     dispatch(
                       changeOneRealLeader({
@@ -167,12 +167,12 @@ const LeaderPopUpModal = () => {
                         [name]: value,
                       })
                     );
-                    if (selfClickedLeader.soliderNum > value) {
+                    if (selfClickedLeader.soldierNum > value) {
                       dispatch(
                         changeOneRealLeader({
                           id: selfClickedLeader.id,
                           leaderLevel: selfClickedLeader.leaderLevel,
-                          soliderNum: value,
+                          soldierNum: value,
                         })
                       );
                     }
@@ -183,10 +183,10 @@ const LeaderPopUpModal = () => {
             <div className="flex">
               <InputBox
                 className="rounded-r-none w-full h-8"
-                objInReducer={clickedLeaderInputLimit.soliderNumPerc}
+                objInReducer={clickedLeaderInputLimit.soldierNumPerc}
                 inputValue={Math.round(
-                  (selfClickedLeader.soliderNum /
-                    selfClickedLeader.maxSoliderNum) *
+                  (selfClickedLeader.soldierNum /
+                    selfClickedLeader.maxsoldierNum) *
                     100
                 )}
                 onChangeFunc={(name, value) => {
@@ -194,8 +194,8 @@ const LeaderPopUpModal = () => {
                     changeOneRealLeader({
                       id: selfClickedLeader.id,
                       leaderLevel: selfClickedLeader.leaderLevel,
-                      soliderNum: Math.round(
-                        (value / 100) * selfClickedLeader.maxSoliderNum
+                      soldierNum: Math.round(
+                        (value / 100) * selfClickedLeader.maxsoldierNum
                       ),
                     })
                   );
@@ -277,6 +277,23 @@ const LeaderPopUpModal = () => {
                 );
               }}
               selectedValue={selfClickedLeader.leaderLevel}
+            />
+          </div>
+
+          <div className="md:col-span-3 col-span-7">
+            <img
+              alt="soldier 1"
+              loading="lazy"
+              className="md:h-32 w-full rounded-md"
+              src="https://media.wizards.com/2021/images/daily/lBRUOyBtUK.jpg"
+            />
+          </div>
+          <div className="md:col-span-3 md:col-end-8 col-span-7">
+            <img
+              alt="soldier 2"
+              loading="lazy"
+              className="md:h-32 w-full rounded-md"
+              src="https://media.wizards.com/2022/images/daily/2DNN28wndy.jpg"
             />
           </div>
         </div>

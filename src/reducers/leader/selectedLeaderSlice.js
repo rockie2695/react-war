@@ -11,21 +11,21 @@ export const selectedLeaderSlice = createSlice({
         name: "name",
         minLength: 1,
       },
-      soliderNum: {
+      soldierNum: {
         type: "number",
-        name: "soliderNum",
+        name: "soldierNum",
         minLength: 1,
         min: 1,
       },
-      maxSoliderNum: {
+      maxsoldierNum: {
         type: "number",
-        name: "maxSoliderNum",
+        name: "maxsoldierNum",
         minLength: 1,
         min: 1,
       },
-      soliderNumPerc: {
+      soldierNumPerc: {
         type: "number",
-        name: "soliderNumPerc",
+        name: "soldierNumPerc",
         minLength: 1,
         min: 0,
         max: 100,

@@ -12,7 +12,7 @@ import Header from "../../components/main/Header";
 import TableRow from "../../components/main/playground/TableRow";
 import SideNameRow from "../../components/main/playground/SideNameRow";
 import NormalButton from "../../components/main/NormalButton";
-import SoliderNumRow from "../../components/main/playground/SoliderNumRow";
+import SoldierNumRow from "../../components/main/playground/SoldierNumRow";
 import LeaderMouseOverEle from "../../components/main/playground/LeaderMouseOverEle";
 import LeaderPopUpModal from "../../components/main/playground/LeaderPopUpModal";
 import MessageBox from "../../components/main/playground/MessageBox";
@@ -98,9 +98,13 @@ const Playground = () => {
 
         <SideNameRow />
 
-        <SoliderNumRow />
+        <SoldierNumRow />
 
-        {report.cloneHistory.length > 0 && <div className="w-full"><AttackOrderList /></div>}
+        {report.cloneHistory.length > 0 && (
+          <div className="w-full">
+            <AttackOrderList />
+          </div>
+        )}
 
         {report.history.length === 0 && report.cloneHistory.length === 0 && (
           <div className="flex md:space-x-4 space-x-2">
@@ -147,9 +151,15 @@ const Playground = () => {
           </div>
         )}
 
-        <div className="h-[50vh] overflow-hidden">
+        <div
+          className="h-[50vh] overflow-hidden rounded-lg bg-no-repeat bg-center bg-cover"
+          style={{
+            "backgroundImage":
+              "url('https://p6-tt.byteimg.com/origin/pgc-image/88da882561834fea9da71dbc684dee9e')",
+          }}
+        >
           <Virtuoso
-            className="md:gap-4 gap-2"
+            className="md:gap-4 gap-2 absolute"
             data={[...Array(leaderLevel).keys()].map(
               (rowLeaderLevel) => rowLeaderLevel + 1
             )}
@@ -164,6 +174,7 @@ const Playground = () => {
             )}
             onMouseMove={handleMouseMove}
           />
+
           <LeaderMouseOverEle mouseCoords={coords} />
           {clickedLeader ? <LeaderPopUpModal /> : null}
         </div>

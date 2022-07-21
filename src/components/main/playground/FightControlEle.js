@@ -167,28 +167,28 @@ const FightControlEle = () => {
         1 + (attacker.leaderPower / 100) * setting.leaderPowerTimes.value;
       const attackRandomFlowUpper = setting.attackRandomFlowUpper.value / 100;
       const attackRandomFlowLower = setting.attackRandomFlowLower.value / 100;
-      const attackAndSoliderRatio = setting.attackAndSoliderRatio.value / 100;
+      const attackAndsoldierRatio = setting.attackAndsoldierRatio.value / 100;
       const attackRandomNum = randomInteger(
         parseInt(
-          attacker.soliderNum *
-            attackAndSoliderRatio *
+          attacker.soldierNum *
+            attackAndsoldierRatio *
             attackRandomFlowLower *
             attackerLeaderPowerTimes
         ),
         parseInt(
-          attacker.soliderNum *
-            attackAndSoliderRatio *
+          attacker.soldierNum *
+            attackAndsoldierRatio *
             attackRandomFlowUpper *
             attackerLeaderPowerTimes
         )
       );
-      selfDefender.soliderNum -= Math.max(
+      selfDefender.soldierNum -= Math.max(
         attackRandomNum,
         attacker.leaderPower
       );
 
-      if (selfDefender.soliderNum < 0) {
-        selfDefender.soliderNum = 0;
+      if (selfDefender.soldierNum < 0) {
+        selfDefender.soldierNum = 0;
       }
 
       return [attacker, selfDefender];
@@ -196,7 +196,7 @@ const FightControlEle = () => {
     [
       setting.attackRandomFlowUpper,
       setting.attackRandomFlowLower,
-      setting.attackAndSoliderRatio,
+      setting.attackAndsoldierRatio,
       setting.leaderPowerTimes,
     ]
   );
@@ -215,7 +215,7 @@ const FightControlEle = () => {
           defenderLeaders.filter(
             (defenderLeader) =>
               defenderLeader.leaderLevel === rowLeaderLevel &&
-              defenderLeader.soliderNum > 0
+              defenderLeader.soldierNum > 0
           )
         );
         if (shuffleDefenderLeadersInSameLevel.length === 0) {
@@ -240,7 +240,7 @@ const FightControlEle = () => {
       for (const [index, row] of shuffleLeaderInSameLevel.entries()) {
         //find attacker
         let attacker = processLeaders.find((leader) => leader.id === row.id);
-        if (attacker.soliderNum <= 0) {
+        if (attacker.soldierNum <= 0) {
           attacker = undefined;
         }
         if (!attacker) {
@@ -312,21 +312,21 @@ const FightControlEle = () => {
       for (const rowLevel of level) {
         //make first round,only the lowest level can attack,second round,only the second lowest and lowest level can attack,and so on
         if (round >= level.indexOf(rowLevel) + 1) {
-          //check first row defender soliderNum or attacker soliderNum is 0,then break
-          let mySideFirstRowSoliderNum = processLeaders
+          //check first row defender soldierNum or attacker soldierNum is 0,then break
+          let mySideFirstRowsoldierNum = processLeaders
             .filter(
               (leader) => leader.leaderLevel === 1 && leader.side === "my"
             )
-            .reduce((a, b) => a + b.soliderNum, 0);
-          let enemySideFirstRowSoliderNum = processLeaders
+            .reduce((a, b) => a + b.soldierNum, 0);
+          let enemySideFirstRowsoldierNum = processLeaders
             .filter(
               (leader) => leader.leaderLevel === 1 && leader.side === "enemy"
             )
-            .reduce((a, b) => a + b.soliderNum, 0);
+            .reduce((a, b) => a + b.soldierNum, 0);
 
           if (
-            mySideFirstRowSoliderNum === 0 ||
-            enemySideFirstRowSoliderNum === 0
+            mySideFirstRowsoldierNum === 0 ||
+            enemySideFirstRowsoldierNum === 0
           ) {
             break;
           }

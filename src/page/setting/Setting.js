@@ -74,9 +74,9 @@ export default function Setting() {
                   <Selector
                     option={[
                       { display: "百分比", value: "percentage" },
-                      { display: "士兵數值", value: "soliderNum" },
+                      { display: "士兵數值", value: "soldierNum" },
                     ]}
-                    name="showSoliderNumOrPerc"
+                    name="showsoldierNumOrPerc"
                     onChangeFunc={(name, value) => {
                       dispatch(
                         changeSetting({
@@ -85,7 +85,7 @@ export default function Setting() {
                         })
                       );
                     }}
-                    selectedValue={setting.showSoliderNumOrPerc.value}
+                    selectedValue={setting.showsoldierNumOrPerc.value}
                   />
                 </div>
               </div>
@@ -134,14 +134,14 @@ export default function Setting() {
             <div className="content md:py-2 py-2 bg-gray-300 rounded-lg">
               <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
                 <div className="flex-1">
-                  <label htmlFor="attackAndSoliderRatio">
+                  <label htmlFor="attackAndsoldierRatio">
                     攻擊力與士兵比例:
                   </label>
                 </div>
                 <div className="flex-1 flex items-center">
                   <InputBox
                     className="flex-1 rounded-r-none"
-                    objInReducer={setting.attackAndSoliderRatio}
+                    objInReducer={setting.attackAndsoldierRatio}
                     onChangeFunc={(name, value) => {
                       dispatch(
                         changeSetting({

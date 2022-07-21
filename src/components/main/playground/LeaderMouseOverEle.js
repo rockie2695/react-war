@@ -48,14 +48,14 @@ const LeaderMouseOverEle = ({ mouseCoords }) => {
                 <td>{selfMouseOverLeader.name}</td>
               </tr>
               <tr>
-                <td>soliderNum</td>
+                <td>soldierNum</td>
                 <td>:</td>
                 <td>
-                  {selfMouseOverLeader.soliderNum} /{" "}
-                  {selfMouseOverLeader.maxSoliderNum} (
+                  {selfMouseOverLeader.soldierNum} /{" "}
+                  {selfMouseOverLeader.maxsoldierNum} (
                   {Math.round(
-                    (selfMouseOverLeader.soliderNum /
-                      selfMouseOverLeader.maxSoliderNum) *
+                    (selfMouseOverLeader.soldierNum /
+                      selfMouseOverLeader.maxsoldierNum) *
                       100
                   )}
                   %)

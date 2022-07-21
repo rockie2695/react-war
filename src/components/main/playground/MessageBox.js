@@ -54,10 +54,10 @@ const MessageBox = () => {
                     {report.sideName[row.defenderAfter.side]}
                   </span>{" "}
                   {row.defenderAfter.name}{" "}
-                  {row.defenderBefore.soliderNum - row.defenderAfter.soliderNum}
-                  士兵 ( {row.defenderBefore.soliderNum}
+                  {row.defenderBefore.soldierNum - row.defenderAfter.soldierNum}
+                  士兵 ( {row.defenderBefore.soldierNum}
                   {"->"}
-                  {row.defenderAfter.soliderNum} )
+                  {row.defenderAfter.soldierNum} )
                 </div>
               ) : null;
             })}

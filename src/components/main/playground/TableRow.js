@@ -46,8 +46,8 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
           addLeader({
             leaderLevel: index,
             name: randomPeopleName().name,
-            soliderNum: 100,
-            maxSoliderNum: 100,
+            soldierNum: 100,
+            maxsoldierNum: 100,
             leaderPower: randomInteger(
               setting.leaderPowerLower.value,
               setting.leaderPowerUpper.value
@@ -74,7 +74,7 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
         <div
           className={
             "md:p-2 p-1 grid grid-cols-3 md:gap-2 gap-1 md:grid-cols-5 2xl:grid-cols-10 self-start rounded-lg h-full content-start " +
-            (side === "my" ? "bg-blue-100" : "bg-red-100")
+            (side === "my" ? "bg-blue-200/80" : "bg-red-200/80")
           }
           key={index}
         >
@@ -113,15 +113,15 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
                 }}
               >
                 <CircularProgressbarWithChildren
-                  value={(leader.soliderNum / leader.maxSoliderNum) * 100}
+                  value={(leader.soldierNum / leader.maxsoldierNum) * 100}
                   background={true}
                   styles={buildStyles({
                     backgroundColor: "#ffffff",
                     // Colors
                     pathColor:
-                      leader.soliderNum / leader.maxSoliderNum > 0.7
+                      leader.soldierNum / leader.maxsoldierNum > 0.7
                         ? "rgb(59 130 246)" //bg-blue-500
-                        : leader.soliderNum / leader.maxSoliderNum > 0.3
+                        : leader.soldierNum / leader.maxsoldierNum > 0.3
                         ? "rgb(249 115 22)" //bg-orange-500
                         : "rgb(239 68 68)", //bg-red-500
                   })}
@@ -131,12 +131,12 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
                   </div>
                   <div className="text-xs md:text-sm bg-white/50 rounded-lg">
                     <span>
-                      {setting.showSoliderNumOrPerc.value === "percentage" &&
+                      {setting.showsoldierNumOrPerc.value === "percentage" &&
                         Math.round(
-                          (leader.soliderNum / leader.maxSoliderNum) * 100
+                          (leader.soldierNum / leader.maxsoldierNum) * 100
                         ) + "%"}
-                      {setting.showSoliderNumOrPerc.value === "soliderNum" &&
-                        leader.soliderNum}
+                      {setting.showsoldierNumOrPerc.value === "soldierNum" &&
+                        leader.soldierNum}
                     </span>
                   </div>
                 </CircularProgressbarWithChildren>
@@ -154,6 +154,7 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
           )}
         </div>
       ))}
+      
     </div>
   );
 };
