@@ -73,8 +73,8 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
       {["my", "enemy"].map((side, index) => (
         <div
           className={
-            "md:p-2 p-1 grid grid-cols-3 md:gap-2 gap-1 md:grid-cols-5 2xl:grid-cols-10 self-start rounded-lg h-full content-start " +
-            (side === "my" ? "bg-blue-200/80" : "bg-red-200/80")
+            "md:p-2 p-1 grid grid-cols-3 md:gap-2 gap-1 md:grid-cols-5 2xl:grid-cols-10 self-start rounded-lg h-full content-start hover:shadow hover:ease-in-out duration-300" +
+            (side === "my" ? " bg-blue-200/80" : " bg-red-200/80")
           }
           key={index}
         >
@@ -154,7 +154,6 @@ const TableRow = ({ rowLeaderLevel, handleMouseMove, ...props }) => {
           )}
         </div>
       ))}
-      
     </div>
   );
 };
