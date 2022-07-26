@@ -21,6 +21,12 @@ export default function Header() {
         >
           <Tab title="Setting" />
         </CustomLink>
+        <CustomLink
+          to="/statistic"
+          className="flex items-center hover:bg-zinc-300 hover:text-zinc-700 hover:ease-in-out duration-300"
+        >
+          <Tab title="Statistic" />
+        </CustomLink>
       </nav>
     </header>
   );

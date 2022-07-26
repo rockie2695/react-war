@@ -13,6 +13,7 @@ import { useTransition, animated } from "react-spring";
 
 const Playground = lazy(() => import("../page/playground/Playground"));
 const Setting = lazy(() => import("../page/setting/Setting"));
+const Statistic = lazy(() => import("../page/statistic/Statistic"));
 
 export default function AnimationRoutes() {
   const isDesktopOrLaptop = useMediaQuery({
@@ -37,7 +38,9 @@ export default function AnimationRoutes() {
 
   const transitions = useTransition(location, {
     from: {
-      transform: "translate3d(0%,100%,0)",
+      transform: isDesktopOrLaptop
+        ? "translate3d(0%,100%,0)"
+        : "translate3d(100%,0%,0)",
       height: "100%",
       position: "absolute",
       width: "100%",
@@ -49,7 +52,9 @@ export default function AnimationRoutes() {
       width: "100%",
     },
     leave: {
-      transform: "translate3d(0%,-100%,0)",
+      transform: isDesktopOrLaptop
+        ? "translate3d(0%,-100%,0)"
+        : "translate3d(-100%,0%,0)",
       height: "100%",
       position: "absolute",
       width: "100%",
@@ -60,18 +65,19 @@ export default function AnimationRoutes() {
     <main
       className="relative flex-1 bg-zinc-50"
       style={{ width: isDesktopOrLaptop ? "calc(100% - 129px)" : "100%" }}
-    >
+    ><Suspense fallback={<div>Loading...</div>}>
       {transitions((styles, item) => (
-        <Suspense fallback={<div>Loading...</div>}>
+        
           <animated.div style={styles}>
             <Routes location={item}>
               <Route path="/playground" element={<Playground />} />
               <Route path="/setting" element={<Setting />} />
+              <Route path="/statistic" element={<Statistic />} />
               <Route path="*" element={<Navigate to="/playground" />} />
             </Routes>
           </animated.div>
-        </Suspense>
-      ))}
+       
+      ))} </Suspense>
     </main>
   );
 }
