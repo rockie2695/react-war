@@ -34,9 +34,8 @@ const LeaderMouseOverEle = ({ mouseCoords }) => {
     selfMouseOverLeader !== null && (
       <MediaQuery minWidth={768}>
         <div
-          className="w-48 bg-white border border-gray-400 rounded py-1 px-2 break-words text-sm"
+          className="w-48 bg-white border border-gray-400 rounded py-1 px-2 break-words text-sm transition-all pointer-events-none will-change-[top,left] absolute shadow-md"
           style={{
-            position: "absolute",
             top: mouseCoords.y,
             left: mouseCoords.x,
           }}
@@ -49,14 +48,14 @@ const LeaderMouseOverEle = ({ mouseCoords }) => {
                 <td>{selfMouseOverLeader.name}</td>
               </tr>
               <tr>
-                <td>soliderNum</td>
+                <td>soldierNum</td>
                 <td>:</td>
                 <td>
-                  {selfMouseOverLeader.soliderNum} /{" "}
-                  {selfMouseOverLeader.maxSoliderNum} (
+                  {selfMouseOverLeader.soldierNum} /{" "}
+                  {selfMouseOverLeader.maxsoldierNum} (
                   {Math.round(
-                    (selfMouseOverLeader.soliderNum /
-                      selfMouseOverLeader.maxSoliderNum) *
+                    (selfMouseOverLeader.soldierNum /
+                      selfMouseOverLeader.maxsoldierNum) *
                       100
                   )}
                   %)

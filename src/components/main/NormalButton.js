@@ -7,6 +7,9 @@ import Ripples from "react-ripples";
 //react responsive
 import { useMediaQuery } from "react-responsive";
 
+//css
+import "../../css/NormalButton.css";
+
 const NormalButton = memo(({ isMouseMove = false, ...props }) => {
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const mouseMoveFunc = (e) => {
@@ -15,13 +18,13 @@ const NormalButton = memo(({ isMouseMove = false, ...props }) => {
         (e.target.getBoundingClientRect().top +
           e.target.getBoundingClientRect().height / 2)) /
         (e.target.getBoundingClientRect().height / 2)) *
-      -30;
+      -35;
     let rotateY =
       ((e.clientX -
         (e.target.getBoundingClientRect().left +
           e.target.getBoundingClientRect().width / 2)) /
         (e.target.getBoundingClientRect().width / 2)) *
-      30;
+      35;
     setCoords({ x: rotateX.toFixed(2), y: rotateY.toFixed(2) });
   };
 
@@ -47,7 +50,7 @@ const NormalButton = memo(({ isMouseMove = false, ...props }) => {
     <Ripples className={props?.className ? props.className : "h-10"}>
       <button
         className={
-          "w-full h-full p-1 bg-gray-300 border border-gray-300 hover:bg-white hover:ease-in-out flex items-center justify-center rounded-lg transition-all duration-300 " +
+          "normalButton w-full h-full p-1 border border-gray-300 hover:ease-in-out flex items-center justify-center rounded-lg transition-all duration-300 hover:shadow " +
           (props.hasOwnProperty("roundedClassName")
             ? " " + props.roundedClassName
             : "")

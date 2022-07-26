@@ -1,5 +1,5 @@
 //react
-import { memo, useState, startTransition } from "react";
+import { memo, useState, startTransition, useCallback } from "react";
 
 //circle
 import "react-circular-progressbar/dist/styles.css";
@@ -8,22 +8,24 @@ import "react-circular-progressbar/dist/styles.css";
 import { Virtuoso } from "react-virtuoso";
 
 //local file
-import Header from "../Header";
-import TableRow from "./TableRow";
-import SideNameRow from "./SideNameRow";
-import NormalButton from "../NormalButton";
-import SoliderNumRow from "./SoliderNumRow";
-import LeaderMouseOverEle from "./LeaderMouseOverEle";
-import LeaderPopUpModal from "./LeaderPopUpModal";
+import Header from "../../components/main/Header";
+import TableRow from "../../components/main/playground/TableRow";
+import SideNameRow from "../../components/main/playground/SideNameRow";
+import NormalButton from "../../components/main/NormalButton";
+import SoldierNumRow from "../../components/main/playground/SoldierNumRow";
+import LeaderMouseOverEle from "../../components/main/playground/LeaderMouseOverEle";
+import LeaderPopUpModal from "../../components/main/playground/LeaderPopUpModal";
+import MessageBox from "../../components/main/playground/MessageBox";
+import AttackOrderList from "../../components/main/playground/AttackOrderList";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import MobileControlRow from "./MobileControlRow";
+import MobileControlRow from "../../components/main/playground/MobileControlRow";
 import {
   addLowerLeaderLevel,
   minusLowerLeaderLevel,
-} from "../../../features/leader/leaderLevelSlice";
-import { moveLeaderToLevel } from "../../../features/leader/leaderSlice";
+} from "../../reducers/leader/leaderLevelSlice";
+import { moveLeaderToLevel } from "../../reducers/leader/leaderSlice";
 
 //react responsive
 import MediaQuery from "react-responsive";
@@ -55,32 +57,35 @@ const Playground = () => {
   //useState
   const [coords, setCoords] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (event, preventCheckLeader = false) => {
-    if (isDesktopOrLaptop) {
-      //show delay data
-      if (mouseOverLeader !== null || preventCheckLeader) {
-        let [x, y] = [event.clientX - 120, event.clientY + 20];
-        let [divWidth, divHeight] = [
-          document.querySelector('div[data-test-id="virtuoso-scroller"]')
-            .clientWidth,
-          document.querySelector('div[data-test-id="virtuoso-scroller"]')
-            .clientHeight,
-        ];
-        if (x + 160 > divWidth) {
-          x = divWidth - 160;
-        }
-        if (y - 180 > divHeight) {
-          y = divHeight + 40;
-        }
-        startTransition(() => {
-          setCoords({
-            x: x, //event.clientX - event.target.offsetLeft - 130,
-            y: y, //event.clientY - event.target.offsetTop - 260,
+  const handleMouseMove = useCallback(
+    (event, preventCheckLeader = false) => {
+      if (isDesktopOrLaptop) {
+        //show delay data
+        if (mouseOverLeader !== null || preventCheckLeader) {
+          let [x, y] = [event.clientX - 120, event.clientY + 20];
+          let [divWidth, divHeight] = [
+            document.querySelector('div[data-test-id="virtuoso-scroller"]')
+              .clientWidth,
+            document.querySelector('div[data-test-id="virtuoso-scroller"]')
+              .clientHeight,
+          ];
+          if (x + 160 > divWidth) {
+            x = x - 220;
+          }
+          if (y - 165 > divHeight) {
+            y = y - 160;
+          }
+          startTransition(() => {
+            setCoords({
+              x: x, //event.clientX - event.target.offsetLeft - 130,
+              y: y, //event.clientY - event.target.offsetTop - 260,
+            });
           });
-        });
+        }
       }
-    }
-  };
+    },
+    [isDesktopOrLaptop, mouseOverLeader]
+  );
   return (
     <div className="w-full min-h-full">
       <Header title="Playground" />
@@ -93,7 +98,14 @@ const Playground = () => {
 
         <SideNameRow />
 
-        <SoliderNumRow />
+        <SoldierNumRow />
+
+        {report.cloneHistory.length > 0 && (
+          <div className="w-full">
+            <AttackOrderList />
+          </div>
+        )}
+
         {report.history.length === 0 && report.cloneHistory.length === 0 && (
           <div className="flex md:space-x-4 space-x-2">
             {leaderLevel > 1 && (
@@ -139,9 +151,15 @@ const Playground = () => {
           </div>
         )}
 
-        <div className="h-[50vh] overflow-hidden">
+        <div
+          className="h-[50vh] overflow-hidden rounded-lg bg-no-repeat bg-center bg-cover"
+          style={{
+            "backgroundImage":
+              "url('https://p6-tt.byteimg.com/origin/pgc-image/88da882561834fea9da71dbc684dee9e')",
+          }}
+        >
           <Virtuoso
-            className="md:gap-4 gap-2"
+            className="md:gap-4 gap-2 absolute"
             data={[...Array(leaderLevel).keys()].map(
               (rowLeaderLevel) => rowLeaderLevel + 1
             )}
@@ -156,6 +174,7 @@ const Playground = () => {
             )}
             onMouseMove={handleMouseMove}
           />
+
           <LeaderMouseOverEle mouseCoords={coords} />
           {clickedLeader ? <LeaderPopUpModal /> : null}
         </div>
@@ -195,6 +214,7 @@ const Playground = () => {
             )}
           </div>
         )}
+        {report.cloneHistory.length > 0 && <MessageBox />}
       </div>
     </div>
   );

@@ -1,12 +1,12 @@
-import Header from "../Header";
+import Header from "../../components/main/Header";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { changeSetting } from "../../../features/setting/settingSlice";
+import { changeSetting } from "../../reducers/setting/settingSlice";
 
 //component
-import Selector from "../Selector";
-import InputBox from "../InputBox";
+import Selector from "../../components/main/Selector";
+import InputBox from "../../components/main/InputBox";
 
 export default function Setting() {
   console.log("render Setting");
@@ -74,9 +74,9 @@ export default function Setting() {
                   <Selector
                     option={[
                       { display: "百分比", value: "percentage" },
-                      { display: "士兵數值", value: "soliderNum" },
+                      { display: "士兵數值", value: "soldierNum" },
                     ]}
-                    name="showSoliderNumOrPerc"
+                    name="showsoldierNumOrPerc"
                     onChangeFunc={(name, value) => {
                       dispatch(
                         changeSetting({
@@ -85,7 +85,7 @@ export default function Setting() {
                         })
                       );
                     }}
-                    selectedValue={setting.showSoliderNumOrPerc.value}
+                    selectedValue={setting.showsoldierNumOrPerc.value}
                   />
                 </div>
               </div>
@@ -134,14 +134,14 @@ export default function Setting() {
             <div className="content md:py-2 py-2 bg-gray-300 rounded-lg">
               <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
                 <div className="flex-1">
-                  <label htmlFor="attackAndSoliderRatio">
+                  <label htmlFor="attackAndsoldierRatio">
                     攻擊力與士兵比例:
                   </label>
                 </div>
                 <div className="flex-1 flex items-center">
                   <InputBox
                     className="flex-1 rounded-r-none"
-                    objInReducer={setting.attackAndSoliderRatio}
+                    objInReducer={setting.attackAndsoldierRatio}
                     onChangeFunc={(name, value) => {
                       dispatch(
                         changeSetting({
@@ -191,6 +191,26 @@ export default function Setting() {
                     />
                     <span className="p-1 bg-white rounded-r">%</span>
                   </div>
+                </div>
+              </div>
+
+              <div className="hover:border-gray-500 border-2 border-gray-300 md:p-2 p-2 flex rounded transition-colors min-h-[2.5rem] items-center">
+                <div className="flex-1">
+                  <label htmlFor="leaderPowerTimes">leaderPower Times:</label>
+                </div>
+                <div className="flex-1 flex items-center">
+                  <InputBox
+                    className="flex-1"
+                    objInReducer={setting.leaderPowerTimes}
+                    onChangeFunc={(name, value) => {
+                      dispatch(
+                        changeSetting({
+                          key: name,
+                          value: value,
+                        })
+                      );
+                    }}
+                  />
                 </div>
               </div>
             </div>

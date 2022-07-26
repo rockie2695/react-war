@@ -6,12 +6,12 @@ import {
   setReport,
   setStop,
   setRound,
-} from "../../../features/report/reportSlice";
+} from "../../../reducers/report/reportSlice";
 import {
   setCloneLeader,
   changeOneRealLeader,
   setLeader,
-} from "../../../features/leader/leaderSlice";
+} from "../../../reducers/leader/leaderSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 //react icons
@@ -65,7 +65,6 @@ const FightControlEle = () => {
       let selfFightTimeoutLoop = setTimeout(() => {
         //row
         let showRowReportHistory = selfReportHistory[0];
-        console.log(showRowReportHistory);
         dispatch(
           changeOneRealLeader({
             ...showRowReportHistory.attackerAfter,
@@ -83,6 +82,24 @@ const FightControlEle = () => {
         selfReportHistory = selfReportHistory.slice(1);
         dispatch(setReport({ history: selfReportHistory }));
         dispatch(setRound(showRowReportHistory.round));
+
+        //messagebox
+        document
+          .querySelector("div#MessageBox" + showRowReportHistory.id)
+          .scrollIntoView({ behavior: "smooth", block: "center" });
+        document.querySelector(
+          "div#MessageBox" + showRowReportHistory.id
+        ).style.background = "rgb(253 224 71)"; //text-yellow-300
+        //attackOrderList
+        setTimeout(() => {
+          document
+            .querySelector("div#AttackOrderList" + showRowReportHistory.id)
+            .scrollIntoView({ behavior: "smooth", inline: "center" });
+        }, [150]);
+        document.querySelector(
+          "div#AttackOrderList" + showRowReportHistory.id
+        ).style.background = "rgb(253 224 71)"; //text-yellow-300
+
         //remove border
         setTimeout(() => {
           dispatch(
@@ -100,10 +117,18 @@ const FightControlEle = () => {
             })
           );
 
-          //clear
-          clearInterval(selfFightTimeoutLoop);
-          setFightTimeoutLoop(null);
+          //remove messagebox
+          document.querySelector(
+            "div#MessageBox" + showRowReportHistory.id
+          ).style.background = null;
+          //remove attackOrderList
+          document.querySelector(
+            "div#AttackOrderList" + showRowReportHistory.id
+          ).style.background = null;
         }, setting.eachFightPlayTime.value * 1000 * 0.7);
+        //clear
+        clearInterval(selfFightTimeoutLoop);
+        setFightTimeoutLoop(null);
       }, setting.eachFightPlayTime.value * 1000);
       setFightTimeoutLoop(selfFightTimeoutLoop);
     },
@@ -138,31 +163,32 @@ const FightControlEle = () => {
   const calcFight = useCallback(
     (attacker, defender) => {
       let selfDefender = JSON.parse(JSON.stringify(defender));
-      const attackerLeaderPowerTimes = 1 + (attacker.leaderPower / 100) * 5;
+      const attackerLeaderPowerTimes =
+        1 + (attacker.leaderPower / 100) * setting.leaderPowerTimes.value;
       const attackRandomFlowUpper = setting.attackRandomFlowUpper.value / 100;
       const attackRandomFlowLower = setting.attackRandomFlowLower.value / 100;
-      const attackAndSoliderRatio = setting.attackAndSoliderRatio.value / 100;
+      const attackAndsoldierRatio = setting.attackAndsoldierRatio.value / 100;
       const attackRandomNum = randomInteger(
         parseInt(
-          attacker.soliderNum *
-            attackAndSoliderRatio *
+          attacker.soldierNum *
+            attackAndsoldierRatio *
             attackRandomFlowLower *
             attackerLeaderPowerTimes
         ),
         parseInt(
-          attacker.soliderNum *
-            attackAndSoliderRatio *
+          attacker.soldierNum *
+            attackAndsoldierRatio *
             attackRandomFlowUpper *
             attackerLeaderPowerTimes
         )
       );
-      selfDefender.soliderNum -= Math.max(
+      selfDefender.soldierNum -= Math.max(
         attackRandomNum,
         attacker.leaderPower
       );
 
-      if (selfDefender.soliderNum < 0) {
-        selfDefender.soliderNum = 0;
+      if (selfDefender.soldierNum < 0) {
+        selfDefender.soldierNum = 0;
       }
 
       return [attacker, selfDefender];
@@ -170,7 +196,8 @@ const FightControlEle = () => {
     [
       setting.attackRandomFlowUpper,
       setting.attackRandomFlowLower,
-      setting.attackAndSoliderRatio,
+      setting.attackAndsoldierRatio,
+      setting.leaderPowerTimes,
     ]
   );
 
@@ -188,7 +215,7 @@ const FightControlEle = () => {
           defenderLeaders.filter(
             (defenderLeader) =>
               defenderLeader.leaderLevel === rowLeaderLevel &&
-              defenderLeader.soliderNum > 0
+              defenderLeader.soldierNum > 0
           )
         );
         if (shuffleDefenderLeadersInSameLevel.length === 0) {
@@ -203,7 +230,7 @@ const FightControlEle = () => {
   );
 
   const fightInEachLevel = useCallback(
-    (rowLeaderLevel, processLeaders, round) => {
+    (rowLeaderLevel, processLeaders, round, reportHistoryLength) => {
       let report = [],
         noDefender = false;
       let shuffleLeaderInSameLevel = shuffle(
@@ -213,7 +240,7 @@ const FightControlEle = () => {
       for (const [index, row] of shuffleLeaderInSameLevel.entries()) {
         //find attacker
         let attacker = processLeaders.find((leader) => leader.id === row.id);
-        if (attacker.soliderNum <= 0) {
+        if (attacker.soldierNum <= 0) {
           attacker = undefined;
         }
         if (!attacker) {
@@ -240,12 +267,12 @@ const FightControlEle = () => {
         );
         report.push({
           round: round,
-          attackerId: attacker.id,
-          defenderId: defender.id,
           attackerBefore: processLeaders[needChangeAttackerIndex],
           defenderBefore: processLeaders[needChangeDefenderIndex],
           attackerAfter: attacker,
           defenderAfter: defender,
+          type: "attack",
+          id: reportHistoryLength + index + 1,
         });
         //update attacker to processLeaders
         processLeaders[needChangeAttackerIndex] = {
@@ -285,21 +312,21 @@ const FightControlEle = () => {
       for (const rowLevel of level) {
         //make first round,only the lowest level can attack,second round,only the second lowest and lowest level can attack,and so on
         if (round >= level.indexOf(rowLevel) + 1) {
-          //check first row defender soliderNum or attacker soliderNum is 0,then break
-          let mySideFirstRowSoliderNum = processLeaders
+          //check first row defender soldierNum or attacker soldierNum is 0,then break
+          let mySideFirstRowsoldierNum = processLeaders
             .filter(
               (leader) => leader.leaderLevel === 1 && leader.side === "my"
             )
-            .reduce((a, b) => a + b.soliderNum, 0);
-          let enemySideFirstRowSoliderNum = processLeaders
+            .reduce((a, b) => a + b.soldierNum, 0);
+          let enemySideFirstRowsoldierNum = processLeaders
             .filter(
               (leader) => leader.leaderLevel === 1 && leader.side === "enemy"
             )
-            .reduce((a, b) => a + b.soliderNum, 0);
+            .reduce((a, b) => a + b.soldierNum, 0);
 
           if (
-            mySideFirstRowSoliderNum === 0 ||
-            enemySideFirstRowSoliderNum === 0
+            mySideFirstRowsoldierNum === 0 ||
+            enemySideFirstRowsoldierNum === 0
           ) {
             break;
           }
@@ -307,7 +334,8 @@ const FightControlEle = () => {
           const [subNoDefender, subReport] = fightInEachLevel(
             rowLevel,
             processLeaders,
-            round
+            round,
+            report.history.length
           );
 
           noDefender = subNoDefender;
@@ -382,6 +410,7 @@ const FightControlEle = () => {
               dispatch(setStop(true));
               dispatch(setReport({ history: report.cloneHistory }));
               dispatch(setLeader(cloneLeaders));
+              document.querySelector("#MessageBox").scrollTop = 0;
             }}
           >
             <MdReplay className="text-xl rotate-45" />

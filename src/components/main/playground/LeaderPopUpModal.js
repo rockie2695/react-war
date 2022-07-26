@@ -3,21 +3,26 @@ import { memo, useState, useEffect } from "react";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { setClickedLeader } from "../../../features/leader/selectedLeaderSlice";
+import { setClickedLeader } from "../../../reducers/leader/selectedLeaderSlice";
 import {
   changeOneRealLeader,
   changeOneRealLeaderLevel,
   deleteOneRealLeader,
-} from "../../../features/leader/leaderSlice";
+} from "../../../reducers/leader/leaderSlice";
 
 //react icons
 import { MdClose, MdOutlineDelete } from "react-icons/md"; //close,delete
+import { FaRandom } from "react-icons/fa"; //random
 
 //component
 import NormalButton from "../NormalButton";
 import InputBox from "../InputBox";
 import Selector from "../Selector";
 
+//random js
+import { randomPeopleName } from "../../../script/random";
+
+//react spring
 import { useSpring, animated } from "react-spring";
 
 const LeaderPopUpModal = () => {
@@ -64,7 +69,7 @@ const LeaderPopUpModal = () => {
         dispatch(setClickedLeader(null));
       }}
     >
-      <div className="md:w-1/2 w-full md:h-1/2 h-full md:p-4 p-2 border border-gray-500/50 bg-gray-200/50 shadow-md overflow-y-auto md:space-y-4 space-y-2">
+      <div className="md:w-1/2 w-full md:h-1/2 h-full md:p-4 p-2 border border-gray-500/50 bg-gray-200/50 shadow-md overflow-y-auto md:space-y-4 space-y-2 rounded-lg">
         <div className="w-full flex">
           <div className="text-left flex-1">
             <NormalButton
@@ -90,16 +95,19 @@ const LeaderPopUpModal = () => {
         </div>
 
         <div className="grid grid-cols-7 md:gap-y-4 gap-y-2">
-          <div className="col-span-2 self-center">Name</div>
-          <div className="text-center self-center">:</div>
-          <div className="col-span-4">
+          <div className="col-span-2 self-center">
+            <label htmlFor={clickedLeaderInputLimit.name.name}>Name</label>
+          </div>
+          <div className="text-center self-center">
+            <label htmlFor={clickedLeaderInputLimit.name.name}>:</label>
+          </div>
+          <div className="col-span-4 flex">
             <InputBox
-              className="rounded-r-none w-full"
+              className="rounded-r-none w-full h-8"
               objInReducer={clickedLeaderInputLimit.name}
               inputValue={selfClickedLeader.name}
               minLength={selfClickedLeader.name}
               onChangeFunc={(name, value) => {
-                console.log(value);
                 dispatch(
                   changeOneRealLeader({
                     id: selfClickedLeader.id,
@@ -109,18 +117,34 @@ const LeaderPopUpModal = () => {
                 );
               }}
             />
+            <NormalButton
+              className="h-8 w-11"
+              aria-label="random left side name"
+              roundedClassName="rounded-l-none"
+              onClick={() => {
+                dispatch(
+                  changeOneRealLeader({
+                    id: selfClickedLeader.id,
+                    leaderLevel: selfClickedLeader.leaderLevel,
+                    name: randomPeopleName().name,
+                  })
+                );
+              }}
+            >
+              <FaRandom />
+            </NormalButton>
           </div>
 
-          <div className="col-span-2 self-center">soliderNum</div>
+          <div className="col-span-2 self-center">soldierNum</div>
           <div className="text-center self-center">:</div>
           <div className="col-span-4 space-y-2">
             <div className="flex">
               <div className="basis-2/5">
                 <InputBox
-                  className="rounded-r-none w-full"
-                  objInReducer={clickedLeaderInputLimit.soliderNum}
-                  inputValue={selfClickedLeader.soliderNum}
-                  maxValue={selfClickedLeader.maxSoliderNum}
+                  className="rounded-r-none w-full h-8"
+                  objInReducer={clickedLeaderInputLimit.soldierNum}
+                  inputValue={selfClickedLeader.soldierNum}
+                  maxValue={selfClickedLeader.maxsoldierNum}
                   onChangeFunc={(name, value) => {
                     dispatch(
                       changeOneRealLeader({
@@ -136,9 +160,9 @@ const LeaderPopUpModal = () => {
               <div className="p-1 bg-white basis-1/5 text-center">/</div>
               <div className="basis-2/5">
                 <InputBox
-                  className="rounded-l-none w-full"
-                  objInReducer={clickedLeaderInputLimit.maxSoliderNum}
-                  inputValue={selfClickedLeader.maxSoliderNum}
+                  className="rounded-l-none w-full h-8"
+                  objInReducer={clickedLeaderInputLimit.maxsoldierNum}
+                  inputValue={selfClickedLeader.maxsoldierNum}
                   onChangeFunc={(name, value) => {
                     dispatch(
                       changeOneRealLeader({
@@ -147,12 +171,12 @@ const LeaderPopUpModal = () => {
                         [name]: value,
                       })
                     );
-                    if (selfClickedLeader.soliderNum > value) {
+                    if (selfClickedLeader.soldierNum > value) {
                       dispatch(
                         changeOneRealLeader({
                           id: selfClickedLeader.id,
                           leaderLevel: selfClickedLeader.leaderLevel,
-                          soliderNum: value,
+                          soldierNum: value,
                         })
                       );
                     }
@@ -162,11 +186,11 @@ const LeaderPopUpModal = () => {
             </div>
             <div className="flex">
               <InputBox
-                className="rounded-r-none w-full"
-                objInReducer={clickedLeaderInputLimit.soliderNumPerc}
+                className="rounded-r-none w-full h-8"
+                objInReducer={clickedLeaderInputLimit.soldierNumPerc}
                 inputValue={Math.round(
-                  (selfClickedLeader.soliderNum /
-                    selfClickedLeader.maxSoliderNum) *
+                  (selfClickedLeader.soldierNum /
+                    selfClickedLeader.maxsoldierNum) *
                     100
                 )}
                 onChangeFunc={(name, value) => {
@@ -174,22 +198,28 @@ const LeaderPopUpModal = () => {
                     changeOneRealLeader({
                       id: selfClickedLeader.id,
                       leaderLevel: selfClickedLeader.leaderLevel,
-                      soliderNum: Math.round(
-                        (value / 100) * selfClickedLeader.maxSoliderNum
+                      soldierNum: Math.round(
+                        (value / 100) * selfClickedLeader.maxsoldierNum
                       ),
                     })
                   );
                 }}
               />
-              <div className="p-1 bg-white">%</div>
+              <div className="p-1 bg-white h-8">%</div>
             </div>
           </div>
 
-          <div className="col-span-2 self-center">LeaderPower</div>
-          <div className="text-center self-center">:</div>
+          <div className="col-span-2 self-center">
+            <label htmlFor={clickedLeaderInputLimit.leaderPower.name}>
+              LeaderPower
+            </label>
+          </div>
+          <div className="text-center self-center">
+            <label htmlFor={clickedLeaderInputLimit.leaderPower.name}>:</label>
+          </div>
           <div className="col-span-4">
             <InputBox
-              className="rounded-r-none w-full"
+              className="rounded-r-none w-full h-8"
               objInReducer={clickedLeaderInputLimit.leaderPower}
               inputValue={selfClickedLeader.leaderPower}
               maxValue={setting.leaderPowerUpper.value}
@@ -208,7 +238,7 @@ const LeaderPopUpModal = () => {
 
           <div className="col-span-2 self-center">Side</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4 flex">
+          <div className="col-span-4 flex h-8">
             <Selector
               option={[
                 { display: sideName["my"], value: "my" },
@@ -231,7 +261,7 @@ const LeaderPopUpModal = () => {
 
           <div className="col-span-2 self-center">LeaderLevel</div>
           <div className="text-center self-center">:</div>
-          <div className="col-span-4 flex">
+          <div className="col-span-4 flex h-8">
             <Selector
               option={[...Array(leaderLevel).keys()].map((rowLeaderLevel) => {
                 return {
@@ -257,6 +287,23 @@ const LeaderPopUpModal = () => {
                 );
               }}
               selectedValue={selfClickedLeader.leaderLevel}
+            />
+          </div>
+
+          <div className="md:col-span-3 col-span-7">
+            <img
+              alt="soldier 1"
+              loading="lazy"
+              className="w-full rounded-md md:aspect-video"
+              src="https://media.wizards.com/2021/images/daily/lBRUOyBtUK.jpg"
+            />
+          </div>
+          <div className="md:col-span-3 md:col-end-8 col-span-7">
+            <img
+              alt="soldier 2"
+              loading="lazy"
+              className="w-full rounded-md md:aspect-video"
+              src="https://media.wizards.com/2022/images/daily/2DNN28wndy.jpg"
             />
           </div>
         </div>

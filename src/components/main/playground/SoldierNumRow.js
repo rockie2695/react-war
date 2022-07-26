@@ -8,17 +8,17 @@ import MediaQuery from "react-responsive";
 import { useSelector } from "react-redux";
 import RoundEle from "./RoundEle";
 
-const SoliderNumRow = () => {
-  console.log("render soliderNumRow");
+const SoldierNumRow = () => {
+  console.log("render soldierNumRow");
   //redux
   const leaders = useSelector((state) => state.leaderReducer.real);
   const leaderLevel = useSelector((state) => state.leaderLevelReducer);
-  const [sideSoliderNum, setSideSoliderNum] = useState({ my: 0, enemy: 0 });
+  const [sidesoldierNum, setSidesoldierNum] = useState({ my: 0, enemy: 0 });
   //useEffect
   useEffect(() => {
     startTransition(() => {
       //show delay data
-      setSideSoliderNum({ my: 0, enemy: 0 });
+      setSidesoldierNum({ my: 0, enemy: 0 });
       const leaderLevelArray = [...Array(leaderLevel).keys()]
         .map((rowLeaderLevel) => rowLeaderLevel + 1)
         .reverse();
@@ -31,13 +31,13 @@ const SoliderNumRow = () => {
             (rowLeader) => rowLeader.side === side
           );
           if (sideLeader.length !== 0) {
-            setSideSoliderNum((prev) => {
+            setSidesoldierNum((prev) => {
               return {
                 ...prev,
                 ...{
                   [side]:
                     prev[side] +
-                    sideLeader.reduce((a, b) => a + b.soliderNum, 0),
+                    sideLeader.reduce((a, b) => a + b.soldierNum, 0),
                 },
               };
             });
@@ -48,9 +48,9 @@ const SoliderNumRow = () => {
   }, [leaders, leaderLevel]);
 
   return (
-    <div className="grid md:grid-cols-11 grid-cols-2 md:gap-4 gap-2 h-12">
+    <div className="grid md:grid-cols-11 grid-cols-2 md:gap-4 gap-2 h-6">
       <div className="md:col-span-4 h-full flex justify-center items-center text-blue-600 font-bold text-lg">
-        {sideSoliderNum.my}
+        {sidesoldierNum.my}
       </div>
 
       <MediaQuery minWidth={768}>
@@ -60,9 +60,9 @@ const SoliderNumRow = () => {
       </MediaQuery>
 
       <div className="md:col-span-4 h-full flex justify-center items-center text-red-600 font-bold text-lg">
-        {sideSoliderNum.enemy}
+        {sidesoldierNum.enemy}
       </div>
     </div>
   );
 };
-export default memo(SoliderNumRow);
+export default memo(SoldierNumRow);

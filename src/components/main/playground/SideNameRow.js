@@ -3,7 +3,7 @@ import { memo } from "react";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { setSideName } from "../../../features/side/sideNameSlice";
+import { setSideName } from "../../../reducers/side/sideNameSlice";
 import FightControlEle from "./FightControlEle";
 
 //react responsive

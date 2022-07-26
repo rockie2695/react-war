@@ -1,5 +1,5 @@
 import "./App.css";
-import AnimationRoutes from "./components/AnimationRoutes";
+import AnimationRoutes from "./page/AnimationRoutes";
 import Header from "./components/header/Header";
 import { BrowserRouter } from "react-router-dom";
 

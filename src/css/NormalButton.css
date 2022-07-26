@@ -1,0 +1,21 @@
+@property --myColor1 {
+  syntax: "<color>";
+  initial-value: rgb(229 231 235);
+  inherits: false;
+}
+
+@property --myColor2 {
+  syntax: "<color>";
+  initial-value: rgb(209 213 219);
+  inherits: false;
+}
+
+button.normalButton {
+  background: linear-gradient(var(--myColor1), var(--myColor2));
+  transition: all 0.3s, transform 0.15s, --myColor1 0.3s, --myColor2 0.3s;
+}
+
+button.normalButton:hover {
+  --myColor1: white;
+  --myColor2: white;
+}
