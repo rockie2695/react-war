@@ -39,7 +39,11 @@ export default function Statistic() {
       <div className="main-content md:p-4 p-2 md:space-y-4 space-y-2">
         <h2 className="title text-lg font-bold">round total damage</h2>
         {roundDamage.length > 0 && (
-          <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
+          <VictoryChart
+            theme={VictoryTheme.material}
+            domainPadding={20}
+            height={250}
+          >
             <VictoryGroup offset={5}>
               <VictoryStack colorScale={"blue"}>
                 <VictoryBar
