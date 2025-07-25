@@ -655,7 +655,7 @@ function randomPeopleName() {
   "芶",
 ];
   //double character
-firstNameList=[...firstNameList,'歐陽','上官','皇甫','司徒','令狐','諸葛','司馬','宇文','申屠','南宮','夏侯']
+firstNameList=[...firstNameList,"歐陽","上官","皇甫","司徒","令狐","諸葛","司馬","宇文","申屠","南宮","夏侯","賀蘭","完顏","慕容","尉遲","長孫","耶律"]
   const secondNameList =
     "俊逸寶智健建竣順家哲隆凱秀佩成千亮文嘉書明正博和英陽興剛德武玉天鴻才勇子金長典彥朝國一祐舒萬曉燊創惠業永克紹貴樹海棟承廷清森慈劍重耀駿亞宇詩雨濟懿潤晉振宗梓浩諾日皓希焯銘立澤致星雲旭世佳冠奕宥瑞啓政少忠漢";
   const thirdNameList =
