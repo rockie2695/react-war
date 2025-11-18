@@ -22,7 +22,7 @@
     "react-spring": "^9.5.2",
     "react-transition-group": "^4.4.2",
     "react-virtuoso": "^2.16.5",
-    "serve": "^14.0.1",
+    "serve": "^14.2.5",
     "victory": "^36.5.3",
     "web-vitals": "^2.1.4"
   },
