@@ -1,5 +1,5 @@
 //react
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 
 //local
 import useMessage from "../../../hook/useMessage";
